@@ -1,10 +1,15 @@
 import * as monaco from 'monaco-editor';
 
+// @ts-ignore
 import cssWorker from 'monaco-editor/esm/vs/language/css/css.worker?worker';
+// @ts-ignore
 import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
+// @ts-ignore
 import htmlWorker from 'monaco-editor/esm/vs/language/html/html.worker?worker';
+// @ts-ignore
 import jsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker';
 import { loader } from '@monaco-editor/react';
+// @ts-ignore
 import tsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker';
 
 self.MonacoEnvironment = {

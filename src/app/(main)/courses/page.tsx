@@ -1,12 +1,13 @@
 "use client"
 
 import CourseCard from "@/components/Course/CourseCard/CourseCard";
+import { Suspense } from "react";
 import { course } from "@/types/course";
 import styles from "./Courses.module.scss";
 import { useAppSelector } from "@/state/hooks";
 import { useSearchParams } from "next/navigation";
 
-const Courses = () => {
+const CoursesList = () => {
     const courses = useAppSelector((state) => state.courses);
     const searchParams = useSearchParams();
     const search = searchParams.get("search");
@@ -25,6 +26,14 @@ const Courses = () => {
                 ))}
             </div>
         </div>
+    );
+}
+
+const Courses = () => {
+    return (
+        <Suspense fallback={<div className={styles.loader}>Loading...</div>}>
+            <CoursesList />
+        </Suspense>
     );
 }
 

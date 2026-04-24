@@ -12,29 +12,34 @@ const MarkdownViewer = ({ markdown }: MarkdownViewerProps) => {
     return (
         <div className={styles['markdown-viewer']}>
             <Markdown
-                children={markdown}
                 remarkPlugins={[remarkGfm]}
                 components={{
-                    code(props) {
-                        const {children, className, ...rest} = props
+                    code({ node, className, children, ...props }) {
                         const match = /language-(\w+)/.exec(className || '')
                         
-                        return match ? 
-                            <SyntaxHighlighter
-                                {...rest}
-                                language={match[1]}
-                                showLineNumbers={true}
-                                style={vscDarkPlus}
-                            >
-                                {String(children).replace(/\n$/, '')}
-                            </SyntaxHighlighter>
-                            :
-                            <code {...rest} className={className}>
+                        if (match) {
+                            return (
+                                <SyntaxHighlighter
+                                    language={match[1]}
+                                    PreTag="div"
+                                    showLineNumbers={true}
+                                    style={vscDarkPlus}
+                                >
+                                    {String(children).replace(/\n$/, '')}
+                                </SyntaxHighlighter>
+                            )
+                        }
+
+                        return (
+                            <code className={className} {...props}>
                                 {children}
                             </code>
+                        )
                     }
                 }}
-            />
+            >
+                {markdown}
+            </Markdown>
         </div>
     )
 }

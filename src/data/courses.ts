@@ -1,0 +1,89 @@
+import { course } from "@/types/course";
+
+export const courses: course[] = [
+    {
+        id: "1",
+        title: "JavaScript - Мастер-класс по Веб Разработке, React и Node.js",
+        description: "Стань Веб Разработчиком с ОДНИМ курсом. HTML, CSS, JavaScript, React, NPM, Node.js, DOM и много Проектов и Примеров",
+        authorId: "1",
+        cover: "https://img-c.udemycdn.com/course/480x270/4450454_36df_9.jpg",
+        time: "130.5 часов",
+        level: "Все уровни",
+        lessonsCount: 773,
+        studentsCount: 9425,
+        rating: "4.8",
+        ratingsCount: 3282,
+        createdAt: 1699996800000,
+        language: "Русский", // в будущем массив, когда добавлю озвучки[]
+        lessons: ["1"], // sections
+        sections: ["1", "2"]
+    },
+    {
+        id: "2",
+        title: "Полный курс по JavaScript - С нуля до результата!",
+        description: "В этом курсе вы найдете все",
+        authorId: "2",
+        cover: "https://img-c.udemycdn.com/course/480x270/5007712_aa55_5.jpg",
+        time: "31 часов",
+        level: "Начальный",
+        lessonsCount: 191,
+        studentsCount: 1086,
+        rating: "4.8",
+        ratingsCount: 316,
+        createdAt: 1699996800000,
+        language: "rus",
+        lessons: ["2"],
+        sections: ["3"]
+    },
+    {
+        id: "3",
+        title: "The Complete JavaScript Course 2025: From Zero to Expert!",
+        description: "The modern JavaScript course for everyone! Master JavaScript with projects, challenges and theory. Many courses in one!",
+        authorId: "3",
+        cover: "https://img-c.udemycdn.com/course/480x270/851712_fc61_6.jpg",
+        time: "71 часов",
+        level: "Все уровни",
+        lessonsCount: 332,
+        studentsCount: 1010711,
+        rating: "4.7",
+        ratingsCount: 229531,
+        createdAt: 1699996800000,
+        language: "eng",
+        lessons: ["1"],
+        sections: ["1", "2"]
+    },
+    {
+        id: "4",
+        title: "Практический JavaScript (Продвинутый уровень)",
+        description: "Получите реальную практику на реальных проектах! Создайте свою JavaScript UI библиотеку!",
+        authorId: "4",
+        cover: "https://img-c.udemycdn.com/course/480x270/2762368_b96b_2.jpg",
+        time: "23.5 часов",
+        level: "Все уровни",
+        lessonsCount: 65,
+        studentsCount: 8920,
+        rating: "4.9",
+        ratingsCount: 1515,
+        createdAt: 1699996800000,
+        language: "rus",
+        lessons: ["1"],
+        sections: ["1", "2"]
+    },
+    {
+        id: "5",
+        title: "Гайд на деньги в 2025 ГОДУ | Мышление Эндрю Тейта",
+        description: "Получите реальную практику на реальных проектах! Создайте свою JavaScript UI библиотеку!",
+        authorId: "5",
+        cover: "https://i.ytimg.com/vi/IyK0ha81KxU/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLCLh7ZMgivBCpy3U8gu65Z12P5K-g",
+        time: "5.5 часов",
+        level: "Все уровни",
+        lessonsCount: 65,
+        studentsCount: 35920,
+        rating: "4.9",
+        ratingsCount: 3515,
+        createdAt: 1699996800000,
+        language: "rus",
+        lessons: ["1"],
+        sections: ["1", "2"]
+    }
+];

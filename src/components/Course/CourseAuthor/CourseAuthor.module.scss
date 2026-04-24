@@ -1,0 +1,36 @@
+.author {
+    display: flex;
+    align-items: center;
+    column-gap: 12px;
+    
+    .link {
+        display: inline-block;
+        width: 31px;
+        height: 31px;
+        /* border: 1px solid rgb(218, 225, 237); */
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+            border: 0.5px solid rgb(218, 225, 237);
+        }
+        img {
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            position: relative;
+        }
+    }
+    .name {
+        color: #aaa !important;
+        /* text-decoration: underline; */
+        font-size: 14px;
+
+        &:hover {
+            color: #f1f1f1 !important;
+        }
+
+    }
+}

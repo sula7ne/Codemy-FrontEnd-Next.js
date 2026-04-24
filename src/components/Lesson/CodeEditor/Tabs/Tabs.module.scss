@@ -1,0 +1,16 @@
+.tabs {
+    height: 35px;
+    min-height: 35px;
+    display: flex;
+    background-color: rgb(37, 37, 38);
+    user-select: none;
+
+    /* overflow: hidden; */
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}

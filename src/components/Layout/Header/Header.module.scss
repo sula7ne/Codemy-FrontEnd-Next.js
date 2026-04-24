@@ -1,0 +1,60 @@
+.header {
+    width: 100%;
+    /* 70px */
+    height: 56px;
+    /* background-color: rgb(17,20,28); */
+    background-color: #121212;
+    /* #e2e3e7 */
+    color: white;
+    padding: 0 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 0 0 56px;
+    /* position: fixed;
+    z-index: 1000; */
+
+    /* udemy box-shadow: 0 2px 4px 
+        color-mix(in oklch, oklch(27.54% 0.1638 265.98deg) 8%, transparent), 0 4px 12px 
+        color-mix(in oklch, oklch(27.54% 0.1638 265.98deg) 8%, transparent); */
+
+    .left, .center, .right {
+        display: flex;
+        align-items: center;
+    }
+    .left {
+        height: 100%;
+        /* width: 224px; */
+
+        // &.expanded {
+        //     border-right: 1px solid #303030;
+        // }
+        .title {
+            cursor: pointer;
+            position: relative;
+            font-weight: 600;
+            font-size: 22px;
+            letter-spacing: 1px;
+            height: 100%;
+            padding: 0 16px;
+            
+            .link {
+                height: 100%;
+                display: flex;
+                align-items: center;
+                color: white;
+
+                // .country {
+                //     position: absolute;
+                //     color: #aaa;
+                //     font-size: 10px;
+                //     top: -8px;
+                // }
+            }
+        }
+    }
+    .center {
+        flex: 0 1 400px;
+    }
+}

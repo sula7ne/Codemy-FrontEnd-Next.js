@@ -1,0 +1,50 @@
+.folder {
+    .header {
+        height: 22px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        column-gap: 6px;
+        cursor: pointer;
+        padding-left: 4px;
+        position: relative;
+        /* focus */
+        /* background-color: rgb(4, 57, 94); */
+
+        &:hover {
+            background-color: rgb(42, 45, 46);
+        }
+        &:focus {
+            color: #ffffff;
+            background-color: rgb(4, 57, 94);
+        }
+
+        .indent {
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 16px;
+            pointer-events: none;
+        }
+        .icon {
+            padding-left: 8px;
+            transform: translate(3px);
+
+            height: 100%;
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+
+            &.collapsed::before {
+                transform: rotate(-90deg);
+            }
+        }
+        .title {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: pre;
+            line-height: 20px;
+        }
+    }
+}

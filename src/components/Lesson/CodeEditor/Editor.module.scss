@@ -1,0 +1,26 @@
+.editor {
+    flex: 1;
+    overflow: hidden;
+
+    position: relative;
+    background-color: rgb(30, 30, 30);
+    height: 100%;
+    display: flex;
+    /* height: calc(100vh - 70px); */
+}
+
+.monaco-editor {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(30, 30, 30);
+    overscroll-behavior: contain;
+
+    flex: 1;
+    height: 100%;
+    overflow: hidden;
+    overflow-x: auto;
+
+    .margin .line-numbers {
+        font-size: 13px !important;
+    }
+}

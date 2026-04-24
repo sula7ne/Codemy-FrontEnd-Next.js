@@ -1,0 +1,76 @@
+.file {
+    column-gap: 0;
+
+    &:hover {
+        background-color: rgb(42, 45, 46);
+    }
+    &:focus {
+        color: #ffffff;
+        background-color: rgb(4, 57, 94);
+    }
+    &.active {
+        background-color: rgb(55, 55, 61);
+    }
+
+    .indent {
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 16px;
+        pointer-events: none;
+
+        .guide {
+            transition: opacity .1s linear;
+            display: inline-block;
+            box-sizing: border-box;
+            height: 100%;
+            border-left: 1px solid transparent;
+            opacity: 0;
+
+            &.active {
+                opacity: 1;
+                border-color: rgb(88, 88, 88);
+            }
+        }
+    }
+    .twistie {
+        height: 100%;
+    }
+
+    .content {
+        display: flex;
+        align-items: center;
+        column-gap: 6px;
+        flex: 1;
+        overflow: hidden;
+        height: 100%;
+
+        .icon {
+            height: 100%;
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+
+            &::before {
+                width: 16px;    
+                height: 100%;
+                color: #d4d7d6;
+                content: "\E023";
+                background-image: unset;
+            }
+
+            img {
+                width: 16px;
+                height: 16px;
+                
+            }
+        }
+        .title {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: pre;
+            line-height: 20px;
+        }
+    }
+}

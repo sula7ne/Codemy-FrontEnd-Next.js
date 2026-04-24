@@ -1,0 +1,97 @@
+.card {
+    /*временно, должно само считать*/
+    width: 373px; 
+    margin: 0 8px 32px 8px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    color: #f1f1f1;
+    cursor: pointer;
+    padding: 8px;
+    border: 1px solid #303030;
+
+    &:hover {
+        background-color: #303030;
+    }
+    a {
+        color: white;
+    }
+
+    .cover {
+        position: relative;
+        width: 355px;
+        height: 200px;
+
+        img {
+            border-radius: 12px;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+        // .time {
+        //     position: absolute;
+        //     background: rgba(0, 0, 0, 0.6);
+        //     margin: 8px;
+        //     bottom: 0;
+        //     right: 0;
+        //     border-radius: 4px;
+        //     padding: 1px 4px;
+        //     font-weight: 500;
+        //     font-size: 12px;
+        //     line-height: 18px;
+        // }
+    }
+
+    .info {
+        display: flex;
+        flex-direction: column;
+        padding: 0 8px;
+
+        .title {
+            font-weight: 500;
+            line-height: 22px;
+            font-size: 16px;
+            max-height: 44px;
+        }
+        .description {
+            font-size: 14px;
+            max-height: 40px;
+            margin: 8px 0;
+            /* #7a8ba3 */
+        }
+        .rating {
+            display: flex;
+            align-items: center;
+            column-gap: 4px;
+            margin-top: 2px;
+            font-size: 14px;
+
+            .value, .count {
+                display: flex;
+                align-items: center;
+            }
+            .value {
+                column-gap: 2px;
+            }
+        }
+        .level {
+            font-size: 14px;
+        }
+    }
+
+    .title, .name, .description, .rating {
+        text-overflow: ellipsis;
+        white-space: normal;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .name, .description, .rating, .level {
+        color: #aaa;
+        line-height: 20px;
+        font-weight: 400;
+    }
+}

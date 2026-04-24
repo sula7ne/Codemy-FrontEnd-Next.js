@@ -1,0 +1,204 @@
+.filebar {
+    flex-grow: 0;
+    flex-shrink: 0;
+
+    height: 100%;
+    display: flex;
+
+    outline-color: rgba(83, 89, 93, 0.5);
+    color: #cccccc;
+    font-size: 13px;
+    /* padding: 0 12px; */
+
+    user-select: none;
+    position: relative;
+    /* border-right: 1px solid #333; */
+
+    .files {
+        /* border-top: 1px solid №333; */
+        background-color: rgb(37, 37, 38);
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        /* min-width: 156px; */
+
+        // &:first-child {
+        //     padding-top: 1px;
+        //     border: none;
+        // }
+    }
+}
+
+
+.files__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* padding-left: 2px; */
+    padding: 0 12px;
+    height: 35px;
+}
+.files__header-title {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 11px;
+    
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.files__header-btns {
+    height: 20px;
+    display: flex;
+    align-items: center;
+    column-gap: 4px;
+    /* margin-right: 12px; */
+}
+.files__header-btns--icon {
+    cursor: pointer;
+    padding: 2px;
+    border-radius: 4px;
+    transition: background-color 0.15s ease;
+}
+.files__header-btns--icon:hover {
+    background-color: rgb(55, 55, 61);
+}
+
+.files__tree {
+    height: 100%;
+    overflow-y: auto;
+
+    scrollbar-width: 6px;
+    scrollbar-color: rgba(121,121,121,.4) transparent;
+}
+.files__tree:focus {
+    outline: 1px solid rgb(0, 127, 212);  
+    outline-offset: -1px;   
+}
+
+
+.folder__header, .file {
+    height: 22px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    column-gap: 6px;
+    cursor: pointer;
+    padding-left: 4px;
+    position: relative;
+    /* focus */
+    /* background-color: rgb(4, 57, 94); */
+}
+.file {
+    column-gap: 0;
+}
+.folder__header:hover, .file:hover {
+    background-color: rgb(42, 45, 46);
+}
+.file.active {
+    background-color: rgb(55, 55, 61);
+}
+.folder__header:focus, .file:focus {
+    color: #ffffff;
+    background-color: rgb(4, 57, 94);
+}
+[tabindex="0"]:focus-visible {
+    outline: 1px solid rgb(0, 127, 212);
+    outline-offset: -1px;
+}
+
+.folder__header-title, .file__title {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: pre;
+    line-height: 20px;
+}
+.file__title-input {
+    background-color: rgb(60, 60, 60);
+    color: #cccccc;
+    height: 20px;
+    border: none;
+    width: 100%;
+    font-size: 13px;
+
+    outline: 1px solid rgb(0, 127, 212);  
+    outline-offset: -1px; 
+    border-radius: 2px;
+}
+
+/* добавил folder чтобы при создании не было отступа */
+.folder .folder__header-icon {
+    padding-left: 8px;
+    transform: translate(3px);
+}
+.folder__header-icon.collapsed::before {
+    transform: rotate(-90deg);
+}
+
+.file__content {
+    display: flex;
+    align-items: center;
+    column-gap: 6px;
+    flex: 1;
+    overflow: hidden;
+    height: 100%;
+}
+
+/* temporary */
+.folder__header-icon, .file__icon {
+    height: 100%;
+
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+.file__icon img {
+    width: 16px;
+    height: 16px;
+    
+}
+/* .file__icon::before {
+    width: 16px;    
+    height: 100%;
+    color: #d4d7d6;
+    content: "\E023";
+    background-image: unset;
+} */
+
+.folder__list-item {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.indent {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 16px;
+    pointer-events: none;
+}
+.indent-guide {
+    transition: opacity .1s linear;
+    display: inline-block;
+    box-sizing: border-box;
+    height: 100%;
+    border-left: 1px solid transparent;
+    opacity: 0;
+}
+.indent-guide.active {
+    opacity: 1;
+    border-color: rgb(88, 88, 88);
+}
+.twistie {
+    height: 100%;
+}

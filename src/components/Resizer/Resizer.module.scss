@@ -1,0 +1,33 @@
+.resizer {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 4px;
+    cursor: col-resize;
+    
+    background-color: transparent;
+    user-select: none;
+    transition: background-color .3s ease;
+
+    position: absolute;
+    width: 4px;
+    height: 100%;
+    z-index: 9;
+
+    &:hover {
+        background-color: #0078d4;
+    }
+    &.active {
+        background-color: #0078d4 !important;
+    }
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    z-index: 9;
+    cursor: col-resize;
+}

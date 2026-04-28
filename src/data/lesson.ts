@@ -58,6 +58,20 @@ export const lesson: lessonType = {
 </body>
 </html>`
         },
+        {
+            type: "folder",
+            title: "styles",
+            path: "./styles",
+            children: [
+                {
+                    type: "file",
+                    title: "style.css",
+                    path: "./styles/style.css",
+                    extension: "css",
+                    code: ``
+                }
+            ]
+        }
     ],
     tabs: [
         {

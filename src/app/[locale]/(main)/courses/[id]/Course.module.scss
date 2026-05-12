@@ -1,0 +1,25 @@
+.course {
+    margin: 24px 16px;
+    height: 100%;
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+
+    img {
+        user-select: none;
+        -webkit-user-drag: none;
+        -webkit-user-select: none;
+    }
+
+    .course-progress {
+        display: flex;
+        flex-direction: column;
+        row-gap: 10px;
+
+        .title {
+            font-weight: 500;
+            font-size: 25px;
+        }
+    }
+}

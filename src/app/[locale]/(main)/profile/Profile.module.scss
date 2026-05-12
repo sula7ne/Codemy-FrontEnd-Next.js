@@ -1,0 +1,57 @@
+.profile {
+    margin: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+
+    .title {
+        font-weight: 500;
+        font-size: 30px;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+
+        .profile-content {
+            display: flex;
+            column-gap: 16px;
+
+            .avatar {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 160px;
+                height: 160px;
+                border-radius: 50%;
+                overflow: hidden;
+                border: 1.5px solid var(--border);
+                
+                img {
+                    width: 160%;
+                    height: 160%;
+                }
+            }
+
+            .info {
+                display: flex;
+                flex-direction: column;
+                row-gap: 12px;
+                color: var(--text-main);
+
+                .username {
+                    font-size: 36px;
+                    font-weight: 700;
+                    line-height: 38px;
+                }
+                .email {
+                    font-size: 14px;
+                }
+                .date {
+                    color: var(--text-secondary);
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}

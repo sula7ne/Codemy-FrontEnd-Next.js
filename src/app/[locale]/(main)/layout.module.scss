@@ -1,0 +1,23 @@
+.layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    &.lessonMode {
+        height: 100vh;
+    }
+
+    .wrapper {
+        margin-top: 56px;
+        position: relative;
+        color: var(--text-main);
+        display: flex;
+        flex: 1 1 auto;
+        min-height: calc(100vh - 56px);
+
+        .content {
+            background-color: var(--bg-main);
+            flex: 1 1 auto;
+        }
+    }
+}

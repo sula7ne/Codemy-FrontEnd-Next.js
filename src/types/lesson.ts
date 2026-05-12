@@ -19,6 +19,7 @@ export type selectedItem = {
 
 export type lesson = {
     id: string,
+    isCompleted: boolean,
     sectionId: string | null,
     title: string,
     order: number | null,
@@ -30,4 +31,5 @@ export type lesson = {
     selectedItem: selectedItem,
     compiledCode: string,
     filePath: string,
+    status: ''
 }

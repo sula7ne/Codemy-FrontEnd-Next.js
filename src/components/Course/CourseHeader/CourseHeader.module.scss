@@ -1,0 +1,112 @@
+.header {
+    display: flex;
+    column-gap: 40px;
+    flex-wrap: wrap;
+
+    .cover {
+        flex: 0 0 355px;
+        position: relative;
+        width: 355px;
+        height: 200px;
+
+        img {
+            border-radius: 12px;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .info {
+        /* flex: 0 0 440px;
+        width: 440px; */
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+
+        .title {
+            font-weight: 700;
+            font-size: 36px;
+            line-height: 48px;
+            color: var(--text-main);
+        }
+        // .course__author-name {
+        //     font-size: 18px;
+        //     color: #aaa;
+        //     line-height: 24px;
+        //     font-weight: 400;
+        // }
+        .description {
+            margin-top: 16px;
+            font-size: 18px;
+            color: var(--text-main);
+            line-height: 24px;
+            font-weight: 400;
+        }
+        .actions {
+            display: flex;
+            column-gap: 10px;
+            margin-top: 24px;
+
+            
+        }
+    }
+    .more {
+        flex: 0 0 240px;
+        width: 240px;
+        display: flex;
+        flex-direction: column;
+        row-gap: 6px;
+
+        .rating {
+            display: flex;
+            flex-direction: column;
+
+            .value {
+                color: #FFBC03;
+                display: flex;
+                align-items: center;
+                column-gap: 2px;
+                font-size: 32px;
+                font-weight: 700;
+
+                img {
+                    width: 32px !important;
+                    height: 32px !important;
+                }
+            }
+            .count {
+                color: var(--text-secondary);
+                line-height: 20px;
+                font-weight: 400;
+                font-size: 14px;
+            }
+        }
+        .language, .level, .time {
+            color: var(--text-secondary);
+            line-height: 20px;
+            font-weight: 400;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            column-gap: 4px;
+        }
+
+        .icon {
+            display: flex;
+            align-items: center;
+        }
+        /* .level {
+            color: #aaa;
+            line-height: 20px;
+            font-weight: 400;
+            font-size: 14px;
+        }
+        .time {
+            color: #aaa;
+            line-height: 20px;
+            font-weight: 400;
+            font-size: 14px;
+        } */
+    
+    }
+}

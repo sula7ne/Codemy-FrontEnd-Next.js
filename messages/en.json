@@ -1,0 +1,223 @@
+{
+    "Header": {
+        "search": "What do you want to learn?",
+        "login": "Login",
+        "create": "Create",
+        "profileDropDown": {
+            "profile": "My Profile",
+            "settings": "Settings",
+            "logout": "Logout"
+        }
+    },
+    "Sidebar": {
+        "home": "Home",
+        "courses": "Courses",
+        "my-learning": "My learning",
+        "saved-courses": "Saved courses"
+    },
+    "Footer": {
+        "description": "An interactive platform for learning programming.",
+        "languages": {
+            "ru": "Russian",
+            "kz": "Kazakh",
+            "en": "English"
+        },
+        "list": {
+            "socials": "Social Networks"
+        }
+    },
+    "Auth": {
+        "fields": {
+            "email": "Email",
+            "emailPlaceholder": "email@gmail.com",
+            "username": "Username",
+            "usernamePlaceholder": "Username",
+            "password": "Password",
+            "passwordPlaceholder": "Password"
+        },
+        "login": {
+            "title": "Login",
+            "submit": "Sign In",
+            "redirect": "Don't have an account? <link>Sign Up</link>"
+        },
+        "register": {
+            "title": "Registration",
+            "submit": "Create Account",
+            "redirect": "Already have an account? <link>Sign In</link>"
+        }
+    },
+    "Home": {
+        "Welcome": {
+            "title": "Learn Programming with CODEMY",
+            "description": "An interactive platform for learning programming. Get access to courses that will help you develop skills and understand real-world examples",
+            "button": "Start Learning"
+        },
+        "Expectations": {
+            "title": "What awaits you on the platform?",
+            "description": "Access convenient programming courses, track your progress, and practice with real code examples",
+            "cards": {
+                "variety": {
+                    "title": "Variety of Courses",
+                    "description": "The platform offers courses on programming and other topics. All lessons are available at any time."
+                },
+                "practice": {
+                    "title": "Code Practice",
+                    "description": "Write code and see the result instantly in our interactive editor."
+                },
+                "ai": {
+                    "title": "AI Assistant",
+                    "description": "A personal mentor will help you tackle complex topics whenever you need."
+                }
+            }
+        },
+        "Quote": "Free education for everyone",
+        "Features": {
+            "theory": {
+                "nav": "Theory",
+                "title": "Theory",
+                "description": "Master the material through structured lectures and visual examples."
+            },
+            "code-editor": {
+                "nav": "Editor",
+                "title": "Code Editor",
+                "description": "Practice directly in your browser with instant result verification."
+            },
+            "web-page": {
+                "nav": "Preview",
+                "title": "Live Preview",
+                "description": "Watch changes in real-time. Your code comes to life instantly."
+            },
+            "ai": {
+                "nav": "AI Chat",
+                "title": "AI Mentor",
+                "description": "Your personal assistant to explain complex topics and help fix code errors."
+            }
+        },
+        "PopularCourses": {
+            "title": "Popular Courses",
+            "description": "The most popular courses among our platform users"
+        },
+        "StartToday": {
+            "title": "Start learning now",
+            "description": "All materials are available completely free — start your journey today.",
+            "button": "Start Learning"
+        }
+    },
+    "Courses": {
+        "title": "Courses"
+    },
+    "My-Learning": {
+        "title": "My learning",
+        "goals": "Achieve your goals",
+        "goalsDescription": "Take as many lessons as possible to reach your goals",
+        "statCourses": "Courses completed",
+        "statLessons": "Lessons completed",
+        "inProgress": "In progress",
+        "inProgressEmpty": "You haven't started any courses yet. Go to <link>courses</link>",
+        "completed": "Completed courses",
+        "completedEmpty": "You haven't completed any courses yet. Go to <link>courses</link>"
+    },
+    "Saved-Courses": {
+        "title": "Saved courses",
+        "empty": "You haven't saved anything yet. Go to <link>courses</link>" 
+    },
+    "Create-Courses": {
+        "title": "My Courses",
+        "button": "Create a course",
+        "empty": "Your created courses will appear here. You haven't created any courses yet."
+    },
+    "Course": {
+        "reviews": "{count, plural, one {# review} other {# reviews}}",
+        "actions": {
+            "start": "Start Learning",
+            "continue": "Continue Learning",
+            "edit": "Edit"
+        },
+        "levels": {
+            "all": "All levels",
+            "beginner": "Beginner",
+            "intermediate": "Intermediate",
+            "advanced": "Advanced"
+        }
+    },
+    "Lesson": {
+        "panel": {
+            "theoryBtn": "Go to task",
+            "ai": "AI Assistant",
+            "aiDescription": "How can I help you?",
+            "aiInput": "Ask Gemini..."
+        },
+        "tasks": "Tasks"
+    },
+    "Profile": {
+        "title": "My Profile",
+        "joined": "Joined {date}"
+    },
+    "ProgressBar": {
+        "title": "Course Progress"
+    },
+    "Accordion": {
+        "AddSection": "Add section",
+        "AddLesson": "Add lesson"
+    },
+    "PopUp": {
+        "header": {
+            "createCourse": "Create Course",
+            "changeCourse": "Edit Course",
+            "createSection": "Add Section",
+            "changeSection": "Edit Section"
+        },
+        "cover": {
+            "title": "Cover",
+            "description": "Choose a cover that will grab viewers' attention.",
+            "upload": "Upload file"
+        },
+        "fields": {
+            "title": "Title",
+            "titlePlaceholder": "Enter title",
+            "description": "Description",
+            "descriptionPlaceholder": "Add a description",
+            "additional": "Additional",
+            "theory": "Theory (Markdown)",
+            "theoryPlaceholder": "Add the theoretical part"
+        },
+        "levels": {
+            "label": "Level",
+            "placeholder": "Select level",
+            "all": "All levels",
+            "beginner": "Beginner",
+            "intermediate": "Intermediate",
+            "advanced": "Advanced"
+        },
+        "languages": {
+            "label": "Language",
+            "placeholder": "Select language",
+            "ru": "Russian",
+            "kz": "Kazakh",
+            "en": "English"
+        },
+        "actions": {
+            "close": "Close",
+            "create": "Create",
+            "edit": "Edit",
+            "add": "Add"
+        }
+    },
+    "Settings": {
+        "title": "Settings",
+        "theme": "Appearance",
+        "themeDescription": "Select light or dark theme, or sync with your OS settings.",
+        "lang": "Language",
+        "langDescription": "Choose your preferred interface language.",
+        "themes": {
+            "system": "System",
+            "light": "Light",
+            "dark": "Dark"
+        },
+        "languages": {
+            "ru": "Russian",
+            "kz": "Kazakh",
+            "en": "English"
+        }
+    }
+}

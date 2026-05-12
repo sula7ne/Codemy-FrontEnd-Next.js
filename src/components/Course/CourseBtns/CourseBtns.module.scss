@@ -2,8 +2,8 @@
     border: none;
     user-select: none;
     cursor: pointer;
-    color: #f1f1f1; /* #0f0f0f; */
-    background-color: rgb(255, 255, 255, 0.1); /* #f1f1f1; */
+    color: var(--text-main); /* #0f0f0f; */
+    background-color: var(--bg-hover); /* #f1f1f1; */
     height: 48px;
     font-weight: 600;
     font-size: 15px;
@@ -15,15 +15,25 @@
     column-gap: 8px;
 
     &:hover {
-        background-color: rgb(255, 255, 255, 0.2); /* #d9d9d9 */
+        background-color: var(--bg-active); /* #d9d9d9 */
     }
     &:active {
-        background-color: rgba(255, 255, 255, 0.3);
+        background-color: var(--border);
     }
     &.start {
         padding: 0 24px;
     }
     &.save {
         padding: 0 12px;
+    }
+    &.change {
+        padding: 0 24px;
+    }
+
+    .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-main);
     }
 }

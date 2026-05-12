@@ -6,7 +6,7 @@
     display: flex;
 
     outline-color: rgba(83, 89, 93, 0.5);
-    color: #cccccc;
+    color: var(--text-filebar);
     font-size: 13px;
     /* padding: 0 12px; */
 
@@ -16,7 +16,7 @@
 
     .files {
         /* border-top: 1px solid №333; */
-        background-color: rgb(37, 37, 38);
+        background-color: var(--bg-tabs);
         flex: 1;
         min-width: 0;
         overflow: hidden;

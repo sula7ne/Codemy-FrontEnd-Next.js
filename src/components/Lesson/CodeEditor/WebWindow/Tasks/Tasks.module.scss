@@ -1,6 +1,6 @@
 .tasks {
-    background-color: rgb(34,37,41);
-    color: #e2e3e7;
+    background-color: var(--bg-panel);
+    color: var(--text-main);
     height: 300px;
     position: relative;
     display: flex;

@@ -9,8 +9,10 @@ import { defineLanguage } from "@/utils/defineLanguage";
 import { findFile } from "@/utils/findFile";
 import styles from './Editor.module.scss';
 import { updateCode } from "@/state/slices/activeLessonSlice";
+import { useTheme } from "next-themes";
 
 const MonacoEditor = () => {
+    const { theme } = useTheme();
     const { activeTab, fileTree } = useAppSelector(state => state.activeLesson);
     const dispatch = useAppDispatch();
     
@@ -43,7 +45,7 @@ const MonacoEditor = () => {
                         width="100%"
                         height="100%"
                         language={defineLanguage(extension)}
-                        theme="vs-dark"
+                        theme={`vs-${theme === 'dark' ? 'dark' : 'light'}`}
                         options={{
                             minimap: { enabled: false }, 
                             scrollbar: {

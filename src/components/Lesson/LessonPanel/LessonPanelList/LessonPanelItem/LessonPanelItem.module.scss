@@ -1,0 +1,34 @@
+.item {
+    position: relative;
+    cursor: pointer;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    color: var(--text-secondary);
+
+    &:hover {
+        color: var(--text-main);
+    }
+    &.active {
+        color: var(--text-main);
+
+        &::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: var(--text-main);
+        }
+    }
+
+    svg {
+        width: 32px;
+        height: 32px;
+        // opacity: 0.4;
+    }
+}

@@ -8,8 +8,10 @@ import clsx from "clsx";
 import styles from './Tasks.module.scss';
 import tasksIcon from "@/assets/images/icons/tasks.svg";
 import { useAppSelector } from "@/state/hooks";
+import { useTranslations } from "next-intl";
 
 const Tasks = () => {
+    const t = useTranslations('Lesson');
     const tasks = useAppSelector(state => state.activeLesson.tasks);
     
     const MIN_HEIGHT = 150;
@@ -25,7 +27,7 @@ const Tasks = () => {
                 <div className={styles.header}>
                     <h2 className={styles.title}>
                         <Image src={tasksIcon} alt="tasks icon" />
-                        Задачи
+                        {t('tasks')}
                     </h2>
                 </div>
 

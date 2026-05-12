@@ -1,0 +1,117 @@
+.list {
+    display: flex;
+    flex-direction: column;
+
+    .item {
+        margin-left: 34px;
+        display: flex;
+        align-items: center;
+        column-gap: 8px;
+        color: var(--text-secondary);
+
+        .icon {
+            position: relative;
+            width: 32px;
+            height: 32px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &::before {
+                display: block;
+                width: 32px;
+                height: 32px;
+                content: "";
+                position: absolute;
+                inset: 0;
+                border-radius: 100%;
+                background: lch(25 25 277.6);
+                box-shadow: 0 0 0 1px var(--text-main);
+            }
+            svg {
+                z-index: 2;
+            }
+        }
+        .title {
+            color: var(--text-secondary);
+
+            a {
+                color: var(--text-secondary);
+            }
+        }
+        .title-container {
+            display: flex;
+            align-items: center;
+            column-gap: 16px;
+            
+            .change-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                outline: none;
+                background: none;
+                color: var(--text-secondary);
+                position: relative;
+
+                &::before {
+                    content: "";
+                    width: 36px;
+                    height: 36px;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    border-radius: 50%;
+                }
+
+                &:hover {
+                    &::before {
+                        background-color: var(--bg-hover);
+                    }
+                }
+                &:active {
+                    &::before {
+                        background-color: var(--bg-active);
+                    }
+                }
+            }
+        }
+
+        &:hover {
+            .title-container {
+                .change-icon {
+                    color: var(--text-main);
+                }
+            }
+
+            .title {
+                color: var(--text-main);
+
+                a {
+                    color: var(--text-main);
+                }
+            }
+        }
+    }
+
+    .create {
+        cursor: pointer;
+
+        .icon {
+            
+
+            &::before {
+                background-color: var(--bg-active);
+            }
+        }
+    }
+
+    .line {
+        margin-left: 48px;
+        width: 1.5px;
+        height: 12px;
+        border-left: 1.5px solid var(--border);
+    }
+}

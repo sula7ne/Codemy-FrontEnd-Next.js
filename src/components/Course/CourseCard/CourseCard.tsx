@@ -7,12 +7,16 @@ import { course } from "@/types/course";
 import starIcon from "@/assets/images/icons/star.svg";
 import styles from "./CourseCard.module.scss";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+import ProgressBarOnly from "@/components/ProgressBar/ProgressBarOnly/ProgressBarOnly";
 
 export interface CourseCardProps {
-    course: course
+    course: course,
+    isProgressBar?: boolean
 };
 
-const CourseCard = ({course}: CourseCardProps) => {
+const CourseCard = ({ course, isProgressBar }: CourseCardProps) => {
+    const t = useTranslations('Course');
     const author = authors.find(el => el.id === course.authorId);
     const router = useRouter();
     
@@ -25,6 +29,8 @@ const CourseCard = ({course}: CourseCardProps) => {
     const handleOnClickLink = (e: MouseEvent<HTMLAnchorElement>) => {
         e.stopPropagation();
     }
+
+    const reviewsCount = course.ratingsCount ?? 0;
 
     // внутри а при target="_blank" rel="noopener noreferrer"
     // level, language
@@ -46,15 +52,27 @@ const CourseCard = ({course}: CourseCardProps) => {
                 <CourseAuthor authorId={course.authorId} />
 
                 <div className={styles.rating}>
-                    <span className={styles.value}>
+                    <div className={styles.value}>
                         {course.rating} 
                         <Image src={starIcon} alt="rating" />
-                    </span>
-                    <span>•</span>
-                    <span className={styles.count}>{(course.ratingsCount ?? 0).toLocaleString('ru-RU')} отзывов</span>
+                    </div>
+                    <div>•</div>
+                    <div className={styles.count}>{t('reviews', { count: reviewsCount })}</div>
+                    <div>•</div>
+                    <div className={styles.level}>
+                        {t(`levels.${course.level}`)}
+                        <div className={styles.icon}>
+                            <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="16px" width="16px" xmlns="http://www.w3.org/2000/svg"><path d="M4 11.3333L0 9L12 2L24 9V17.5H22V10.1667L20 11.3333V18.0113L19.7774 18.2864C17.9457 20.5499 15.1418 22 12 22C8.85817 22 6.05429 20.5499 4.22263 18.2864L4 18.0113V11.3333ZM6 12.5V17.2917C7.46721 18.954 9.61112 20 12 20C14.3889 20 16.5328 18.954 18 17.2917V12.5L12 16L6 12.5ZM3.96927 9L12 13.6846L20.0307 9L12 4.31541L3.96927 9Z"></path></svg>
+                        </div>
+                    </div>
                 </div>
 
-                <div className={styles.level}>{course.level} • {course.time}</div>
+                {isProgressBar && 
+                    <div className={styles.progressBar}>
+                        <ProgressBarOnly percent={25} />
+                    </div>
+                }
+                {/* <div className={styles.level}>{course.level} • {course.time}</div> */}
             </div>
         </div>
     );

@@ -14,7 +14,7 @@
         justify-content: center;
 
         &:hover {
-            border: 0.5px solid rgb(218, 225, 237);
+            border: 0.5px solid var(--border);
         }
         img {
             border-radius: 50%;
@@ -24,12 +24,12 @@
         }
     }
     .name {
-        color: #aaa !important;
+        color: var(--text-secondary) !important;
         /* text-decoration: underline; */
         font-size: 14px;
 
         &:hover {
-            color: #f1f1f1 !important;
+            color: var(--text-main) !important;
         }
 
     }

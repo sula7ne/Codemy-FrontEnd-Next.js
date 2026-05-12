@@ -1,0 +1,68 @@
+.profile-btn {
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.focus {
+        border-color: #1c62b9;
+    }
+
+    img {
+        width: 160%;
+        height: 160%;
+    }
+}
+
+.dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    width: 200px;
+    right: 0;
+    background-color: var(--bg-dropdown);
+    border-radius: 12px;
+    box-shadow: 0 4px 32px 0 rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+    display: flex;
+    flex-direction: column;
+    padding: 6px 0;
+    z-index: 1000;
+    overflow: hidden;
+
+    li {
+        .link {
+            cursor: pointer;
+            height: 40px;
+            padding: 8px 16px;
+            color: var(--text-main);
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            column-gap: 16px;
+            background-color: transparent;
+
+            .icon {
+                width: 24px;
+                height: 24px;
+                color: var(--text-main);
+            }
+        }
+
+        &.exit {
+            border-top: 1px solid var(--dropdown-border);
+        }
+
+        &:hover {
+            background-color: var(--bg-hover);
+            
+        }
+        &:active {
+            background-color: var(--bg-active);
+        }
+    }
+}

@@ -1,0 +1,181 @@
+.item {
+    display: flex;
+    flex-direction: column;
+
+    &:last-child .open {
+        border-bottom: none;
+    }
+    &:last-child .panel {
+        border-bottom-left-radius: 18px;
+        border-bottom-right-radius: 18px;
+    }
+    .open {
+        display: flex;
+        align-items: center;
+        column-gap: 8px;
+        background: none;
+        cursor: pointer;
+
+        color: var(--text-main);
+        font-size: 24px;
+
+        .icon {
+            position: relative;
+            width: 32px;
+            height: 32px;
+            border-radius: 16px;
+
+            &::before {
+                display: block;
+                width: 32px;
+                height: 32px;
+                content: "";
+                position: absolute;
+                inset: 0;
+                border-radius: 100%;
+                background: var(--bg-hover);
+                box-shadow: 0 0 0 1px var(--text-main);
+            }
+            svg {
+                transform: rotate(0);
+                polyline {
+                    stroke: var(--text-secondary);
+                }
+            }
+
+            transition: transform .3s ease;
+
+            &.active {
+                svg {
+                    transform: rotate(90deg);
+                }
+            }
+        }
+        .title {
+            color: var(--text-secondary);
+        }
+        .lessons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 5px;
+            background-color: var(--bg-hover);
+            color: var(--text-secondary);
+            border-radius: 3px;
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.1);
+            font-size: 13px;
+            height: 20px;
+        }
+
+        &:hover {
+            .title {
+                color: var(--text-main);
+            }
+        }
+    }
+    
+    .panel {
+        min-height: 0;
+        overflow: hidden;
+        height: 0;
+        transition: height 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        display: flex;
+        flex-direction: column;
+
+        /* display: flex;
+        flex-direction: column; */
+
+        &.active {
+            height: auto;
+        }
+
+        .description {
+            display: flex;
+            margin-left: 16px;
+
+            .line {
+                margin-left: 0;
+                width: 1.5px;
+                height: 100%;
+                border-left: 1.5px solid var(--border);
+            }
+            .text {
+                padding: 8px 0;
+                margin-left: 24px;
+                font-size: 15px;
+                line-height: 20px;
+                color: var(--text-secondary);
+            }
+        }
+
+        .list {
+            .lines {
+                margin-left: 16px;
+                width: 33.5px;
+                height: 32px;
+
+                .line-a, .line-b, .line-c, .line-d {
+                    width: 50%;
+                    height: 50%;
+                    border-width: 1.5px;
+                    border-style: solid;
+                    border-color: var(--border);
+                }
+                .line-a {
+                    border-bottom-left-radius: 14px;
+                    border-top: none;
+                    border-right: none;
+                }
+                .line-b {
+                    margin-top: -1.5px;
+                    margin-left: auto;
+                    border-top-right-radius: 14px;
+                    border-bottom: none;
+                    border-left: none;
+                }
+                .line-c {
+                    margin-left: auto;
+                    border-bottom-right-radius: 14px;
+                    border-top: none;
+                    border-left: none;
+                }
+                .line-d {
+                    margin-top: -1.5px;
+                    border-top-left-radius: 14px;
+                    border-bottom: none;
+                    border-right: none;
+                }
+            }
+        }
+    }
+
+    .line {
+        margin-left: 16px;
+        width: 1.5px;
+        height: 12px;
+        border-left: 1.5px solid var(--border);
+    }
+
+    &.completed {
+        .open {
+            .icon {
+                &::before {
+                    background-color: var(--complete);
+                }
+                svg {
+                    polyline {
+                        stroke: #121212;
+                    }
+                }
+            }
+            .title {
+                color: var(--complete);
+            }
+            &:hover {
+                .title {
+                    color: var(--text-main);
+                }
+            }
+        }
+    }
+}

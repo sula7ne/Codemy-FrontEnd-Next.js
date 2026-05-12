@@ -1,11 +1,17 @@
 .header {
+    position: fixed;
+    backdrop-filter: blur(20px);
+    background-color: var(--bg-header);
+    // opacity: 0.95;
+    top: 0;
+    left: 0;
+    z-index: 1001;
     width: 100%;
     /* 70px */
     height: 56px;
     /* background-color: rgb(17,20,28); */
-    background-color: #121212;
     /* #e2e3e7 */
-    color: white;
+    color: var(--text-main);
     padding: 0 16px;
 
     display: flex;
@@ -43,7 +49,7 @@
                 height: 100%;
                 display: flex;
                 align-items: center;
-                color: white;
+                color: var(--text-main);
 
                 // .country {
                 //     position: absolute;
@@ -53,20 +59,78 @@
                 // }
             }
         }
+
+        // LessonHeader
+        .accordion {
+            margin-left: 50px;
+            display: flex;
+            align-items: center;
+            height: 100%;
+            position: relative;
+
+            .open {
+                display: flex;
+                align-items: center;
+                height: 100%;
+                cursor: pointer;
+
+                span {
+                    color: #80a3ff;
+                    font-size: 16px;
+                    padding: 0 8px;
+                    position: relative;
+
+                    &:not(:first-child):before {
+                        position: absolute;
+                        left: 0;
+                        content: "";
+                        background-color: var(--border);
+                        width: 1.5px;
+                        height: 16px;
+                        transform: rotate(20deg);
+                        border-radius: 1px;
+                        box-shadow: 0 0 0 1px var(--bg-hover);
+                    }
+                }
+            }
+
+            .dropdown {
+                position: absolute;
+                top: 100%;
+                width: 450px;
+                max-height: 500px;
+                left: 0;
+                background-color: var(--bg-dropdown);
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                box-shadow: 0 4px 32px 0 var(--bg-hover);
+                backdrop-filter: blur(8px);
+                display: flex;
+                flex-direction: column;
+                padding: 10px 16px;
+                z-index: 1000;
+                overflow: hidden;
+            }
+        }
     }
     .center {
         flex: 0 1 400px;
     }
     .right {
+        display: flex;
+        align-items: center;
+        column-gap: 8px;
+        position: relative;
+
         .btn {
             cursor: pointer;
             padding: 0 15px;
-            background-color: black;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background-color: var(--bg-main);
+            border: 1px solid var(--border);
             border-radius: 40px;
             font-size: 14px;
             height: 36px;
-            color: white;
+            color: var(--text-main);
 
             display: flex;
             align-items: center;
@@ -76,15 +140,23 @@
             .icon {
                 display: flex;
                 align-items: center;
+                margin-left: -5px;
+                color: var(--text-main);
             }
 
             &:hover {
-                background-color: rgba(255, 255, 255, 0.1);
+                background-color: var(--bg-hover);
                 border-color: transparent;
             }
             &:active {
-                background-color: rgba(255, 255, 255, 0.2);
+                background-color: var(--bg-active);
             }
+        }
+        .auth {
+
+        }
+        .create {
+            
         }
     }
 }

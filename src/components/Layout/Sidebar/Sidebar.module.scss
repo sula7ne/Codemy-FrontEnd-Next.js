@@ -1,12 +1,12 @@
 .sidebar {
-    height: 100%;
+    position: relative;
     flex-shrink: 0;
-    /* position: fixed; */
-    background-color: #121212;
+    backdrop-filter: blur(20px);
+    background-color: var(--bg-header);
     z-index: 1000;
-    border-right: 1px solid #303030;
+    border-right: 1px solid var(--search-border);
     padding: 0 7px;
-    transition: .3s ease;
+    transition: width .3s ease;
 
     &.fixed {
         position: fixed;
@@ -37,8 +37,16 @@
             }
         }
     }
+    &.disabled {
+        display: none;
+    }
+    &.home {
+        height: 100%;
+    }
 
     .list {
+        position: sticky;
+        top: 68px; // 56px + 12px(margin-top)
         width: 100%;
         margin-top: 12px;
         display: flex;
@@ -49,7 +57,10 @@
             border-radius: 10px;
 
             &:hover {
-                background-color: #303030;
+                background-color: var(--bg-hover);
+            }
+            &:active {
+                background-color: var(--bg-active);
             }
 
             .link {
@@ -59,13 +70,13 @@
                 display: flex;
                 align-items: center;
                 column-gap: 20px;
-                color: white;
+                color: var(--text-main);
                 cursor: pointer;
                 padding: 0 13px;
 
                 &.active {
                     .title {
-                        color: white;
+                        color: var(--text-main);
                         font-weight: 500;
                     }
                 }
@@ -73,9 +84,10 @@
                 .icon {
                     width: 24px;
                     height: 24px;
+                    color: var(--text-main);
                 }
                 .title {
-                    color: #f1f1f1;
+                    color: var(--text-main);
                     font-size: 14px;
                     font-weight: 400;
                     line-height: 20px;

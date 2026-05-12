@@ -1,0 +1,102 @@
+.footer {
+    width: 100%;
+    border-top: 1px solid var(--bg-hover);
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+
+    .top {
+        // padding: 32px 16px;
+        padding: 32px 24px;
+        display: flex;
+        justify-content: space-between;
+
+        .left {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            row-gap: 24px; // когда будет длинный лист убрать так как стоит space-between
+
+            .text {
+                display: flex;
+                flex-direction: column;
+                row-gap: 16px;
+
+                .title {
+                    color: var(--text-main);
+                    font-size: 22px;
+                    font-weight: 600;
+                }
+                .description {
+                    color: var(--text-secondary);
+                }
+            }
+
+            .language {
+                select {
+                    padding: 0;
+                    background: transparent;
+                    width: 150px;
+                    resize: none;
+                    border: 1px solid var(--border);
+                    border-radius: 8px;
+                    padding: 8px 12px;
+                    outline: none;
+                    font-size: 15px;
+                    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                    color: var(--text-main);
+                    line-height: 24px;
+                }
+            }
+        }
+        .right {
+            display: flex;
+
+            .item {
+                display: flex;
+                flex-direction: column;
+                row-gap: 16px;
+
+                .title {
+                    color: var(--text-main);
+                    font-weight: 500;
+                }
+                .list {
+                    display: flex;
+                    flex-direction: column;
+                    row-gap: 12px;
+                    color: var(--text-secondary);
+
+                    li {
+                        a {
+                            color: var(--text-secondary);
+
+                            &:hover {
+                               color: var(--text-main); 
+                            }
+                        }
+                    }
+                }
+
+                &.socials {
+                    .list {
+                        flex-direction: row;
+                        row-gap: 0;
+                        column-gap: 16px;
+                    }
+                }
+            }
+        }
+    }
+
+    .bottom {
+        padding: 24px 0;
+        border-top: 1px solid var(--bg-hover);
+
+        p {
+            text-align: center;
+            color: var(--text-secondary);
+        }
+    }
+}

@@ -9,13 +9,16 @@
     color: #f1f1f1;
     cursor: pointer;
     padding: 8px;
-    border: 1px solid #303030;
+    border: 1px solid var(--search-border);
 
     &:hover {
-        background-color: #303030;
+        background-color: var(--bg-hover);
+    }
+    &:active {
+        background-color: var(--bg-active);
     }
     a {
-        color: white;
+        color: var(--text-main);
     }
 
     .cover {
@@ -57,6 +60,7 @@
         .description {
             font-size: 14px;
             max-height: 40px;
+            height: 40px;
             margin: 8px 0;
             /* #7a8ba3 */
         }
@@ -76,6 +80,20 @@
             }
         }
         .level {
+            display: flex;
+            align-items: center;
+            column-gap: 4px;
+            font-size: 14px;
+
+            .icon {
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        .progressBar {
+            margin-top: 10px;
+            margin-bottom: 2px;
             font-size: 14px;
         }
     }
@@ -90,7 +108,7 @@
     }
 
     .name, .description, .rating, .level {
-        color: #aaa;
+        color: var(--text-secondary);
         line-height: 20px;
         font-weight: 400;
     }

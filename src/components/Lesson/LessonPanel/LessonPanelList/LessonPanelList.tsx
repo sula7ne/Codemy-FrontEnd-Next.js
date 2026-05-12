@@ -1,26 +1,21 @@
 import { Dispatch, SetStateAction } from "react";
 
-import Image from "next/image";
-import clsx from "clsx";
 import styles from './LessonPanelList.module.scss';
-import theoryIcon from "@/assets/images/icons/theory.svg";
+import { lessonPanel } from "@/data/lessonPanel";
+import LessonPanelItem from "./LessonPanelItem/LessonPanelItem";
+import { lessonPanelId } from "@/types/lessonPanel";
 
 interface LessonPanelListProps {
-    isPanelActive: boolean, 
-    setIsPanelActive: Dispatch<SetStateAction<boolean>>
+    panel: lessonPanelId | null, 
+    setPanel: Dispatch<SetStateAction<lessonPanelId | null>>
 }
 
-const LessonPanelList = ({isPanelActive, setIsPanelActive}: LessonPanelListProps) => {
-    const handleClick = () => setIsPanelActive(prev => !prev);
-
+const LessonPanelList = ({ panel, setPanel }: LessonPanelListProps) => {
     return (
         <ul className={styles.list}>
-            <li 
-                onClick={handleClick} 
-                className={clsx(styles.item, isPanelActive && styles.active)}
-            >
-                <Image src={theoryIcon} alt="theory icon" />
-            </li>
+            {lessonPanel.map((el) => (
+                <LessonPanelItem key={el.id} item={el} isActive={panel === el.id} onClick={() => setPanel(panel === el.id ? null : el.id)} />
+            ))}
         </ul>
     );
 }

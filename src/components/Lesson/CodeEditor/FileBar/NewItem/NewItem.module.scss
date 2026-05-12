@@ -2,14 +2,15 @@
     column-gap: 0;
 
     &:hover {
-        background-color: rgb(42, 45, 46);
+        background-color: var(--bg-file-hover);
+    }
+    &:active {
+        background-color: var(--bg-file-active);
     }
     &:focus {
-        color: #ffffff;
-        background-color: rgb(4, 57, 94);
-    }
-    &.active {
-        background-color: rgb(55, 55, 61);
+        color: var(--text-file-focus);
+        background-color: var(--bg-file-focus);
+        outline: 1px solid var(--bg-file-outline);
     }
 
     .indent {
@@ -79,8 +80,8 @@
             line-height: 20px;
 
             input {
-                background-color: rgb(60, 60, 60);
-                color: #cccccc;
+                background-color: var(--bg-new-file);
+                color: var(--text-filebar);
                 height: 20px;
                 border: none;
                 width: 100%;

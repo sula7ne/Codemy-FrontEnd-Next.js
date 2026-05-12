@@ -1,4 +1,5 @@
 .folder {
+    position: relative;
     .header {
         height: 22px;
         width: 100%;
@@ -12,17 +13,18 @@
         /* background-color: rgb(4, 57, 94); */
 
         &:hover {
-            background-color: rgb(42, 45, 46);
+            background-color: var(--bg-file-hover);
         }
         &:focus {
-            color: #ffffff;
-            background-color: rgb(4, 57, 94);
+            color: var(--text-file-focus);
+            background-color: var(--bg-file-focus);
+            outline: 1px solid var(--bg-file-outline);
         }
 
         .indent {
             height: 100%;
             position: absolute;
-            top: 0;
+            top: 22px;
             left: 16px;
             pointer-events: none;
         }

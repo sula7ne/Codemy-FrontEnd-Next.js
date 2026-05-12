@@ -1,0 +1,29 @@
+import ChangeCoursePopUp from "@/components/PopUp/Course/ChangeCoursePopUp";
+import clsx from "clsx";
+import styles from "./CourseBtns.module.scss";
+import { useState } from "react";
+import { useTranslations } from "next-intl";
+
+const ChangeCourseBtn = () => {
+    const t = useTranslations('Course');
+    const [isPopUp, setIsPopUp] = useState(false);
+
+    const handleOnClick = () => {
+        setIsPopUp(true);
+    }
+
+    return (
+        <>
+            <button className={clsx(styles.btn, styles.change)} onClick={handleOnClick} tabIndex={0}>
+                <div className={styles.icon}>
+                    <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" focusable="false" aria-hidden="true"><path d="M15.293 3.293 4.96 13.626c-.22.219-.385.488-.484.782l-1.924 5.778-.633 1.897 1.897-.633 5.777-1.927a2 2 0 00.78-.482l9.334-9.334 1-1a3.83 3.83 0 00-5.414-5.414Zm4 1.414a1.83 1.83 0 010 2.586L19 7.586 16.414 5l.293-.293a1.83 1.83 0 012.586 0ZM6.374 15.04 15 6.414 17.586 9 8.96 17.626 5.08 18.92l1.294-3.88Z"></path></svg>
+                </div>
+                {t('actions.edit')}
+            </button>
+
+            {isPopUp && <ChangeCoursePopUp setIsPopUp={setIsPopUp} />}
+        </>
+    );
+}
+
+export default ChangeCourseBtn;

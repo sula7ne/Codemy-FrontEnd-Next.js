@@ -1,0 +1,25 @@
+.layout {
+    // height: 100vh;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    
+    .wrapper {
+        margin-top: 56px;
+        position: relative;
+        display: flex;
+        flex: 1 1 auto;
+        min-height: 0;
+
+        .content {
+            position: relative;
+            color: var(--text-main);
+            background-color: #18181b;
+            background-color: var(--bg-home);
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 auto;
+            overflow-y: auto; 
+        }
+    }
+}

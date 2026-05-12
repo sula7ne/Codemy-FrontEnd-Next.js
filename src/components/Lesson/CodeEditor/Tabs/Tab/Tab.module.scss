@@ -3,17 +3,17 @@
     cursor: pointer;
     height: 35px;
     min-width: 120px;
-    background-color: rgb(45, 45, 45);
-    border-right: 1px solid rgb(37, 37, 38);
+    background-color: var(--bg-tab);
+    border-right: 1px solid var(--border-tab);
     font-size: 13px;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--text-tab);
     display: flex;
     align-items: center;
     padding-left: 10px;
     
     &.active {
-        background-color: rgb(30, 30, 30);
-        color: rgb(255, 255, 255);
+        background-color: var(--bg-tab-active);
+        color: var(--text-tab-active);
 
         .exit {
             opacity: 1;

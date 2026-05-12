@@ -1,0 +1,368 @@
+.home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 150px;
+
+    img {
+        pointer-events: none;
+    }
+
+    .welcome {
+        padding-top: 140px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 50px;
+        // width: 1000px;
+        width: calc(100% - 48px);
+        border-bottom-left-radius: 32px;
+        border-bottom-right-radius: 32px;
+        overflow: hidden;
+
+        background-color: #18181b;
+        // background-image: url('https://hackmd.io/main-bg.svg');
+        background-image: url('/images/home/welcomeBg.svg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50%;
+
+        .text {
+            width: 1000px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            row-gap: 20px;
+
+            .title {
+                background: linear-gradient(#e9e6ff 0%, #a49fc4 100%);
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                font-size: 46px;
+                line-height: 62px;
+                font-weight: 600;
+            }
+            .description {
+                font-size: 25px;
+                line-height: 35px;
+                // color: #cad0ef;
+                color: #a3a3a3;
+            }
+            .start {
+                display: flex;
+                align-items: center;
+                column-gap: 8px;
+                color: white;
+                font-weight: 500;
+                height: 48px;
+                padding: 0 30px;
+                background-color: rgba(159, 162, 238, 0.2);
+                border-radius: 100px;
+
+                &:hover {
+                    background-color: rgba(159, 162, 238, 0.25);
+                }
+                &:active {
+                    background-color: rgba(159, 162, 238, 0.15);
+                }
+            }
+        }
+
+
+        .img-item {
+            margin-bottom: -20px;
+            padding: 16px;
+            background-image: linear-gradient(#b2b1e824, #64638224);
+            border-radius: 30px;
+
+            img {
+                border: 1px solid rgba(155, 152, 207, .7);
+                border-top-left-radius: 16px;
+                border-top-right-radius: 16px;
+                width: 850px;
+                height: auto;
+            }
+        }
+    }
+    .expectations {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 30px;
+        width: 1000px;
+
+        .text {
+            .title {
+                background: var(--text-bg-title);
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                font-size: 46px;
+                line-height: 62px;
+                font-weight: 600;
+            }
+        }
+
+        .cards {
+            display: flex;
+            justify-content: space-between;
+            column-gap: 16px;
+
+            .card {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                row-gap: 16px;
+                padding: 24px;
+                border-radius: 20px;
+                background-color: #18181b;
+                background-image: linear-gradient(146.52deg, #524bbe40 10.54%, #191f5040 80.09%);
+                border: 1px solid rgb(64, 64, 93);
+
+                .icon {
+                    width: 48px;
+                    height: 48px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 50%;
+                    background-color: rgba(159, 162, 238, 0.2);
+                    color: white;
+                }
+                .title {
+                    font-weight: 600;
+                    font-size: 20px;
+                    line-height: 28px;
+                    background: linear-gradient(#e9e6ff 0%, #a49fc4 100%);
+                    -webkit-text-fill-color: transparent;
+                    background-clip: text;
+                }
+                .description {
+                    font-size: 16px;
+                    line-height: 24px;
+                    color: #a3a3a3;
+                }
+            }
+        }
+    }
+
+    .quote {
+        // margin: -50px 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+
+        .icon {
+            &:first-child {
+                margin-top: -20px;
+            }
+            &:last-child {
+                transform: rotate(180deg);
+                margin-bottom: -20px;
+            }
+        }
+
+        .title {
+            background: var(--text-bg-title);
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            font-size: 46px;
+            line-height: 62px;
+            font-weight: 600;
+        }
+    }
+
+    .features {
+        width: 1000px;
+        padding: 40px;
+        background-color: #18181b;
+        background-image: radial-gradient(251.22% 122.98% at 75.31% 26.92%, #8d7fe400 0%, #8d7fe421 100%), linear-gradient(325deg, #2e2e437d -2.09%, #2b274957 97.69%);
+        border-radius: 36px;
+        border: 1px solid rgb(64, 64, 93);
+        display: flex;
+        flex-direction: column;
+        row-gap: 30px;
+
+        .content {
+            display: flex;
+            flex-direction: column;
+
+            .title {
+                line-height: 35px;
+                font-size: 25px;
+                color: white;
+                margin-bottom: 6px;
+                font-weight: 500;
+            }
+            .description {
+                height: 44px;
+                line-height: 22px;
+                font-size: 14px;
+                color: #a3a3a3;
+                margin-bottom: 16px;
+            }
+            .img-container {
+                border-radius: 20px;
+                border: 1px solid rgba(155, 152, 207, .7);
+                background: radial-gradient(88.63% 154.3% at 28.94% -19.12%, rgba(204, 199, 255, 0.2) 0%, rgba(151, 144, 221, 0) 100%), rgb(39, 37, 69);
+                width: 100%;
+                height: 400px;
+                position: relative;
+                overflow: hidden;
+
+                .img-item {
+                    position: absolute;
+                    padding: 16px;
+                    background-image: linear-gradient(#b2b1e824, #64638224);
+                    border-radius: 30px;
+                    width: 50%;
+
+                    &:first-child {
+                        top: 50px;
+                        left: 5%;
+                    }
+                    &:nth-child(2) {
+                        bottom: 70px;
+                        left: 45%;
+                    }
+
+                    img {
+                        width: 100%;
+                        height: auto;
+                        border-radius: 16px;
+                        border: 1px solid rgba(155, 152, 207, .7);
+                    }
+                }
+            }
+
+            &.code-editor {
+                .img-container {
+
+                    .img-item {
+                        width: 100%;
+                        top: 50px;
+                        left: 5%;
+
+                        img {
+                            width: 700px;
+                            height: auto;
+                        }
+                    }
+                }
+            }
+        }
+
+        .actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            column-gap: 12px;
+
+            button {
+                color: white;
+                cursor: pointer;
+                font-size: 14px;
+                padding: 7px 17px;
+                border-radius: 4px;
+                background-color: transparent;
+                border: 1px solid #52525b;
+
+                &.active {
+                    background-color: rgba(159, 162, 238, 0.2);
+                }
+                
+                &:hover {
+                    background-color: rgba(159, 162, 238, 0.25);
+                }
+                &:active {
+                    background-color: rgba(159, 162, 238, 0.15);
+                }
+            }
+        }
+    }
+
+    .popular-courses {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 30px;
+        width: 1000px;
+
+        .text {
+            .title {
+                background: var(--text-bg-title);
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                font-size: 46px;
+                line-height: 62px;
+                font-weight: 600;
+            }
+        }
+
+        .courses {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+
+    .start-today {
+        margin-bottom: 48px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 36px;
+        padding: 80px 24px;
+        border-radius: 32px;
+        width: calc(100% - 48px);
+
+        background-image: url('/images/home/startTodayBg.svg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50%;
+        background-color: #18181b;
+
+        .text {
+            row-gap: 8px;
+        }
+        .start {
+            display: flex;
+            align-items: center;
+            column-gap: 8px;
+            color: black;
+            font-weight: 500;
+            height: 48px;
+            padding: 0 30px;
+            background-color: white;
+            border-radius: 100px;
+
+            &:hover {
+                background-color: rgba(255, 255, 255, .8);
+            }
+            &:active {
+                background-color: rgba(255, 255, 255, .9);
+            }
+        }
+    }
+
+    .text {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 20px;
+
+        .title {
+            background: linear-gradient(#e9e6ff 0%, #a49fc4 100%);
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 46px;
+            line-height: 62px;
+            font-weight: 600;
+        }
+        .description {
+            font-size: 25px;
+            line-height: 35px;
+            color: #a3a3a3;
+        }
+    }
+}

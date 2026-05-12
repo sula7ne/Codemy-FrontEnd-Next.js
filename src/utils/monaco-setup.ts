@@ -26,6 +26,9 @@ self.MonacoEnvironment = {
     if (label === 'typescript' || label === 'javascript') {
       return new tsWorker();
     }
+    if (label === 'python') {
+      return new editorWorker();
+    }
 
     return new editorWorker();
   },

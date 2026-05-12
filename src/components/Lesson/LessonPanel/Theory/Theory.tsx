@@ -1,18 +1,22 @@
 import { Dispatch, SetStateAction } from "react";
 
 import MarkdownViewer from "@/components/Markdown/MarkdownViewer";
+import { lessonPanelId } from "@/types/lessonPanel";
 import styles from './Theory.module.scss';
 import { useAppSelector } from "@/state/hooks";
+import { useTranslations } from "next-intl";
+import VideoPlayer from "@/components/VideoPlayer/VideoPlayer";
 
 interface TheoryProps {
-    setIsPanelActive: Dispatch<SetStateAction<boolean>>
+    setPanel: Dispatch<SetStateAction<lessonPanelId | null>>
 }
 
-const Theory = ({setIsPanelActive}: TheoryProps) => {
+const Theory = ({setPanel}: TheoryProps) => {
+    const t = useTranslations('Lesson');
     const { title, theory } = useAppSelector(state => state.activeLesson);
 
     const handleOnClick = () => {
-        setIsPanelActive(false);
+        setPanel(null);
     }
 
     return (
@@ -21,12 +25,16 @@ const Theory = ({setIsPanelActive}: TheoryProps) => {
                 <div className={styles.header}>
                     <h1 className={styles.title}>{title}</h1>
                 </div>
+
+                <div className={styles.video}>
+                    <VideoPlayer src="https://youtu.be/s3wNuru4U0I?si=hz9FQSHBessUTyR1" />
+                </div>
                 
                 <MarkdownViewer markdown={theory} />
             </section>
 
             <div className={styles.controls}>
-                <button onClick={handleOnClick}>Перейти к заданию</button>
+                <button onClick={handleOnClick}>{t('panel.theoryBtn')}</button>
             </div>
         </div>
     );

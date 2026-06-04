@@ -1,11 +1,11 @@
 import { Dispatch, SetStateAction } from "react";
 
 import MarkdownViewer from "@/components/Markdown/MarkdownViewer";
+import VideoPlayer from "@/components/VideoPlayer/VideoPlayer";
 import { lessonPanelId } from "@/types/lessonPanel";
 import styles from './Theory.module.scss';
-import { useAppSelector } from "@/state/hooks";
+import { useAppSelector } from "@/state/hooks/hooks";
 import { useTranslations } from "next-intl";
-import VideoPlayer from "@/components/VideoPlayer/VideoPlayer";
 
 interface TheoryProps {
     setPanel: Dispatch<SetStateAction<lessonPanelId | null>>
@@ -27,7 +27,7 @@ const Theory = ({setPanel}: TheoryProps) => {
                 </div>
 
                 <div className={styles.video}>
-                    <VideoPlayer src="https://youtu.be/s3wNuru4U0I?si=hz9FQSHBessUTyR1" />
+                    <VideoPlayer src="https://youtu.be/y4gWr2fya0I?si=qNRo0wsTWAL5MY-S" />
                 </div>
                 
                 <MarkdownViewer markdown={theory} />

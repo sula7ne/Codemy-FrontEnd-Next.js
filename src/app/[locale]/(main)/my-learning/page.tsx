@@ -3,12 +3,19 @@
 import CourseCard from "@/components/Course/CourseCard/CourseCard";
 import Link from "next/link";
 import styles from "./MyLearning.module.scss";
-import { useAppSelector } from "@/state/hooks";
+import { useGetCoursesWithDetailsQuery } from "@/state/api/coursesApi";
 import { useTranslations } from "next-intl";
 
 const MyLearning = () => {
     const t = useTranslations('My-Learning');
-    const completedCourses = useAppSelector((state) => state.courses);
+    const { data: courses } = useGetCoursesWithDetailsQuery();
+
+    const inProgressCourses = courses?.filter(el => el.userCourse.status === 'IN_PROGRESS')|| [];
+    const completedCourses = courses?.filter(el => el.userCourse.status === 'COMPLETED')|| [];
+
+    const totalCompletedLessons = courses?.reduce((sum, course) => {
+        return sum + (course.completedLessonsCount || 0);
+    }, 0) || 0;
 
     return (
         <div className={styles['my-learning']}>
@@ -24,11 +31,11 @@ const MyLearning = () => {
 
                         <div className={styles.statistic}>
                             <div className={styles.container}>
-                                <strong>1</strong>
+                                <strong>{completedCourses.length}</strong>
                                 <p>{t('statCourses')}</p>
                             </div>
                             <div className={styles.container}>
-                                <strong>16</strong>
+                                <strong>{totalCompletedLessons}</strong>
                                 <p>{t('statLessons')}</p>
                             </div>
                         </div>
@@ -40,8 +47,8 @@ const MyLearning = () => {
                         <h2 className={styles.title}>{t('inProgress')}</h2>
             
                         <div className={styles['courses-content']}>
-                            {completedCourses.length ?
-                                completedCourses.filter(el => Number(el.id) % 2 === 0).map((el) => (
+                            {inProgressCourses.length ?
+                                inProgressCourses.map((el) => (
                                     <CourseCard key={el.id} course={el} isProgressBar={true} />
                                 ))
                                 :
@@ -57,8 +64,8 @@ const MyLearning = () => {
                         <h2 className={styles.title}>{t('completed')}</h2>
             
                         <div className={styles['courses-content']}>
-                            {[].length ?
-                                completedCourses.filter(el => Number(el.id) % 2 !== 0).map((el) => (
+                            {completedCourses.length ?
+                                completedCourses.filter(el => el.userCourse.status === 'COMPLETED').map((el) => (
                                     <CourseCard key={el.id} course={el} />
                                 ))
                                 :

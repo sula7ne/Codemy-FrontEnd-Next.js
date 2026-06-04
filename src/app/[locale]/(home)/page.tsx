@@ -7,10 +7,9 @@ import aiScreenImg from "@/assets/images/home/aiScreen.png";
 import clsx from "clsx";
 import codeEditorScreenImg from "@/assets/images/home/codeEditorScreen.png";
 import cover1Img from "@/assets/images/home/cover1.png";
-import { redirect } from "next/navigation";
 import styles from "./Home.module.scss";
 import theoryScreenImg from "@/assets/images/home/theoryScreen.png";
-import { useAppSelector } from "@/state/hooks";
+import { useGetCoursesQuery } from "@/state/api/coursesApi";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import webPageScreenImg from "@/assets/images/home/webPageScreen.png";
@@ -19,7 +18,7 @@ const Home = () => {
 	// return redirect('/courses');
 	const t = useTranslations('Home');
 	const [feature, setFeature] = useState('theory');
-	const courses = useAppSelector((state) => state.courses).slice(0, 3);
+	const { data: courses, isLoading } = useGetCoursesQuery();
 
 	const clickFeature = (key: string) => {
 		setFeature(key);
@@ -169,7 +168,7 @@ const Home = () => {
 				</div>
 
 				<div className={styles.courses}>
-					{courses.map((el) => (
+					{courses?.map((el) => (
 						<CourseCard key={el.id} course={el} />
 					))}
 				</div>

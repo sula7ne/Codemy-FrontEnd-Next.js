@@ -1,14 +1,15 @@
+import ChangeLessonPopUp from "@/components/PopUp/Lesson/ChangeLessonPopUp";
+import { Lesson } from "@/types/courses";
+import Link from "next/link";
 import styles from "./AccordionLessonsList.module.scss";
 import { useState } from "react";
-import ChangeLessonPopUp from "@/components/PopUp/Lesson/ChangeLessonPopUp";
-import { lesson } from "@/types/lesson";
-import Link from "next/link";
 
 interface AccordionLessonProps {
-    lesson: lesson
+    lesson: Lesson,
+    sectionId: string
 }
 
-const AccordionLesson = ({ lesson }: AccordionLessonProps) => {
+const AccordionLesson = ({ lesson, sectionId }: AccordionLessonProps) => {
     const [isPopUp, setIsPopUp] = useState(false);
 
     const handleOnClick = () => {
@@ -36,7 +37,7 @@ const AccordionLesson = ({ lesson }: AccordionLessonProps) => {
                 <div className={styles.line}></div>
             </li>
 
-            {isPopUp && <ChangeLessonPopUp setIsPopUp={setIsPopUp} lesson={lesson} />}
+            {isPopUp && <ChangeLessonPopUp setIsPopUp={setIsPopUp} lesson={lesson} sectionId={sectionId} />}
         </>
     );
 }

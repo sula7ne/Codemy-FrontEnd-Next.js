@@ -1,6 +1,6 @@
 import { ChangeEvent, KeyboardEvent } from "react";
 import { refreshWebPage, runCode, setFilePath } from "@/state/slices/activeLessonSlice";
-import { useAppDispatch, useAppSelector } from "@/state/hooks";
+import { useAppDispatch, useAppSelector } from "@/state/hooks/hooks";
 
 import styles from "./WebWindowHeader.module.scss";
 

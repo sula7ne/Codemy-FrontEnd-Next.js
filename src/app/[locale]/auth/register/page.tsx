@@ -3,16 +3,17 @@
 import { registerDto, registerDtoType } from "@/schemas/auth.schema";
 
 import Link from "next/link";
-import clsx from "clsx";
 import styles from './../auth.module.scss';
-import { useAppDispatch } from "@/state/hooks";
 import { useForm } from "react-hook-form";
+import { useRegisterMutation } from "@/state/api/authApi";
+import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const Register = () => {
     const t = useTranslations('Auth');
-    const dispatch = useAppDispatch();
+    const router = useRouter();
+    const [registerUser, { isLoading, isError, error }] = useRegisterMutation();
 
     const {
         register,
@@ -24,24 +25,30 @@ const Register = () => {
         mode: 'onSubmit',
         defaultValues: {
             email: "",
-            username: "",
+            name: "",
             password: ""
         },
     });
 
     const onSubmit = async (data: registerDtoType) => {
         try {
+            const result = await registerUser(data).unwrap();
+
             reset();
 
-            
+            router.push('/courses'); 
         } catch(e) { console.log(e); }
     };
     
+    const serverError = error as { data?: { message?: string } } | undefined
+
     return (
         <div className={styles['auth-form']}>
             <h2 className={styles.title}>{t('register.title')}</h2>
 
             <form onSubmit={handleSubmit(onSubmit)}>
+                {isError && <div className={styles.error}>{serverError?.data?.message}</div>}
+
                 <div className={styles['form-el']}>
                     <label htmlFor="email">{t('fields.email')}</label>
                     <input
@@ -53,14 +60,14 @@ const Register = () => {
                     {errors.email && <p className={styles.error}>{errors.email.message}</p>}
                 </div>
                 <div className={styles['form-el']}>
-                    <label htmlFor="username">{t('fields.username')}</label>
+                    <label htmlFor="name">{t('fields.name')}</label>
                     <input
-                        id="username"
+                        id="name"
                         type="text"
-                        placeholder={t('fields.usernamePlaceholder')}
-                        {...register("username")}
+                        placeholder={t('fields.namePlaceholder')}
+                        {...register("name")}
                     />
-                    {errors.username && <p className={styles.error}>{errors.username.message}</p>}
+                    {errors.name && <p className={styles.error}>{errors.name.message}</p>}
                 </div>
                 <div className={styles['form-el']}>
                     <label htmlFor="password">{t('fields.password')}</label>
@@ -76,7 +83,7 @@ const Register = () => {
                 <button
                     className={styles.submit} 
                     type="submit" 
-                    disabled={isSubmitting}
+                    disabled={isLoading}
                 >
                     {t('register.submit')}
                 </button>

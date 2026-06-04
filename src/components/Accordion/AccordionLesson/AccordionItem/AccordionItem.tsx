@@ -2,8 +2,8 @@ import AccordionLessonsList from "@/components/Accordion/AccordionLesson/Accordi
 import clsx from "clsx";
 import { sections } from "@/data/sections";
 import styles from "./AccordionItem.module.scss";
+import { useAppSelector } from "@/state/hooks/hooks";
 import { useState } from "react";
-import { useAppSelector } from "@/state/hooks";
 
 interface AccordionItemProps {
     sectionId: string,

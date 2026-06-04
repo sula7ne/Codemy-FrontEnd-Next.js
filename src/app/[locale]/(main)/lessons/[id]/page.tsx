@@ -1,16 +1,16 @@
 "use client"
 
 import { setIsActive, setIsExpanded, setIsFixed, setIsOverlay } from "@/state/slices/ui/sidebarSlice";
-import { useAppDispatch, useAppSelector } from "@/state/hooks";
+import { useAppDispatch, useAppSelector } from "@/state/hooks/hooks";
 import { useEffect, useState } from "react";
 
 import CodeEditor from "@/components/Lesson/CodeEditor/CodeEditor";
 import LessonPanel from "@/components/Lesson/LessonPanel/LessonPanel";
 import NotFound from "@/components/NotFound/NotFound";
+import { lessonPanelId } from "@/types/lessonPanel";
 import { setActiveLesson } from "@/state/slices/activeLessonSlice";
 import styles from "./Lesson.module.scss";
 import { useParams } from "next/navigation";
-import { lessonPanelId } from "@/types/lessonPanel";
 
 const Lesson = () => {
     const params = useParams();

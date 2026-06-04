@@ -165,9 +165,31 @@ But see for yourself, enroll in one of my courses, and join 2,000,000+ happy stu
     {
         id: "6",
         name: "Codemy Team",
-        avatar: "https://yt3.ggpht.com/p_7OB56tUa2RjxwyL7mva_WQqsfyRUQQZjbRJgfcTbyRYCAKV9mcVixSaBgRXS4YY7q85n8HPYc=s88-c-k-c0x00ffffff-no-rj",
+        avatar: "https://img.freepik.com/premium-photo/black-background-with-white-letter-c-it_1267893-17215.jpg",
         headline: "Codemy team",
         bio: `Codemy team`,
+        socials: [
+            {
+                type: "web",
+                url: "",
+            },
+            {
+                type: "youtube",
+                url: "",
+            },
+            {
+                type: "github",
+                url: "",
+            },
+        ],
+        courses: ["6"],
+    },
+    {
+        id: "7",
+        name: "Sultan Taisalmas",
+        avatar: "https://instagram.fpwq4-1.fna.fbcdn.net/v/t51.2885-19/474742089_648787170910222_6232478107994913871_n.jpg?efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=instagram.fpwq4-1.fna.fbcdn.net&_nc_cat=110&_nc_oc=Q6cZ2gHHdXILDSOZhKk1skg85ExhdQMXgt1dtk0cKRJzZrJ87xiWPjKwJHBdEOtuMUSDX9Y&_nc_ohc=795BvnLetHwQ7kNvwGC5NvR&_nc_gid=dVGm_QL83ogOBnT_v1GAHg&edm=AP4sbd4BAAAA&ccb=7-5&oh=00_Af78V_MTLPLhhUBZ2TV-_VPD5kNwgZlE2ZYQonnQ6RUbrQ&oe=6A0A16E9&_nc_sid=7a9f4b",
+        headline: "Fullstack Web Developer",
+        bio: `Part of Codemy team`,
         socials: [
             {
                 type: "web",

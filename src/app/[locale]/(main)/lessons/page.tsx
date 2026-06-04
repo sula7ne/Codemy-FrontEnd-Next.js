@@ -1,6 +1,6 @@
 "use client"
 
-import { useAppDispatch, useAppSelector } from "@/state/hooks";
+import { useAppDispatch, useAppSelector } from "@/state/hooks/hooks";
 
 import Link from "next/link";
 import { setActiveLesson } from "@/state/slices/activeLessonSlice";

@@ -1,5 +1,5 @@
 import { MouseEvent, useState } from "react";
-import { useAppDispatch, useAppSelector } from "@/state/hooks";
+import { useAppDispatch, useAppSelector } from "@/state/hooks/hooks";
 
 import FolderList from "../FolderList";
 import clsx from "clsx";

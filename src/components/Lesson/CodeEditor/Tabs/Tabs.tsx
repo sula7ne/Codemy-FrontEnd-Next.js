@@ -1,6 +1,6 @@
 import Tab from "./Tab/Tab";
 import styles from './Tabs.module.scss';
-import { useAppSelector } from '@/state/hooks';
+import { useAppSelector } from '@/state/hooks/hooks';
 
 const Tabs = () => {
     const tabs = useAppSelector(state => state.activeLesson.tabs);

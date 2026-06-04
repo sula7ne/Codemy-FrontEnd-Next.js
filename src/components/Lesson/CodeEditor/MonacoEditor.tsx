@@ -1,6 +1,6 @@
 import * as monaco from "monaco-editor";
 
-import { useAppDispatch, useAppSelector } from "@/state/hooks";
+import { useAppDispatch, useAppSelector } from "@/state/hooks/hooks";
 import { useEffect, useRef, useState } from "react";
 
 import Editor from "@monaco-editor/react";
@@ -45,7 +45,7 @@ const MonacoEditor = () => {
                         width="100%"
                         height="100%"
                         language={defineLanguage(extension)}
-                        theme={`vs-${theme === 'dark' ? 'dark' : 'light'}`}
+                        theme={`vs-${theme === 'dark' || theme === 'system' ? 'dark' : 'light'}`}
                         options={{
                             minimap: { enabled: false }, 
                             scrollbar: {

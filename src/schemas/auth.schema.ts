@@ -2,7 +2,7 @@ import z from "zod";
 
 export const registerDto = z.object({
     email: z.email(),
-    username: z.string().trim().min(3).max(20),
+    name: z.string().trim().min(3).max(20),
     password: z.string().min(6),
 }).strict();
 

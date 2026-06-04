@@ -1,5 +1,5 @@
 import { setIsActive, setIsExpanded, setIsFixed } from "@/state/slices/ui/sidebarSlice";
-import { useAppDispatch, useAppSelector } from "@/state/hooks";
+import { useAppDispatch, useAppSelector } from "@/state/hooks/hooks";
 
 import clsx from "clsx";
 import styles from './MenuBtn.module.scss';

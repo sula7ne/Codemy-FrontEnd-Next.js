@@ -1,12 +1,12 @@
 import { setIsActive, setIsExpanded, setIsFixed } from "@/state/slices/ui/sidebarSlice";
-import { useAppDispatch, useAppSelector } from "@/state/hooks";
+import { useAppDispatch, useAppSelector } from "@/state/hooks/hooks";
+import { useLocale, useTranslations } from "next-intl";
 
 import Link from "next/link";
 import clsx from "clsx";
+import { sidebar as sidebarType } from "@/types/sidebar";
 import styles from './Sidebar.module.scss';
 import { usePathname } from "next/navigation";
-import { useLocale, useTranslations } from "next-intl";
-import { sidebar as sidebarType } from "@/types/sidebar";
 
 const HomeSidebar = () => {
     const locale = useLocale();

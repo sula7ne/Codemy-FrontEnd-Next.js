@@ -2,12 +2,12 @@ import "@/assets/styles/globals.scss";
 import "@/assets/styles/_variables.scss";
 
 import type { Metadata, Viewport } from "next";
+import { NextIntlClientProvider, hasLocale } from 'next-intl';
 
 import { Providers } from "./providers";
 import { ScrollReset } from "@/components/ScrollReset";
-import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
-import {routing} from '@/i18n/routing';
+import { routing } from '@/i18n/routing';
 
 export const metadata: Metadata = {
     title: "Codemy",
@@ -27,7 +27,7 @@ interface RootLayoutProps {
 };
 
 export default async function RootLayout({ children, params }: Readonly<RootLayoutProps>) {
-    const {locale} = await params;
+    const { locale } = await params;
 
     if (!hasLocale(routing.locales, locale)) {
         notFound();

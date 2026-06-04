@@ -1,19 +1,42 @@
 import { Dispatch, MouseEvent, SetStateAction, useEffect, useState } from "react";
+import { createLessonDto, createLessonDtoType } from "@/schemas/lessons.schema";
 
 import styles from "./../PopUp.module.scss";
+import { useAddLessonMutation } from "@/state/api/sectionsApi";
+import { useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 interface PopUpProps {
-    setIsPopUp: Dispatch<SetStateAction<boolean>>
+    setIsPopUp: Dispatch<SetStateAction<boolean>>,
+    sectionId: string
 }
 
-const CreateLessonPopUp = ({ setIsPopUp }: PopUpProps) => {
+const CreateLessonPopUp = ({ setIsPopUp, sectionId }: PopUpProps) => {
     const t = useTranslations('PopUp');
     
-    const [title, setTitle] = useState('');
-    const [theory, setTheory] = useState('');
-    const MAX_TITLE = 100;
-    const MAX_THEORY = 3000;
+    const MAX_TITLE = 50;
+    const MAX_THEORY = 5000;
+
+    const [addLesson, { isLoading, isError, error }] = useAddLessonMutation();
+
+    const {
+        register,
+        handleSubmit,
+        watch,
+        reset,
+        formState: { errors, isSubmitting },
+    } = useForm<createLessonDtoType>({
+        resolver: zodResolver(createLessonDto),
+        mode: 'onChange',
+        defaultValues: {
+            title: "",
+            theory: ""
+        },
+    });
+
+    const watchTitle = watch("title", "");
+    const watchTheory = watch("theory", "");
 
     const handleClose = (e: MouseEvent<HTMLDivElement> ) => {
         if (e.target === e.currentTarget) {
@@ -43,16 +66,22 @@ const CreateLessonPopUp = ({ setIsPopUp }: PopUpProps) => {
         };
     }, []);
 
-    const handleSubmit = () => {
-        setIsPopUp(false);
+    const onSubmit = async (data: createLessonDtoType) => {
+        try {
+            await addLesson({ sectionId, data }).unwrap();
 
-
+            setIsPopUp(false);
+        } catch (e) {
+            console.error("Ошибка при создании урока:", e);
+        }
     }
+
+    const serverError = error as { data?: { message?: string } } | undefined;
 
     return (
         <div onMouseDown={handleClose} className={styles.container}>
             <div className={styles['pop-up']}>
-                <div className={styles.content}>
+                <form onSubmit={handleSubmit(onSubmit)} className={styles.content}>
                     <header className={styles.header}>
                         <div className={styles['header-content']}>
                             <h2>Добавление урока</h2>
@@ -66,25 +95,30 @@ const CreateLessonPopUp = ({ setIsPopUp }: PopUpProps) => {
                     </header>
 
                     <div className={styles.center}>
-                        <div className={styles.input} style={{borderColor: title.length >= MAX_TITLE ? '#ff8983' :'#ffffff1a'}}>
+                        {isError && <div className={styles.error}>{serverError?.data?.message}</div>}
+
+                        <div className={styles.input} style={{borderColor: errors.title ? '#ff8983' :'#ffffff1a'}}>
                             <div className={styles.title}>{t('fields.title')}</div>
-                            <input required type="text" name="title" id="title" placeholder={t('fields.titlePlaceholder')} value={title} onChange={(e) => setTitle(e.target.value)} />
-                            <div style={{color: title.length >= MAX_TITLE ? '#ff8983' :'#aaa'}} className={styles.length}>{title.length}/{MAX_TITLE}</div>
+                            <input {...register('title')} type="text" id="title" placeholder={t('fields.titlePlaceholder')} />
+                            <div style={{color: errors.title ? '#ff8983' :'#aaa'}} className={styles.length}>{watchTitle.length}/{MAX_TITLE}</div>
+                        
+                            {errors.title && <p className={styles.error}>{errors.title.message}</p>}
                         </div>
-                        <div className={styles.input} style={{borderColor: theory.length >= MAX_THEORY ? '#ff8983' :'#ffffff1a'}}>
+                        <div className={styles.input} style={{borderColor: errors.theory ? '#ff8983' :'#ffffff1a'}}>
                             <div className={styles.title}>{t('fields.theory')}</div>
-                            <textarea rows={10} required name="theory" id="theory" placeholder={t('fields.theoryPlaceholder')} value={theory} onChange={(e) => setTheory(e.target.value)}/>
-                            <div style={{color: theory.length >= MAX_THEORY ? '#ff8983' :'#aaa'}} className={styles.length}>{theory.length}/{MAX_THEORY}</div>
+                            <textarea {...register('theory')} rows={10} id="theory" placeholder={t('fields.theoryPlaceholder')} />
+                            <div style={{color: errors.theory ? '#ff8983' :'#aaa'}} className={styles.length}>{watchTheory.length}/{MAX_THEORY}</div>
+                        
+                            {errors.theory && <p className={styles.error}>{errors.theory.message}</p>}
                         </div>
                     </div>
 
                     <footer className={styles.footer}>
                         <div className={styles['footer-content']}>
-                            {/* onSubmit */}
-                            <button className={styles.create} onClick={handleSubmit}>{t('actions.add')}</button>
+                            <button type="submit" className={styles.create} disabled={isLoading}>{t('actions.add')}</button>
                         </div>
                     </footer>
-                </div>
+                </form>
             </div>
         </div>
     );

@@ -1,9 +1,12 @@
-import Link from "next/link";
-import styles from "./ProfileDropDown.module.scss";
 import { useEffect, useRef, useState } from "react";
+
 import Image from "next/image";
+import Link from "next/link";
 import clsx from "clsx";
 import defaultUserPic from "@/assets/images/default-user-profile.avif";
+import styles from "./ProfileDropDown.module.scss";
+import { useLogoutMutation } from "@/state/api/authApi";
+import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 const ProfileDropDown = () => {
@@ -11,10 +14,19 @@ const ProfileDropDown = () => {
     const [isDropDown, setIsDropDown] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
+    const router = useRouter();
+    const [logout] = useLogoutMutation();
+
     const closeDropDown = () => setIsDropDown(false);
 
-    const signOut = () => {
-        alert('sign out');
+    const handleLogout = async () => {
+        try {
+            await logout().unwrap();
+            
+            router.push('/courses');
+        } catch (err) {
+            console.error("Не удалось выйти из системы:", err);
+        }
     }
 
     useEffect(() => {
@@ -40,7 +52,7 @@ const ProfileDropDown = () => {
             {isDropDown && 
                 <ul className={styles.dropdown}>
                     <li onClick={closeDropDown}>
-                        <Link className={styles.link} href={"/profile"}>
+                        <Link className={styles.link} href={"/users/me"}>
                             <div className={styles.icon}>
                                 <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" fill="currentcolor" width="24" focusable="false" aria-hidden="true"><path d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11 11-4.925 11-11S18.075 1 12 1Zm0 2a9 9 0 016.447 15.276 7 7 0 00-12.895 0A9 9 0 0112 3Zm0 2a4 4 0 100 8 4 4 0 000-8Zm0 2a2 2 0 110 4 2 2 0 010-4Zm-.1 9.001L11.899 16a5 5 0 014.904 3.61A8.96 8.96 0 0112 21a8.96 8.96 0 01-4.804-1.391 5 5 0 014.704-3.608Z"></path></svg>
                             </div>
@@ -56,7 +68,7 @@ const ProfileDropDown = () => {
                         </Link>
                     </li>
                     <li className={styles.exit} onClick={closeDropDown}>
-                        <button className={styles.link} onClick={signOut}>
+                        <button className={styles.link} onClick={handleLogout}>
                             <div className={styles.icon}>
                                 <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" fill="currentcolor" width="24" focusable="false" aria-hidden="true"><path d="M19 2a2 2 0 012 2v16a2 2 0 01-2 2H9a1 1 0 010-2h10V4H9a1 1 0 010-2h10ZM9.293 7.293a1 1 0 000 1.414L11.586 11H4a1 1 0 000 2h7.586l-2.293 2.293a1 1 0 101.414 1.414L15.414 12l-4.707-4.707a1 1 0 00-1.414 0Z"></path></svg>
                             </div>

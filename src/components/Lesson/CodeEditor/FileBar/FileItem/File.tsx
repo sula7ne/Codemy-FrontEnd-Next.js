@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "@/state/hooks";
+import { useAppDispatch, useAppSelector } from "@/state/hooks/hooks";
 
 import Image from "next/image";
 import { MouseEvent } from "react";

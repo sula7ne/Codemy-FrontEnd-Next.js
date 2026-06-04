@@ -1,5 +1,5 @@
 import { Dispatch, MouseEvent, SetStateAction, useState } from "react";
-import { useAppDispatch, useAppSelector } from "@/state/hooks";
+import { useAppDispatch, useAppSelector } from "@/state/hooks/hooks";
 
 import File from "@/components/Lesson/CodeEditor/FileBar/FileItem/File";
 import Folder from "@/components/Lesson/CodeEditor/FileBar/Folder/Folder";

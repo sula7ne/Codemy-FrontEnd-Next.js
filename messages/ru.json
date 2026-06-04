@@ -30,8 +30,8 @@
         "fields": {
             "email": "Почта",
             "emailPlaceholder": "email@gmail.com",
-            "username": "Имя пользователя",
-            "usernamePlaceholder": "Имя пользователя",
+            "name": "Имя",
+            "namePlaceholder": "Имя",
             "password": "Пароль",
             "passwordPlaceholder": "Пароль"
         },
@@ -103,6 +103,13 @@
             "button": "Начать обучение"
         }
     },
+    "Users": {
+        "meTitle": "Мой профиль",
+        "title": "Профиль",
+        "coursesTitle": "Созданные курсы",
+        "coursesEmpty": "Вы пока не создали ни один курс. Перейти к <link>созданию</link>",
+        "joined": "Присоединился {date}"
+    },
     "Courses": {
         "title": "Курсы"
     },
@@ -129,8 +136,9 @@
     "Course": {
         "reviews": "{count, plural, one {# отзыв} few {# отзыва} many {# отзывов} other {# отзывов}}",
         "actions": {
-            "start": "Начать обучение",
-            "continue": "Продолжить обучение",
+            "NOT_STARTED": "Начать обучение",
+            "IN_PROGRESS": "Продолжить обучение",
+            "COMPLETED": "Курс завершён",
             "edit": "Изменить"
         },
         "levels": {
@@ -148,10 +156,6 @@
             "aiInput": "Спроси Gemini..."
         },
         "tasks": "Задачи"
-    },
-    "Profile": {
-        "title": "Мой профиль",
-        "joined": "Присоединился {date}"
     },
     "ProgressBar": {
         "title": "Прогресс курса"

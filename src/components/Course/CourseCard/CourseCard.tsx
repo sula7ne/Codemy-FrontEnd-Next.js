@@ -1,26 +1,21 @@
-import CourseAuthor from "../CourseAuthor/CourseAuthor";
+import { Course } from "@/types/courses";
 import Image from "next/image";
 import Link from "next/link";
 import { MouseEvent } from "react";
-import { authors } from "@/data/authors";
-import { course } from "@/types/course";
+import ProgressBarOnly from "@/components/ProgressBar/ProgressBarOnly/ProgressBarOnly";
 import starIcon from "@/assets/images/icons/star.svg";
 import styles from "./CourseCard.module.scss";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import ProgressBarOnly from "@/components/ProgressBar/ProgressBarOnly/ProgressBarOnly";
 
 export interface CourseCardProps {
-    course: course,
+    course: Course,
     isProgressBar?: boolean
 };
 
 const CourseCard = ({ course, isProgressBar }: CourseCardProps) => {
     const t = useTranslations('Course');
-    const author = authors.find(el => el.id === course.authorId);
     const router = useRouter();
-    
-    if(!author) return null;
     
     const handleOnClickCourse = () => {
         router.push(`/courses/${course.id}`);
@@ -30,15 +25,13 @@ const CourseCard = ({ course, isProgressBar }: CourseCardProps) => {
         e.stopPropagation();
     }
 
-    const reviewsCount = course.ratingsCount ?? 0;
-
     // внутри а при target="_blank" rel="noopener noreferrer"
     // level, language
 
     return (
         <div className={styles.card} onClick={handleOnClickCourse}>
             <Link className={styles.cover} onClick={handleOnClickLink} href={`/courses/${course.id}`} tabIndex={-1} >
-                <Image width={355} height={200} src={course.cover} alt={author.name} />
+                <Image width={355} height={200} src={course.cover} alt={course.author?.name} />
                 {/* <div className={styles.time}>{course.time}</div> */}
             </Link>
             
@@ -49,7 +42,12 @@ const CourseCard = ({ course, isProgressBar }: CourseCardProps) => {
                 
                 <p className={styles.description} title={course.description} aria-label={course.description}>{course.description}</p>
                 
-                <CourseAuthor authorId={course.authorId} />
+                <div className={styles.author}>
+                    <Link className={styles.link} onClick={handleOnClickLink} href={`/users/${course.authorId}`}>
+                        <Image width={30} height={30} src={course.author.avatar} alt={course.author.name} />
+                    </Link>
+                    <Link className={styles.name} onClick={handleOnClickLink} href={`/users/${course.authorId}`}>{course.author.name}</Link>
+                </div>
 
                 <div className={styles.rating}>
                     <div className={styles.value}>
@@ -57,7 +55,7 @@ const CourseCard = ({ course, isProgressBar }: CourseCardProps) => {
                         <Image src={starIcon} alt="rating" />
                     </div>
                     <div>•</div>
-                    <div className={styles.count}>{t('reviews', { count: reviewsCount })}</div>
+                    <div className={styles.count}>{t('reviews', { count: course.reviewsCount })}</div>
                     <div>•</div>
                     <div className={styles.level}>
                         {t(`levels.${course.level}`)}
@@ -69,7 +67,7 @@ const CourseCard = ({ course, isProgressBar }: CourseCardProps) => {
 
                 {isProgressBar && 
                     <div className={styles.progressBar}>
-                        <ProgressBarOnly percent={25} />
+                        <ProgressBarOnly percent={course.progressPercent} />
                     </div>
                 }
                 {/* <div className={styles.level}>{course.level} • {course.time}</div> */}

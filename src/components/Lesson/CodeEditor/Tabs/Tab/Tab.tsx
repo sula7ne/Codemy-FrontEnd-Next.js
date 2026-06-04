@@ -1,6 +1,6 @@
 import { MouseEvent, useEffect, useState } from "react";
 import { closeTab, setActiveTab } from "@/state/slices/activeLessonSlice";
-import { useAppDispatch, useAppSelector } from "@/state/hooks";
+import { useAppDispatch, useAppSelector } from "@/state/hooks/hooks";
 
 import Image from "next/image";
 import clsx from "clsx";

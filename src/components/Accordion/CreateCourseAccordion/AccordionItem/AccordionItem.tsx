@@ -1,22 +1,20 @@
-import AccordionLessonsList from "@/components/Accordion/CreateCourseAccordion/AccordionLessonsList/AccordionLessonsList";
-import clsx from "clsx";
-import { sections } from "@/data/sections";
-import styles from "./AccordionItem.module.scss";
 import { MouseEvent, useState } from "react";
-import { useAppSelector } from "@/state/hooks";
+
+import AccordionLessonsList from "@/components/Accordion/CreateCourseAccordion/AccordionLessonsList/AccordionLessonsList";
 import ChangeSectionPopUp from "@/components/PopUp/Section/ChangeSectionPopUp";
+import { Section } from "@/types/courses";
+import clsx from "clsx";
+import styles from "./AccordionItem.module.scss";
 
 interface AccordionItemProps {
-    sectionId: string,
-    isFirstChild: boolean
+    section: Section,
+    isFirstChild: boolean,
+    courseId: string
 }
 
-const AccordionItem = ({ sectionId, isFirstChild }: AccordionItemProps) => {
+const AccordionItem = ({ section, isFirstChild, courseId }: AccordionItemProps) => {
     const [isActive, setIsActive] = useState(isFirstChild);
     const [isPopUp, setIsPopUp] = useState(false);
-
-    const section = sections.find(el => el.id === sectionId);
-    if(!section) return null;
 
     const handleOnClick = () => {
         setIsActive(prev => !prev);
@@ -56,7 +54,7 @@ const AccordionItem = ({ sectionId, isFirstChild }: AccordionItemProps) => {
                             <div className={styles['line-b']}></div>
                         </div>
 
-                        <AccordionLessonsList sectionId={sectionId} />
+                        <AccordionLessonsList section={section} />
 
                         <div className={styles.lines}>
                             <div className={styles['line-c']}></div>
@@ -68,7 +66,7 @@ const AccordionItem = ({ sectionId, isFirstChild }: AccordionItemProps) => {
                 {!isActive && <div className={styles.line}></div>}
             </li>
 
-            {isPopUp && <ChangeSectionPopUp setIsPopUp={setIsPopUp} section={section} />}
+            {isPopUp && <ChangeSectionPopUp setIsPopUp={setIsPopUp} section={section} courseId={courseId} />}
         </>
     );
 }

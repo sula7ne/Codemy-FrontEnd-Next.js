@@ -7,7 +7,7 @@ import checkIcon from "@/assets/images/icons/check.svg";
 import clsx from "clsx";
 import styles from './Tasks.module.scss';
 import tasksIcon from "@/assets/images/icons/tasks.svg";
-import { useAppSelector } from "@/state/hooks";
+import { useAppSelector } from "@/state/hooks/hooks";
 import { useTranslations } from "next-intl";
 
 const Tasks = () => {

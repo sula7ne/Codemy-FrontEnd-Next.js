@@ -1,11 +1,28 @@
 "use client";
 
 import { Provider } from "react-redux";
-import { store } from "@/state/store";
 import { ThemeProvider } from "next-themes";
+import { store } from "@/state/store";
+import { useCheckAuthQuery } from '@/state/api/authApi';
 
 interface ProvidersProps {
     children: React.ReactNode;
+}
+
+function AuthInitializer({ children }: { children: React.ReactNode }) {
+    const { isLoading } = useCheckAuthQuery();
+
+    if (isLoading) {
+        return (
+            <div className="h-screen w-screen flex items-center justify-center bg-[#1a1a1a] text-white">
+                <div className="text-xl font-semibold tracking-wider animate-pulse">
+                    Интеллектуальная платформа EdTech...
+                </div>
+            </div>
+        );
+    }
+
+    return <>{children}</>;
 }
 
 export function Providers({ children }: ProvidersProps) {
@@ -17,7 +34,9 @@ export function Providers({ children }: ProvidersProps) {
                 enableSystem={true}
                 disableTransitionOnChange
             >
-                {children}
+                <AuthInitializer>
+                    {children}
+                </AuthInitializer>
             </ThemeProvider>
         </Provider>
     );

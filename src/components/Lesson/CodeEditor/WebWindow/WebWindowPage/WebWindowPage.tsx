@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 
 import styles from "./WebWindowPage.module.scss";
-import { useAppSelector } from "@/state/hooks";
+import { useAppSelector } from "@/state/hooks/hooks";
 
 const WebWindowPage = () => {
     const compiledCode = useAppSelector(state => state.activeLesson.compiledCode);

@@ -3,22 +3,23 @@
 import { loginDto, loginDtoType } from "@/schemas/auth.schema";
 
 import Link from "next/link";
-import clsx from "clsx";
 import styles from './../auth.module.scss';
-import { useAppDispatch } from "@/state/hooks";
 import { useForm } from "react-hook-form";
+import { useLoginMutation } from "@/state/api/authApi";
+import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const Login = () => {
     const t = useTranslations('Auth');
-    const dispatch = useAppDispatch();
+    const router = useRouter();
+    const [login, { isLoading, isError, error }] = useLoginMutation();
 
     const {
         register,
         handleSubmit,
         reset,
-        formState: { errors, isSubmitting },
+        formState: { errors },
     } = useForm<loginDtoType>({
         resolver: zodResolver(loginDto),
         mode: 'onSubmit',
@@ -30,17 +31,23 @@ const Login = () => {
 
     const onSubmit = async (data: loginDtoType) => {
         try {
+            const result = await login(data).unwrap();
+            
             reset();
 
-            
+            router.push('/courses');
         } catch(e) { console.log(e); }
     };
+
+    const serverError = error as { data?: { message?: string } } | undefined
     
     return (
         <div className={styles['auth-form']}>
             <h2 className={styles.title}>{t('login.title')}</h2>
 
             <form onSubmit={handleSubmit(onSubmit)}>
+                {isError && <div className={styles.error}>{serverError?.data?.message}</div>}
+
                 <div className={styles['form-el']}>
                     <label htmlFor="email">{t('fields.email')}</label>
                     <input
@@ -65,7 +72,7 @@ const Login = () => {
                 <button
                     className={styles.submit} 
                     type="submit" 
-                    disabled={isSubmitting}
+                    disabled={isLoading}
                 >
                     {t('login.submit')}
                 </button>

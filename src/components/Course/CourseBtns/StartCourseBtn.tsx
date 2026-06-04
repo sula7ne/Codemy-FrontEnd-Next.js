@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "@/state/hooks";
+import { useAppDispatch, useAppSelector } from "@/state/hooks/hooks";
 
 import Image from "next/image";
 import clsx from "clsx";
@@ -10,28 +10,12 @@ import { useTranslations } from "next-intl";
 import videoPlayIcon from "@/assets/images/icons/video-play.svg";
 
 export interface StartCourseBtnProps {
-    activeCourse: course
+    status: "NOT_STARTED" | "IN_PROGRESS" | "COMPLETED",
+    handleStartCourse: () => void
 };
 
-const StartCourseBtn = ({activeCourse}: StartCourseBtnProps) => {
+const StartCourseBtn = ({ status, handleStartCourse }: StartCourseBtnProps) => {
     const t = useTranslations('Course');
-    const router = useRouter();
-    const dispatch = useAppDispatch();
-
-    const userCourse = useAppSelector((state) => state.userCourses).find(el => el.courseId === activeCourse.id);
-
-    const handleStartCourse = () => {
-        if(!userCourse) {
-            dispatch(startCourse({
-                courseId: activeCourse.id,
-                lastLessonId: activeCourse.lessons[0]
-            }));
-            
-            router.push(`/lessons/${activeCourse.lessons[0]}`);
-        } else {
-            router.push(`/lessons/${userCourse.lastLessonId}`);
-        }
-    }
 
     return (
         <button tabIndex={0} onClick={handleStartCourse} className={clsx(styles.btn, styles.start)}>
@@ -39,7 +23,8 @@ const StartCourseBtn = ({activeCourse}: StartCourseBtnProps) => {
                 <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor"><path d="M6 3.375 21 12 6 20.625V3.375Z" fill="currentColor"/></svg>
             </div>
             {/* Продолжить взависимости от state */}
-            {userCourse ? t('actions.continue') : t('actions.start')}
+            {/* {status === "IN_PROGRESS" ? t('actions.continue') : t('actions.start')} */}
+            {t(`actions.${status}`)}
         </button>
     );
 }

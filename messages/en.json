@@ -30,8 +30,8 @@
         "fields": {
             "email": "Email",
             "emailPlaceholder": "email@gmail.com",
-            "username": "Username",
-            "usernamePlaceholder": "Username",
+            "name": "Name",
+            "namePlaceholder": "Name",
             "password": "Password",
             "passwordPlaceholder": "Password"
         },
@@ -103,6 +103,13 @@
             "button": "Start Learning"
         }
     },
+    "Users": {
+        "meTitle": "My Profile",
+        "title": "Profile",
+        "coursesTitle": "Created Courses",
+        "coursesEmpty": "You haven't created any courses yet. Go to <link>create</link>",
+        "joined": "Joined {date}"
+    },
     "Courses": {
         "title": "Courses"
     },
@@ -129,8 +136,9 @@
     "Course": {
         "reviews": "{count, plural, one {# review} other {# reviews}}",
         "actions": {
-            "start": "Start Learning",
-            "continue": "Continue Learning",
+            "NOT_STARTED": "Start Learning",
+            "IN_PROGRESS": "Continue Learning",
+            "COMPLETED": "Course Completed",
             "edit": "Edit"
         },
         "levels": {
@@ -148,10 +156,6 @@
             "aiInput": "Ask Gemini..."
         },
         "tasks": "Tasks"
-    },
-    "Profile": {
-        "title": "My Profile",
-        "joined": "Joined {date}"
     },
     "ProgressBar": {
         "title": "Course Progress"

@@ -56,6 +56,7 @@
             line-height: 22px;
             font-size: 16px;
             max-height: 44px;
+            height: 44px;
         }
         .description {
             font-size: 14px;
@@ -63,6 +64,42 @@
             height: 40px;
             margin: 8px 0;
             /* #7a8ba3 */
+        }
+        .author {
+            display: flex;
+            align-items: center;
+            column-gap: 12px;
+            
+            .link {
+                display: inline-block;
+                width: 31px;
+                height: 31px;
+                /* border: 1px solid rgb(218, 225, 237); */
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                &:hover {
+                    border: 0.5px solid var(--border);
+                }
+                img {
+                    border-radius: 50%;
+                    width: 30px;
+                    height: 30px;
+                    position: relative;
+                }
+            }
+            .name {
+                color: var(--text-secondary) !important;
+                /* text-decoration: underline; */
+                font-size: 14px;
+
+                &:hover {
+                    color: var(--text-main) !important;
+                }
+
+            }
         }
         .rating {
             display: flex;

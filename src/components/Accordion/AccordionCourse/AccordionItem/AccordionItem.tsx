@@ -1,24 +1,21 @@
 import AccordionLessonsList from "@/components/Accordion/AccordionCourse/AccordionLessonsList/AccordionLessonsList";
+import { Section } from "@/types/courses";
 import clsx from "clsx";
 import { sections } from "@/data/sections";
 import styles from "./AccordionItem.module.scss";
+import { useAppSelector } from "@/state/hooks/hooks";
 import { useState } from "react";
-import { useAppSelector } from "@/state/hooks";
 
 interface AccordionItemProps {
-    sectionId: string,
+    section: Section,
     isFirstChild: boolean,
     isLastChild: boolean
 }
 
-const AccordionItem = ({ sectionId, isFirstChild, isLastChild }: AccordionItemProps) => {
+const AccordionItem = ({ section, isFirstChild, isLastChild }: AccordionItemProps) => {
     const [isActive, setIsActive] = useState(isFirstChild);
 
-    const section = sections.find(el => el.id === sectionId);
-    const lessons = useAppSelector((state) => state.lessons);
-    if(!section) return null;
-
-    const completedLessons = lessons.filter(lesson => section.lessons.includes(lesson.id) && lesson.isCompleted);
+    const completedLessons = section.lessons.filter(lesson => lesson.userLesson.isCompleted);
     const isSectionCompleted = completedLessons.length === section.lessons.length;
 
     const handleOnClick = () => {
@@ -49,7 +46,7 @@ const AccordionItem = ({ sectionId, isFirstChild, isLastChild }: AccordionItemPr
                         <div className={styles['line-b']}></div>
                     </div>
 
-                    <AccordionLessonsList sectionId={sectionId} />
+                    <AccordionLessonsList lessons={section.lessons} />
 
                     {!isLastChild && <div className={styles.lines}>
                         <div className={styles['line-c']}></div>

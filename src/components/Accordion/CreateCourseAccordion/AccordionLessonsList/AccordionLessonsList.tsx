@@ -1,23 +1,18 @@
 import AccordionLesson from "./AccordionLesson";
 import CreateLessonPopUp from "@/components/PopUp/Lesson/CreateLessonPopUp";
+import { Section } from "@/types/courses";
 import clsx from "clsx";
-import { sections } from "@/data/sections";
 import styles from "./AccordionLessonsList.module.scss";
-import { useAppSelector } from "@/state/hooks";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 
 interface AccordionLessonsListProps {
-    sectionId: string
+    section: Section
 }
 
-const AccordionLessonsList = ({ sectionId }: AccordionLessonsListProps) => {
+const AccordionLessonsList = ({ section }: AccordionLessonsListProps) => {
     const t = useTranslations('Accordion');
     const [isCreatePopUp, setIsCreatePopUp] = useState(false);
-
-    const section = sections.find(el => el.id === sectionId);
-
-    const lessons = useAppSelector((state) => state.lessons).filter(lesson => section?.lessons.includes(lesson.id));
 
     const handleOnClick = () => {
         setIsCreatePopUp(true);
@@ -26,8 +21,8 @@ const AccordionLessonsList = ({ sectionId }: AccordionLessonsListProps) => {
     return (
         <>
             <ul className={styles.list}>
-                {lessons.map((lesson) => (
-                    <AccordionLesson key={lesson.id} lesson={lesson} />   
+                {section.lessons.map((lesson) => (
+                    <AccordionLesson key={lesson.id} sectionId={section.id} lesson={lesson} />   
                 ))}
 
                 <li className={clsx(styles.item, styles.create)} onClick={handleOnClick}>
@@ -39,7 +34,7 @@ const AccordionLessonsList = ({ sectionId }: AccordionLessonsListProps) => {
                 </li>     
             </ul>
 
-            {isCreatePopUp && <CreateLessonPopUp setIsPopUp={setIsCreatePopUp} />}
+            {isCreatePopUp && <CreateLessonPopUp setIsPopUp={setIsCreatePopUp} sectionId={section.id} />}
         </>
     );
 }

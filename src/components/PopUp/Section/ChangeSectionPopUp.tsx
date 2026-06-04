@@ -1,21 +1,44 @@
 import { Dispatch, MouseEvent, SetStateAction, useEffect, useState } from "react";
+import { updateSectionDto, updateSectionDtoType } from "@/schemas/sections.schema";
 
-import { section } from "@/types/section";
+import { Section } from "@/types/courses";
 import styles from "./../PopUp.module.scss"
+import { useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
+import { useUpdateSectionMutation } from "@/state/api/coursesApi";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 interface PopUpProps {
     setIsPopUp: Dispatch<SetStateAction<boolean>>,
-    section: section
+    section: Section,
+    courseId: string
 }
 
-const ChangeSectionPopUp = ({ setIsPopUp, section }: PopUpProps) => {
+const ChangeSectionPopUp = ({ setIsPopUp, section, courseId }: PopUpProps) => {
     const t = useTranslations('PopUp');
     
-    const [title, setTitle] = useState(section?.title || '');
-    const [description, setDescription] = useState(section?.description || '');
-    const MAX_TITLE = 100;
+    const MAX_TITLE = 50;
     const MAX_DESCRIPTION = 300;
+
+    const [updateSection, { isLoading, isError, error }] = useUpdateSectionMutation();
+
+    const {
+        register,
+        handleSubmit,
+        watch,
+        reset,
+        formState: { errors, isSubmitting },
+    } = useForm<updateSectionDtoType>({
+        resolver: zodResolver(updateSectionDto),
+        mode: 'onChange',
+        defaultValues: {
+            title: section.title,
+            description: section.description
+        },
+    });
+
+    const watchTitle = watch("title", section.title);
+    const watchDescription = watch("description", section.description);  
 
     const handleClose = (e: MouseEvent<HTMLDivElement> ) => {
         if (e.target === e.currentTarget) {
@@ -45,16 +68,22 @@ const ChangeSectionPopUp = ({ setIsPopUp, section }: PopUpProps) => {
         };
     }, []);
 
-    const handleSubmit = () => {
-        setIsPopUp(false);
+    const onSubmit = async (data: updateSectionDtoType) => {
+        try {
+            await updateSection({ courseId, sectionId: section.id, data }).unwrap();
 
-
+            setIsPopUp(false);
+        } catch (e) {
+            console.error("Ошибка при изменении секции:", e);
+        }
     }
+
+    const serverError = error as { data?: { message?: string } } | undefined;
 
     return (
         <div onMouseDown={handleClose} className={styles.container}>
             <div className={styles['pop-up']}>
-                <div className={styles.content}>
+                <form onSubmit={handleSubmit(onSubmit)} className={styles.content}>
                     <header className={styles.header}>
                         <div className={styles['header-content']}>
                             <h2>Изменение секции</h2>
@@ -68,25 +97,30 @@ const ChangeSectionPopUp = ({ setIsPopUp, section }: PopUpProps) => {
                     </header>
 
                     <div className={styles.center}>
-                        <div className={styles.input} style={{borderColor: title.length >= MAX_TITLE ? '#ff8983' :'#ffffff1a'}}>
+                        {isError && <div className={styles.error}>{serverError?.data?.message}</div>}
+                        
+                        <div className={styles.input} style={{borderColor: errors.title ? '#ff8983' :'#ffffff1a'}}>
                             <div className={styles.title}>{t('fields.title')}</div>
-                            <input required type="text" name="title" id="title" placeholder={t('fields.titlePlaceholder')} value={title} onChange={(e) => setTitle(e.target.value)} />
-                            <div style={{color: title.length >= MAX_TITLE ? '#ff8983' :'#aaa'}} className={styles.length}>{title.length}/{MAX_TITLE}</div>
+                            <input {...register('title')} type="text" id="title" placeholder={t('fields.titlePlaceholder')} />
+                            <div style={{color: errors.title ? '#ff8983' :'#aaa'}} className={styles.length}>{watchTitle.length}/{MAX_TITLE}</div>
+                        
+                            {errors.title && <p className={styles.error}>{errors.title.message}</p>}
                         </div>
-                        <div className={styles.input} style={{borderColor: description.length >= MAX_DESCRIPTION ? '#ff8983' :'#ffffff1a'}}>
+                        <div className={styles.input} style={{borderColor: errors.description ? '#ff8983' :'#ffffff1a'}}>
                             <div className={styles.title}>{t('fields.description')}</div>
-                            <textarea rows={4} required name="description" id="description" placeholder={t('fields.descriptionPlaceholder')} value={description} onChange={(e) => setDescription(e.target.value)}/>
-                            <div style={{color: description.length >= MAX_DESCRIPTION ? '#ff8983' :'#aaa'}} className={styles.length}>{description.length}/{MAX_DESCRIPTION}</div>
+                            <textarea {...register('description')} rows={4} id="description" placeholder={t('fields.descriptionPlaceholder')} />
+                            <div style={{color: errors.description ? '#ff8983' :'#aaa'}} className={styles.length}>{watchDescription.length}/{MAX_DESCRIPTION}</div>
+                        
+                            {errors.description && <p className={styles.error}>{errors.description.message}</p>}
                         </div>
                     </div>
 
                     <footer className={styles.footer}>
                         <div className={styles['footer-content']}>
-                            {/* onSubmit */}
-                            <button className={styles.create} onClick={handleSubmit}>{t('actions.edit')}</button>
+                            <button type="submit" className={styles.create} disabled={isLoading} >{t('actions.edit')}</button>
                         </div>
                     </footer>
-                </div>
+                </form>
             </div>
         </div>
     );

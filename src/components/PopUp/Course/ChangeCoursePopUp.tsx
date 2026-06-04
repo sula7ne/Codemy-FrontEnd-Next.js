@@ -1,28 +1,51 @@
 import { ChangeEvent, Dispatch, MouseEvent, SetStateAction, useEffect, useState } from "react";
+import { updateCourseDto, updateCourseDtoType } from "@/schemas/courses.schema";
 
 import Image from "next/image";
+import { courseWithDetails } from "@/types/courses";
 import styles from "./../PopUp.module.scss"
-import { useAppSelector } from "@/state/hooks";
-import { useParams } from "next/navigation";
+import { useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
+import { useUpdateCourseMutation } from "@/state/api/coursesApi";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 interface PopUpProps {
-    setIsPopUp: Dispatch<SetStateAction<boolean>>
+    setIsPopUp: Dispatch<SetStateAction<boolean>>,
+    course: courseWithDetails
 }
 
-const ChangeCoursePopUp = ({ setIsPopUp }: PopUpProps) => {
-    const { id } = useParams();
+const ChangeCoursePopUp = ({ setIsPopUp, course }: PopUpProps) => {
     const t = useTranslations('PopUp');
-    
-    const course = useAppSelector((state) => state.courses).find(el => el.id === id);
 
-    const [preview, setPreview] = useState<string | null>(course?.cover || null);
-    const [title, setTitle] = useState(course?.title || '');
-    const [description, setDescription] = useState(course?.description || '');
-    const level = course?.level || ""; 
-    const language = course?.language || ""; 
-    const MAX_TITLE = 100;
+    const [preview, setPreview] = useState<string | null>(course.cover);
+    
+    const MAX_TITLE = 50;
     const MAX_DESCRIPTION = 1000;
+
+    const [updateCourse, { isLoading, isError, error }] = useUpdateCourseMutation();
+
+    const {
+        register,
+        handleSubmit,
+        watch,
+        setValue,
+        reset,
+        formState: { errors, isSubmitting },
+    } = useForm<updateCourseDtoType>({
+        resolver: zodResolver(updateCourseDto),
+        mode: 'onChange',
+        defaultValues: {
+            title: course.title,
+            description: course.description,
+            cover: course.cover,
+            time: "10h",
+            level: course.level,
+            language: course.language
+        },
+    });
+
+    const watchTitle = watch("title", course.title);
+    const watchDescription = watch("description", course.description);
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -71,16 +94,22 @@ const ChangeCoursePopUp = ({ setIsPopUp }: PopUpProps) => {
         };
     }, []);
 
-    const handleSubmit = () => {
-        setIsPopUp(false);
+    const onSubmit = async (data: updateCourseDtoType) => {
+        try {
+            await updateCourse({ id: course.id, data }).unwrap();
 
-        // изменение
+            setIsPopUp(false);
+        } catch (e) {
+            console.error("Ошибка при изменении курса:", e);
+        }
     }
+
+    const serverError = error as { data?: { message?: string } } | undefined;
 
     return (
         <div onMouseDown={handleClose} className={styles.container}>
             <div className={styles['pop-up']}>
-                <div className={styles.content}>
+                <form onSubmit={handleSubmit(onSubmit)} className={styles.content}>
                     <header className={styles.header}>
                         <div className={styles['header-content']}>
                             <h2>{t('header.changeCourse')}</h2>
@@ -94,6 +123,8 @@ const ChangeCoursePopUp = ({ setIsPopUp }: PopUpProps) => {
                     </header>
 
                     <div className={styles.center}>
+                        {isError && <div className={styles.error}>{serverError?.data?.message}</div>}
+                        
                         <div className={styles['input-container']}>
                             <div className={styles.title}>{t('cover.title')}</div>
                             <p className={styles.description}>{t('cover.description')}</p>
@@ -116,15 +147,19 @@ const ChangeCoursePopUp = ({ setIsPopUp }: PopUpProps) => {
                             </div>
                         </div>
 
-                        <div className={styles.input} style={{borderColor: title.length >= MAX_TITLE ? '#ff8983' :'#ffffff1a'}}>
+                        <div className={styles.input} style={{borderColor: errors.title ? '#ff8983' :'#ffffff1a'}}>
                             <div className={styles.title}>{t('fields.title')}</div>
-                            <input required type="text" name="title" id="title" placeholder={t('fields.titlePlaceholder')} value={title} onChange={(e) => setTitle(e.target.value)} />
-                            <div style={{color: title.length >= MAX_TITLE ? '#ff8983' :'#aaa'}} className={styles.length}>{title.length}/{MAX_TITLE}</div>
+                            <input {...register("title")} type="text" id="title" placeholder={t('fields.titlePlaceholder')} />
+                            <div style={{color: errors.title ? '#ff8983' :'#aaa'}} className={styles.length}>{watchTitle.length}/{MAX_TITLE}</div>
+                        
+                            {errors.title && <p className={styles.error}>{errors.title.message}</p>}
                         </div>
-                        <div className={styles.input} style={{borderColor: description.length >= MAX_DESCRIPTION ? '#ff8983' :'#ffffff1a'}}>
+                        <div className={styles.input} style={{borderColor: errors.description ? '#ff8983' :'#ffffff1a'}}>
                             <div className={styles.title}>{t('fields.description')}</div>
-                            <textarea rows={4} required name="description" id="description" placeholder={t('fields.descriptionPlaceholder')} value={description} onChange={(e) => setDescription(e.target.value)}/>
-                            <div style={{color: description.length >= MAX_DESCRIPTION ? '#ff8983' :'#aaa'}} className={styles.length}>{description.length}/{MAX_DESCRIPTION}</div>
+                            <textarea {...register("description")} rows={4} id="description" placeholder={t('fields.descriptionPlaceholder')} />
+                            <div style={{color: errors.description ? '#ff8983' :'#aaa'}} className={styles.length}>{watchDescription.length}/{MAX_DESCRIPTION}</div>
+                        
+                            {errors.description && <p className={styles.error}>{errors.description.message}</p>}
                         </div>
 
                         <div className={styles['input-container']}>
@@ -133,23 +168,29 @@ const ChangeCoursePopUp = ({ setIsPopUp }: PopUpProps) => {
                             <div className={styles.selects}>
                                 <div className={styles.input}>
                                     <div className={styles.title}>{t('levels.label')}</div>
-                                    <select name="level" id="level" required defaultValue={level}>
+                                    
+                                    <select name="level" id="level" required>
                                         <option value="" disabled hidden>{t('levels.placeholder')}</option>
                                         <option value="all">{t('levels.all')}</option>
                                         <option value="beginner">{t('levels.beginner')}</option>
                                         <option value="intermediate">{t('levels.intermediate')}</option>
                                         <option value="advanced">{t('levels.advanced')}</option>
                                     </select>
+
+                                    {errors.level && <p className={styles.error}>{errors.level.message}</p>}
                                 </div>
 
                                 <div className={styles.input}>
                                     <div className={styles.title}>{t('languages.label')}</div>
-                                    <select name="language" id="language" required defaultValue={language}>
+                                    
+                                    <select name="language" id="language" required>
                                         <option value="" disabled hidden>{t('languages.placeholder')}</option>
                                         <option value="ru">{t('languages.ru')}</option>
                                         <option value="kz">{t('languages.kz')}</option>
                                         <option value="en">{t('languages.en')}</option>
                                     </select>
+
+                                    {errors.language && <p className={styles.error}>{errors.language.message}</p>}
                                 </div>
                             </div>
                         </div>
@@ -158,10 +199,10 @@ const ChangeCoursePopUp = ({ setIsPopUp }: PopUpProps) => {
                     <footer className={styles.footer}>
                         <div className={styles['footer-content']}>
                             {/* onSubmit */}
-                            <button className={styles.create} onClick={handleSubmit}>{t('actions.edit')}</button>
+                            <button type="submit" className={styles.create} disabled={isLoading}>{t('actions.edit')}</button>
                         </div>
                     </footer>
-                </div>
+                </form>
             </div>
         </div>
     );

@@ -6,7 +6,7 @@ import WebWindowHeader from "./WebWindowHeader/WebWindowHeader";
 import WebWindowPage from "@/components/Lesson/CodeEditor/WebWindow/WebWindowPage/WebWindowPage";
 import { refreshWebPage } from "@/state/slices/activeLessonSlice";
 import styles from "./WebWindow.module.scss";
-import { useAppDispatch } from "@/state/hooks";
+import { useAppDispatch } from "@/state/hooks/hooks";
 
 const WebWindow = () => {
     const dispatch = useAppDispatch();

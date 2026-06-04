@@ -1,15 +1,17 @@
 import AccordionItem from "@/components/Accordion/CreateCourseAccordion/AccordionItem/AccordionItem";
 import CreateSectionPopUp from "@/components/PopUp/Section/CreateSectionPopUp";
+import { Section } from "@/types/courses";
 import clsx from "clsx";
 import styles from "./Accordion.module.scss";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 
 interface AccordionProps {
-    sections: string[]
+    sections: Section[],
+    courseId: string
 }
 
-const Accordion = ({ sections }: AccordionProps) => {
+const Accordion = ({ sections, courseId }: AccordionProps) => {
     const t = useTranslations('Accordion');
     const [isPopUp, setIsPopUp] = useState(false);
 
@@ -20,8 +22,8 @@ const Accordion = ({ sections }: AccordionProps) => {
     return (
         <>
             <ul className={styles.accordion}>
-                {sections.map((sectionId, id) => (
-                    <AccordionItem key={sectionId} sectionId={sectionId} isFirstChild={id === 0} />
+                {sections.map((s, id) => (
+                    <AccordionItem key={s.id} section={s} isFirstChild={id === 0} courseId={courseId} />
                 ))}
 
                 <li className={clsx(styles.item, styles.create)} onClick={handleOnClick}>
@@ -33,7 +35,7 @@ const Accordion = ({ sections }: AccordionProps) => {
                 </li> 
             </ul>
 
-            {isPopUp && <CreateSectionPopUp setIsPopUp={setIsPopUp} />}
+            {isPopUp && <CreateSectionPopUp setIsPopUp={setIsPopUp} courseId={courseId} />}
         </>
     );
 }

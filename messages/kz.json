@@ -30,8 +30,8 @@
         "fields": {
             "email": "Пошта",
             "emailPlaceholder": "email@gmail.com",
-            "username": "Пайдаланушы аты",
-            "usernamePlaceholder": "Пайдаланушы аты",
+            "name": "Атыңыз",
+            "namePlaceholder": "Атыңыз",
             "password": "Құпия сөз",
             "passwordPlaceholder": "Құпия сөз"
         },
@@ -103,6 +103,13 @@
             "button": "Оқуды бастау"
         }
     },
+    "Users": {
+        "meTitle": "Менің профилім",
+        "title": "Профиль",
+        "coursesTitle": "Жасалған курстар",
+        "coursesEmpty": "Сіз әлі ешқандай курс жасаған жоқсыз. <link>Жасауға</link> өту",
+        "joined": "{date} бастап қосылды"
+    },
     "Courses": {
         "title": "Курстар"
     },
@@ -129,8 +136,9 @@
     "Course": {
         "reviews": "{count, plural, other {# пікір}}",
         "actions": {
-            "start": "Оқуды бастау",
-            "continue": "Оқуды жалғастыру",
+            "NOT_STARTED": "Оқуды бастау",
+            "IN_PROGRESS": "Оқуды жалғастыру",
+            "COMPLETED": "Курс аяқталған",
             "edit": "Өзгерту"
         },
         "levels": {
@@ -148,10 +156,6 @@
             "aiInput": "Gemini-ден сұраңыз..."
         },
         "tasks": "Тапсырмалар"
-    },
-    "Profile": {
-        "title": "Менің профилім",
-        "joined": "{date} бастап тіркелді"
     },
     "ProgressBar": {
         "title": "Курс прогресі"

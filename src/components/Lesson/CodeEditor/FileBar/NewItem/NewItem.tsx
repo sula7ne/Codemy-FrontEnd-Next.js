@@ -8,7 +8,7 @@ import { getIcon } from "@/utils/getIcon";
 import { item } from "@/types/fileTree";
 import { selectedItem } from "@/types/lesson";
 import styles from './NewItem.module.scss';
-import { useAppDispatch } from "@/state/hooks";
+import { useAppDispatch } from "@/state/hooks/hooks";
 
 interface NewItemProps {
     fileTree: item[], 

@@ -1,10 +1,15 @@
 import ChangeCoursePopUp from "@/components/PopUp/Course/ChangeCoursePopUp";
 import clsx from "clsx";
+import { courseWithDetails } from "@/types/courses";
 import styles from "./CourseBtns.module.scss";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 
-const ChangeCourseBtn = () => {
+interface IChangeCourseBtn {
+    course: courseWithDetails
+}
+
+const ChangeCourseBtn = ({ course }: IChangeCourseBtn) => {
     const t = useTranslations('Course');
     const [isPopUp, setIsPopUp] = useState(false);
 
@@ -21,7 +26,7 @@ const ChangeCourseBtn = () => {
                 {t('actions.edit')}
             </button>
 
-            {isPopUp && <ChangeCoursePopUp setIsPopUp={setIsPopUp} />}
+            {isPopUp && <ChangeCoursePopUp setIsPopUp={setIsPopUp} course={course} />}
         </>
     );
 }

@@ -1,7 +1,7 @@
 import Link from "next/link";
-import styles from "./AccordionLessonsList.module.scss";
-import { useAppSelector } from "@/state/hooks";
 import clsx from "clsx";
+import styles from "./AccordionLessonsList.module.scss";
+import { useAppSelector } from "@/state/hooks/hooks";
 
 interface AccordionLessonsListProps {
     sectionId: string

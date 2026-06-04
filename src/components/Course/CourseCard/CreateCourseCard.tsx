@@ -1,24 +1,20 @@
+import { Course } from "@/types/courses";
 import CourseAuthor from "../CourseAuthor/CourseAuthor";
 import Image from "next/image";
 import Link from "next/link";
 import { MouseEvent } from "react";
-import { authors } from "@/data/authors";
-import { course } from "@/types/course";
 import starIcon from "@/assets/images/icons/star.svg";
 import styles from "./CourseCard.module.scss";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 export interface CreateCourseCardProps {
-    course: course
+    course: Course
 };
 
 const CreateCourseCard = ({ course }: CreateCourseCardProps) => {
     const t = useTranslations('Course');
-    const author = authors.find(el => el.id === course.authorId);
     const router = useRouter();
-    
-    if(!author) return null;
     
     const handleOnClickCourse = () => {
         router.push(`/courses/${course.id}/create`);
@@ -28,15 +24,13 @@ const CreateCourseCard = ({ course }: CreateCourseCardProps) => {
         e.stopPropagation();
     }
 
-    const reviewsCount = course.ratingsCount ?? 0;
-
     // внутри а при target="_blank" rel="noopener noreferrer"
     // level, language
 
     return (
         <div className={styles.card} onClick={handleOnClickCourse}>
             <Link className={styles.cover} onClick={handleOnClickLink} href={`/courses/${course.id}/create`} tabIndex={-1} >
-                <Image width={355} height={200} src={course.cover} alt={author.name} />
+                <Image width={355} height={200} src={course.cover} alt={course.author.name} />
                 {/* <div className={styles.time}>{course.time}</div> */}
             </Link>
             
@@ -55,7 +49,7 @@ const CreateCourseCard = ({ course }: CreateCourseCardProps) => {
                         <Image src={starIcon} alt="rating" />
                     </div>
                     <div>•</div>
-                    <div className={styles.count}>{t('reviews', { count: reviewsCount })}</div>
+                    <div className={styles.count}>{t('reviews', { count: course.reviewsCount })}</div>
                     <div>•</div>
                     <div className={styles.level}>
                         {t(`levels.${course.level}`)}

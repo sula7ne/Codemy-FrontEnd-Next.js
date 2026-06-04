@@ -1,16 +1,19 @@
 "use client"
 
-import { useAppSelector } from "@/state/hooks";
-import styles from "./Create.module.scss";
-import { useState } from "react";
-import CreateCoursePopUp from "@/components/PopUp/Course/CreateCoursePopUp";
 import CreateCourseCard from "@/components/Course/CourseCard/CreateCourseCard";
+import CreateCoursePopUp from "@/components/PopUp/Course/CreateCoursePopUp";
+import NotFound from "@/app/[locale]/not-found";
+import styles from "./Create.module.scss";
+import { useGetMyCoursesQuery } from "@/state/api/coursesApi";
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 
 const CreateCourse = () => {
     const t = useTranslations('Create-Courses');
-    const myCourses = useAppSelector((state) => state.courses).filter(el => el.authorId === '3');
     const [isCreatePopUp, setIsCreatePopUp] = useState(false);
+
+    const { data: courses } = useGetMyCoursesQuery();
+    if(!courses) return <NotFound />; // NotAuth
 
     return (
         <div className={styles['create-course']}>
@@ -26,8 +29,8 @@ const CreateCourse = () => {
             </div>
 
             <div className={styles.content}>
-                {myCourses.length ?
-                    myCourses.map((el) => (
+                {courses.length ?
+                    courses.map((el) => (
                         <CreateCourseCard key={el.id} course={el} />
                     ))
                     :

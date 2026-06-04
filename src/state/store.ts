@@ -1,4 +1,5 @@
 import activeLessonSlice from "@/state/slices/activeLessonSlice";
+import { authApi } from "@/state/api/authApi";
 import { configureStore } from "@reduxjs/toolkit";
 import coursesSlice from "@/state/slices/coursesSlice";
 import lessonsSlice from "@/state/slices/lessonsSlice";
@@ -9,6 +10,8 @@ import userCoursesSlice from "@/state/slices/userCoursesSlice";
 
 export const store = configureStore({
     reducer: {
+        [authApi.reducerPath]: authApi.reducer,
+        
         courses: coursesSlice,
         sections: sectionsSlice,
         lessons: lessonsSlice,
@@ -18,7 +21,8 @@ export const store = configureStore({
 
         // ui:
         sidebar: sidebarSlice,    
-    }
+    },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(authApi.middleware),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

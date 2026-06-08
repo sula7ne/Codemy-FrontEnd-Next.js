@@ -80,6 +80,10 @@
                     padding: 0 8px;
                     position: relative;
 
+                    &.complete {
+                        color: #009A5B;
+                    }
+
                     &:not(:first-child):before {
                         position: absolute;
                         left: 0;

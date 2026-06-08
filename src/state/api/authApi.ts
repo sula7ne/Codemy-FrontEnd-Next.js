@@ -4,6 +4,10 @@ import { loginDtoType, registerDtoType } from '@/schemas/auth.schema';
 //3000
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
+type AuthResponse = {
+    accessToken: string;
+};
+
 let tokenInMemory: string | null = null;
 
 export const setToken = (token: string | null) => {
@@ -55,13 +59,15 @@ const baseQueryWithReauth: typeof baseQuery = async (args, api, extraOptions) =>
 export const authApi = createApi({
     reducerPath: 'authApi',
     baseQuery: baseQueryWithReauth,
+    tagTypes: ['Auth', 'User', 'Course', 'Section', 'Lesson', 'File', 'AIChat', 'Task'],
     endpoints: (build) => ({
-        login: build.mutation<_, loginDtoType>({
+        login: build.mutation<AuthResponse, loginDtoType>({
             query: (userData) => ({
                 url: '/auth/login',
                 method: 'POST',
                 body: userData,
             }),
+            invalidatesTags: ['Auth', 'User', 'Course'],
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {
                 try {
                     const { data } = await queryFulfilled;
@@ -76,12 +82,13 @@ export const authApi = createApi({
                 }
             },
         }),
-        register: build.mutation<_, registerDtoType>({
+        register: build.mutation<AuthResponse, registerDtoType>({
             query: (userData) => ({
                 url: '/auth/register',
                 method: 'POST',
                 body: userData,
             }),
+            invalidatesTags: ['Auth', 'User', 'Course'],
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {
                 try {
                     const { data } = await queryFulfilled;
@@ -101,6 +108,7 @@ export const authApi = createApi({
                 url: '/auth/logout',
                 method: 'POST',
             }),
+            invalidatesTags: ['Auth', 'User', 'Course', 'AIChat'],
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {
                 try {
                     await queryFulfilled;
@@ -118,6 +126,7 @@ export const authApi = createApi({
                 url: '/auth/refresh',
                 method: 'POST',
             }),
+            providesTags: ['Auth'],
             async onQueryStarted(arg, { queryFulfilled }) {
                 try {
                     const { data } = await queryFulfilled;

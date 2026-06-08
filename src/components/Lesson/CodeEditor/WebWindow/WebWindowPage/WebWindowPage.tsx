@@ -16,7 +16,7 @@ const WebWindowPage = () => {
 
     return (
         <main className={styles.page}>
-            <iframe ref={iframeRef} sandbox="allow-scripts">
+            <iframe key={compiledCode} ref={iframeRef} sandbox="allow-scripts allow-same-origin" srcDoc={compiledCode}>
                 
             </iframe>
         </main>

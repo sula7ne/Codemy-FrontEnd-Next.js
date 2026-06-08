@@ -1,19 +1,20 @@
 import FileItem from "@/components/Lesson/CodeEditor/FileBar/FileItem/File";
+import { FileTreeNode } from "@/types/lessons";
 import Folder from "@/components/Lesson/CodeEditor/FileBar/Folder/Folder";
-import { item } from "@/types/fileTree";
 
 interface FolderListProps {
-    fileTree: item[]
+    fileTree: FileTreeNode[],
+    depth: number
 }
 
-const FolderList = ({ fileTree }: FolderListProps) => {
+const FolderList = ({ fileTree, depth }: FolderListProps) => {
     return (
         <ul className="folder-list" role="group">
             {fileTree.map((el) => (
-                el.type === "file" ? 
-                    <FileItem key={el.path} title={el.title} extension={el.extension} path={el.path} isFolder={true} />
+                el.type === "FILE" ? 
+                    <FileItem key={el.path} title={el.title} extension={el.extension || 'unknown'} path={el.path} isFolder={true} depth={depth} />
                 :
-                    <Folder key={el.path} title={el.title} children={el.children} path={el.path} />
+                    <Folder key={el.path} title={el.title} fileTree={el.children || []} path={el.path} depth={depth} />
             ))}
         </ul>
     );

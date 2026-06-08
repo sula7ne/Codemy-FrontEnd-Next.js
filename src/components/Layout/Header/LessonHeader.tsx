@@ -6,10 +6,9 @@ import HeaderActions from "./HeaderActions/HeaderActions";
 import Link from "next/link";
 import MenuBtn from "@/components/Menu/MenuBtn";
 import NotFound from "@/app/[locale]/not-found";
-import ProfileDropDown from "./ProfileDropDown/ProfileDropDown";
-import Search from "@/components/Search/Search";
 import clsx from "clsx";
 import styles from "./Header.module.scss";
+import { useGetLessonByIdQueryWithDetailsQuery } from "@/state/api/lessonsApi";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 
@@ -18,8 +17,6 @@ const LessonHeader = () => {
     const id = params.id as string;
 
     const { isOverlay } = useAppSelector((state) => state.sidebar);
-
-    const lesson = useAppSelector((state) => state.lessons).find(el => el.id === id);
 
     const [isDropDown, setIsDropDown] = useState(false);
     const dispatch = useAppDispatch();
@@ -32,6 +29,11 @@ const LessonHeader = () => {
             dispatch(setIsExpanded(false));
         }
     }
+
+    const { data: lesson, isError: isLessonError } = useGetLessonByIdQueryWithDetailsQuery(id);
+    if(isLessonError || !lesson) return <NotFound />
+
+    const allTasksCompleted = lesson?.tasks?.length > 0 && lesson.tasks.every(task => task.isCompleted);
 
     return (
         <header className={styles.header}>
@@ -47,13 +49,13 @@ const LessonHeader = () => {
                 </h1>
 
                 <div className={styles.accordion} onMouseEnter={() => setIsDropDown(true)} onMouseLeave={() => setIsDropDown(false)}>
-                    <Link className={styles.open} href={`/courses/${1}`}>
-                        <span>HTML</span>
-                        <span>{lesson?.title}</span>
+                    <Link className={styles.open} href={`/courses/${lesson.section.courseId}`}>
+                        <span>{lesson.section.title}</span>
+                        <span className={clsx(allTasksCompleted && styles.complete)}>{lesson.title}</span>
                     </Link>
 
                     {isDropDown && <div className={styles.dropdown}>
-                        <Accordion sections={["4", "5"]} />
+                        <Accordion sections={lesson.section.course.sections} />
                     </div>}
                 </div>
             </div>

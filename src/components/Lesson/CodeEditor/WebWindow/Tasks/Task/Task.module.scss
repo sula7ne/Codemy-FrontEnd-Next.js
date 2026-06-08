@@ -1,0 +1,45 @@
+.task {
+    display: flex;
+    column-gap: 7px;
+    margin: 8px 0;
+
+    &.add {
+        cursor: pointer;
+
+        .icon {
+            position: relative;
+            width: 32px;
+            height: 32px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    .checkbox {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        background-color: #E0E0E0;
+        user-select: none;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+
+        &.complete {
+            background-color: #009A5B;
+            animation: checkbox-pop 0.3s ease-out;
+        }
+    }
+    .title {
+        flex: 1;
+        /* line-height: 22px; */
+    }
+
+    @keyframes checkbox-pop {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+        100% { transform: scale(1); }
+    }
+}

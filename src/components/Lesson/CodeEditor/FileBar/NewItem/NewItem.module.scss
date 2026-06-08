@@ -58,14 +58,6 @@
             }
         }
         .file-icon {
-            &::before {
-                width: 16px;    
-                height: 100%;
-                color: #d4d7d6;
-                content: "\E023";
-                background-image: unset;
-            }
-
             img {
                 width: 16px;
                 height: 16px;
@@ -80,7 +72,7 @@
             line-height: 20px;
 
             input {
-                background-color: var(--bg-new-file);
+                background-color: transparent;
                 color: var(--text-filebar);
                 height: 20px;
                 border: none;

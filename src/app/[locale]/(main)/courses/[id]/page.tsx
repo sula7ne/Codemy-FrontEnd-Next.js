@@ -23,8 +23,6 @@ const Course = () => {
         return <NotFound />;
     }
 
-    console.log(course)
-
     return (
         <div className={styles.course}>
             <CourseHeader course={course} />

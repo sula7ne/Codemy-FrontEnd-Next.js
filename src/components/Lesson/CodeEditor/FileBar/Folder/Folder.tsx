@@ -1,19 +1,20 @@
 import { MouseEvent, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/state/hooks/hooks";
 
+import { FileTreeNode } from "@/types/lessons";
 import FolderList from "../FolderList";
 import clsx from "clsx";
-import { item } from "@/types/fileTree";
 import { setSelectedItem } from "@/state/slices/activeLessonSlice";
 import styles from './Folder.module.scss';
 
 interface FolderProps {
     title: string,
-    children: item[],
-    path: string
+    fileTree: FileTreeNode[],
+    path: string,
+    depth: number
 }
 
-const Folder = ({title, children, path}: FolderProps) => {
+const Folder = ({ title, fileTree, path, depth }: FolderProps) => {
     const selectedItem = useAppSelector(state => state.activeLesson.selectedItem);
     const dispatch = useAppDispatch();
     const [isExpanded, setIsExpanded] = useState(true);
@@ -23,18 +24,28 @@ const Folder = ({title, children, path}: FolderProps) => {
         
         setIsExpanded((prev) => !prev);
 
-        if (selectedItem.path === path && selectedItem.type === "folder") return;
-        dispatch(setSelectedItem({ type: "folder", path }));        
+        if (selectedItem.path === path && selectedItem.type === "FOLDER") return;
+        dispatch(setSelectedItem({ type: "FOLDER", path }));        
     }
+
+    const indentPadding = (depth - 1) * 8;
 
     return (
          <li className="files__tree-item" role="tree-item" aria-expanded="true">
             <div className={styles.folder}>
-                <div className={styles.header} onClick={handleOnClick} role="button" tabIndex={0} >
-                    <div className={styles.indent} style={{width: "0px"}}></div>
-                    {/* collapsed */}
-                    <div className={clsx(styles.icon, !isExpanded && styles.collapsed, 'codicon', 'codicon-tree-item-expanded')}></div>
-                    <div className={styles.title}>{title}</div>
+                <div className={styles.header} onClick={handleOnClick} role="button" tabIndex={0}>
+                    {/* {Array.from({ length: depth  }).map((_, index) => (
+                        <div 
+                            key={index} 
+                            className={styles['indent-guide']} 
+                            style={{ left: `${(index + 1) * 8 + 4}px` }} 
+                        />
+                    ))} */}
+
+                    <div className={styles.contentWrapper} style={{ paddingLeft: `${indentPadding}px` }}>
+                        <div className={clsx(styles.icon, !isExpanded && styles.collapsed, 'codicon', 'codicon-tree-item-expanded')}></div>
+                        <div className={styles.title}>{title}</div>
+                    </div>
                 </div>
             
                 {isExpanded && 
@@ -44,7 +55,7 @@ const Folder = ({title, children, path}: FolderProps) => {
                     //     ))}
                     // </ul>
                     // <FileTree fileTree={children} isFolder={true} isCreated={false} />
-                    <FolderList fileTree={children} />
+                    <FolderList fileTree={fileTree} depth={depth+1} />
                 }
                 
             </div>

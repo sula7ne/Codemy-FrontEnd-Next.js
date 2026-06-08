@@ -1,9 +1,7 @@
 import AccordionLessonsList from "@/components/Accordion/AccordionCourse/AccordionLessonsList/AccordionLessonsList";
 import { Section } from "@/types/courses";
 import clsx from "clsx";
-import { sections } from "@/data/sections";
 import styles from "./AccordionItem.module.scss";
-import { useAppSelector } from "@/state/hooks/hooks";
 import { useState } from "react";
 
 interface AccordionItemProps {
@@ -15,7 +13,7 @@ interface AccordionItemProps {
 const AccordionItem = ({ section, isFirstChild, isLastChild }: AccordionItemProps) => {
     const [isActive, setIsActive] = useState(isFirstChild);
 
-    const completedLessons = section.lessons.filter(lesson => lesson.userLesson.isCompleted);
+    const completedLessons = section.lessons.filter(lesson => lesson?.userLesson?.isCompleted);
     const isSectionCompleted = completedLessons.length === section.lessons.length;
 
     const handleOnClick = () => {

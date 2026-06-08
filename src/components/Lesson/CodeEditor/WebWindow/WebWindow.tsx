@@ -1,3 +1,4 @@
+import { Lesson, Task } from "@/types/lessons";
 import { useEffect, useRef, useState } from "react"
 
 import Resizer from "@/components/Resizer/Resizer";
@@ -8,7 +9,12 @@ import { refreshWebPage } from "@/state/slices/activeLessonSlice";
 import styles from "./WebWindow.module.scss";
 import { useAppDispatch } from "@/state/hooks/hooks";
 
-const WebWindow = () => {
+interface IWebWindowProps {
+    lesson: Lesson,
+    isEditMode: boolean
+}
+
+const WebWindow = ({ lesson, isEditMode }: IWebWindowProps) => {
     const dispatch = useAppDispatch();
     
     const MIN_WIDTH = Math.max(250, window.innerWidth * 0.2);
@@ -42,7 +48,7 @@ const WebWindow = () => {
 
                     <WebWindowPage />
 
-                    <Tasks />
+                    <Tasks tasks={lesson.tasks} isEditMode={isEditMode} />
                 </div>
             </div>
         </div>

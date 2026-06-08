@@ -11,10 +11,11 @@ interface FileProps {
     title: string, 
     extension: string, 
     path: string,
-    isFolder?: boolean
+    isFolder?: boolean,
+    depth: number
 }
 
-const File = ({title, extension, path, isFolder=false}: FileProps) => {
+const File = ({ title, extension, path, isFolder=false, depth }: FileProps) => {
     const { activeTab } = useAppSelector(state => state.activeLesson);
     const dispatch = useAppDispatch();
     
@@ -27,28 +28,26 @@ const File = ({title, extension, path, isFolder=false}: FileProps) => {
         dispatch(openTab({title, extension, path}));       
     }
 
+    const indentPadding = ((depth - 1) * 8) + 14;
+
     return (
         <li className="files__tree-item" role="treeitem" aria-selected="false">
             <div className={clsx(styles.file, activeTab === path && styles.active)} onClick={handleOnClick} tabIndex={0}>
-                {isFolder ?
-                        <>
-                            <div className={styles.indent} style={{width: "8px"}}>
-                                <div className={clsx(styles.guide, styles.active)} style={{width: "8px"}}></div>
-                            </div>
-                            <div className={styles.twistie} style={{paddingLeft: "16px"}}></div>
-                        </>
-                    :
-                        <>
-                            <div className={styles.indent} style={{width: "0px"}}></div>
-                            <div className={styles.twistie} style={{paddingLeft: "8px"}}></div>
-                        </>
-                }
+                {/* {depth > 1 && Array.from({ length: depth }).map((_, index) => (
+                    <div 
+                        key={index} 
+                        className={styles['indent-guide']} 
+                        style={{ left: `${(index + 1) * 8 + 12}px` }} 
+                    />
+                ))} */}
                 
-                <div className={styles.content}>
-                    <div className={styles.icon}>
-                        <Image src={icon} alt="file icon" />
+                <div className={styles.contentWrapper} style={{ paddingLeft: `${indentPadding}px` }}>
+                    <div className={styles.content}>
+                        <div className={styles.icon}>
+                            <Image src={icon} alt="file icon" width={16} height={16} />
+                        </div>
+                        <div className={styles.title}>{title}</div>
                     </div>
-                    <div className={styles.title}>{title}</div>
                 </div>
             </div>
         </li>

@@ -1,23 +1,31 @@
 import { useRef, useState } from "react";
 
+import AddTask from "./Task/AddTask";
 import Image from "next/image";
-import MarkdownTask from "@/components/Markdown/MarkdownTask";
 import Resizer from "@/components/Resizer/Resizer";
-import checkIcon from "@/assets/images/icons/check.svg";
-import clsx from "clsx";
+import Task from "./Task/Task";
+import { Task as TaskType } from "@/types/lessons";
 import styles from './Tasks.module.scss';
 import tasksIcon from "@/assets/images/icons/tasks.svg";
 import { useAppSelector } from "@/state/hooks/hooks";
 import { useTranslations } from "next-intl";
 
-const Tasks = () => {
+interface ITasksProps {
+    tasks: TaskType[],
+    isEditMode: boolean
+}
+
+const Tasks = ({ tasks, isEditMode }: ITasksProps) => {
     const t = useTranslations('Lesson');
-    const tasks = useAppSelector(state => state.activeLesson.tasks);
+
+    const testResults = useAppSelector(state => state.activeLesson.testResults);
     
     const MIN_HEIGHT = 150;
     const MAX_HEIGHT = 500;
     const tasksRef = useRef(null);
     const [tasksHeight, setTasksHeight] = useState(350);
+
+    const sortedTasks = [...tasks].sort((a, b) => a.order - b.order);
 
     return (
         <div className={styles.tasks} ref={tasksRef} style={{height: `${tasksHeight}px`}}>
@@ -32,17 +40,13 @@ const Tasks = () => {
                 </div>
 
                 <ol className={styles.list}>
-                    {tasks.map(el => (
-                        <li key={el.id} className={styles.item}>
-                            <div className={clsx(styles.checkbox, el.isCompleted && styles.complete)}>
-                                {el.isCompleted && <Image src={checkIcon} alt="check icon" />}
-                            </div>
-                            
-                            <div className={styles.title}>
-                                <MarkdownTask markdown={el.title} isCompleated={el.isCompleted} />
-                            </div>
-                        </li>
-                    ))}
+                    {sortedTasks.map(el => {
+                        const isFinished = el.isCompleted || testResults[el.id]?.success;
+                        
+                        return <Task key={el.id} task={el} isFinished={isFinished} />;
+                    })}
+
+                    {isEditMode && <AddTask />}
                 </ol>
             </div>
         </div>

@@ -1,52 +1,78 @@
-import * as monaco from "monaco-editor";
+"use client"
 
+import Editor, { OnMount } from "@monaco-editor/react";
 import { useAppDispatch, useAppSelector } from "@/state/hooks/hooks";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
-import Editor from "@monaco-editor/react";
+import { Lesson } from "@/types/lessons";
 import Tabs from "@/components/Lesson/CodeEditor/Tabs/Tabs";
 import { defineLanguage } from "@/utils/defineLanguage";
 import { findFile } from "@/utils/findFile";
 import styles from './Editor.module.scss';
 import { updateCode } from "@/state/slices/activeLessonSlice";
+import { useAuth } from "@/state/hooks/useAuth";
 import { useTheme } from "next-themes";
 
-const MonacoEditor = () => {
+interface IMonacoEditorProps {
+    lesson: Lesson
+}
+
+const MonacoEditor = ({ lesson }: IMonacoEditorProps) => {
     const { theme } = useTheme();
+    const { isAuth } = useAuth();
     const { activeTab, fileTree } = useAppSelector(state => state.activeLesson);
     const dispatch = useAppDispatch();
     
     const file = findFile(fileTree, activeTab);
-    const defaultCode = file?.type === "file" ? file.code : "";
-    const extension = file?.type === "file" ? file.extension : "";
+    const currentCode = file?.type === "FILE" ? file.code || "" : "";
+    const extension = file?.type === "FILE" ? file.extension : "";
     
-    const [code, setCode] = useState(defaultCode);
-
-    const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
+    const editorRef = useRef<Parameters<OnMount>[0] | null>(null);
+    const hasShownAlert = useRef(false);
 
     useEffect(() => {
-        setCode(defaultCode);
-    }, [defaultCode]); // activeTab стоял
+        if (!isAuth && !hasShownAlert.current) {
+            alert("Пожалуйста, авторизуйтесь, чтобы начать писать код!");
+            hasShownAlert.current = true;
+        }
+        
+        if (isAuth) {
+            hasShownAlert.current = false;
+        }
+    }, [isAuth]);
+
+    useEffect(() => {
+        if (editorRef.current && activeTab) {
+            editorRef.current.focus();
+        }
+    }, [activeTab]);
 
     const handleChange = (value: string | undefined) => {
-        if(value !== undefined) {
-            setCode(value);
+        if (value !== undefined) {
             dispatch(updateCode(value));   
         }
-    }
+    };
+
+    const handleEditorDidMount: OnMount = (editor) => {
+        editorRef.current = editor;
+        editor.focus();
+    };
 
     return (
         <div className={styles['monaco-editor']}>
-            {activeTab && 
+            {activeTab && file?.type === "FILE" ? (
                 <>
                     <Tabs />
 
                     <Editor
+                        path={activeTab}
                         width="100%"
                         height="100%"
-                        language={defineLanguage(extension)}
-                        theme={`vs-${theme === 'dark' || theme === 'system' ? 'dark' : 'light'}`}
+                        language={defineLanguage(extension || "unknown")}
+                        theme={theme === 'dark' || theme === 'system' ? 'vs-dark' : 'light'}
+                        saveViewState
                         options={{
+                            readOnly: !isAuth,
                             minimap: { enabled: false }, 
                             scrollbar: {
                                 verticalScrollbarSize: 6, 
@@ -54,19 +80,23 @@ const MonacoEditor = () => {
                                 useShadows: false,
                             }, 
                             fontSize: 14,
+                            automaticLayout: true,
+                            tabSize: 2,
+                            wordWrap: "on",
                         }}
-                        value={code}
-                        onMount={(editor) => {
-                            editorRef.current = editor;
-                        }}
+                        value={currentCode}
+                        onMount={handleEditorDidMount}
                         onChange={handleChange}
                     />
                 </>
-            }
-            
+            ) : (
+                <div className={styles['no-active-tab']}>
+                    Выберите файл в проводнике для начала работы
+                </div>
+            )}
         </div>
     );
-}
+};
 
 export default MonacoEditor;
 

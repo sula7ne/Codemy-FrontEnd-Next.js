@@ -67,7 +67,7 @@ const Home = () => {
 					<p className={styles.description}>{t('Welcome.description')}</p>
 					<Link className={styles.start} href={"/courses"}>
 						<div className={styles.icon}>
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" x2="20" y1="19" y2="19"></line></svg>
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" x2="20" y1="19" y2="19"></line></svg>
 						</div>
 						{t('Welcome.button')}
 					</Link>
@@ -87,21 +87,21 @@ const Home = () => {
 				<div className={styles.cards}>
 					<div className={styles.card}>
 						<div className={styles.icon}>
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg>
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg>
 						</div>
 						<h4 className={styles.title}>{t('Expectations.cards.variety.title')}</h4>
 						<p className={styles.description}>{t('Expectations.cards.variety.description')}</p>
 					</div>
 					<div className={styles.card}>
 						<div className={styles.icon}>
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
 						</div>
 						<h4 className={styles.title}>{t('Expectations.cards.practice.title')}</h4>
 						<p className={styles.description}>{t('Expectations.cards.variety.description')}</p>
 					</div>
 					<div className={styles.card}>
 						<div className={styles.icon}>
-							<svg viewBox="0 0 16 16" fill="currentColor" width="24" height="24" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true"><mask id="SparkleIcon-mask-_r_59_" fill="white"><path clip-rule="evenodd" d="M11.773.762a.5.5 0 01.968 0c.22.841.462 1.358.823 1.74.364.385.896.685 1.803.99a.5.5 0 010 .947c-.906.305-1.44.605-1.803.99-.361.382-.603.898-.823 1.74a.5.5 0 01-.967 0c-.22-.842-.463-1.358-.824-1.74-.363-.385-.896-.685-1.803-.99a.5.5 0 010-.948c.907-.304 1.44-.604 1.803-.988.361-.383.603-.9.823-1.74V.762zM5.368 3.548a.5.5 0 01.967 0c.397 1.522.847 2.516 1.554 3.267.708.752 1.722 1.311 3.354 1.861a.5.5 0 010 .948c-1.632.55-2.646 1.109-3.354 1.861-.707.751-1.157 1.745-1.554 3.267a.5.5 0 01-.967 0c-.397-1.522-.847-2.516-1.553-3.267-.709-.752-1.723-1.312-3.355-1.861a.5.5 0 010-.948c1.632-.55 2.647-1.109 3.355-1.861.706-.751 1.156-1.745 1.553-3.267zm7.9 6.765a.5.5 0 00-.483.37c-.16.6-.332.948-.576 1.2-.246.256-.617.466-1.282.684a.5.5 0 000 .95c.665.218 1.036.428 1.282.684.244.253.416.6.576 1.2a.5.5 0 00.966 0c.16-.6.331-.947.575-1.2.247-.256.617-.466 1.282-.684a.5.5 0 000-.95c-.665-.218-1.035-.428-1.282-.684-.244-.252-.415-.6-.575-1.2a.5.5 0 00-.483-.37z"></path></mask><g mask="url(#SparkleIcon-mask-_r_59_)"><rect width="100%" height="100%" fill="currentColor"></rect></g></svg>
+							<svg viewBox="0 0 16 16" fill="currentColor" width="24" height="24" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true"><mask id="SparkleIcon-mask-_r_59_" fill="white"><path clipRule="evenodd" d="M11.773.762a.5.5 0 01.968 0c.22.841.462 1.358.823 1.74.364.385.896.685 1.803.99a.5.5 0 010 .947c-.906.305-1.44.605-1.803.99-.361.382-.603.898-.823 1.74a.5.5 0 01-.967 0c-.22-.842-.463-1.358-.824-1.74-.363-.385-.896-.685-1.803-.99a.5.5 0 010-.948c.907-.304 1.44-.604 1.803-.988.361-.383.603-.9.823-1.74V.762zM5.368 3.548a.5.5 0 01.967 0c.397 1.522.847 2.516 1.554 3.267.708.752 1.722 1.311 3.354 1.861a.5.5 0 010 .948c-1.632.55-2.646 1.109-3.354 1.861-.707.751-1.157 1.745-1.554 3.267a.5.5 0 01-.967 0c-.397-1.522-.847-2.516-1.553-3.267-.709-.752-1.723-1.312-3.355-1.861a.5.5 0 010-.948c1.632-.55 2.647-1.109 3.355-1.861.706-.751 1.156-1.745 1.553-3.267zm7.9 6.765a.5.5 0 00-.483.37c-.16.6-.332.948-.576 1.2-.246.256-.617.466-1.282.684a.5.5 0 000 .95c.665.218 1.036.428 1.282.684.244.253.416.6.576 1.2a.5.5 0 00.966 0c.16-.6.331-.947.575-1.2.247-.256.617-.466 1.282-.684a.5.5 0 000-.95c-.665-.218-1.035-.428-1.282-.684-.244-.252-.415-.6-.575-1.2a.5.5 0 00-.483-.37z"></path></mask><g mask="url(#SparkleIcon-mask-_r_59_)"><rect width="100%" height="100%" fill="currentColor"></rect></g></svg>
 						</div>
 						<h4 className={styles.title}>{t('Expectations.cards.ai.title')}</h4>
 						<p className={styles.description}>{t('Expectations.cards.ai.description')}</p>
@@ -181,7 +181,7 @@ const Home = () => {
 				</div>
 				<Link className={styles.start} href={"/courses"}>
 					<div className={styles.icon}>
-						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" x2="20" y1="19" y2="19"></line></svg>
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" x2="20" y1="19" y2="19"></line></svg>
 					</div>
 					{t('StartToday.button')}
 				</Link>

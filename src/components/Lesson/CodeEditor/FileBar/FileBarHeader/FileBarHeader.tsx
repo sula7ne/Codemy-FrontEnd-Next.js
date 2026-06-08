@@ -1,22 +1,37 @@
 import { Dispatch, SetStateAction } from "react";
 
+import { Lesson } from "@/types/lessons";
 import clsx from "clsx";
 import styles from './FileBarHeader.module.scss';
+import { useAuth } from "@/state/hooks/useAuth";
 
 interface FileBarHeaderProps {
     setIsCreated: Dispatch<SetStateAction<boolean>>,
-    setItemType: Dispatch<SetStateAction<'file' | 'folder'>>
+    setItemType: Dispatch<SetStateAction<'FILE' | 'FOLDER'>>,
+    lesson: Lesson
 }
 
-const FileBarHeader = ({setIsCreated, setItemType}: FileBarHeaderProps) => {
+const FileBarHeader = ({ lesson, setIsCreated, setItemType }: FileBarHeaderProps) => {
+    const { isAuth } = useAuth();
+    
     const handleCreateFile = () => {
-        setIsCreated(true);
-        setItemType("file");
+        if (!isAuth) {
+            alert("Пожалуйста, авторизуйтесь, чтобы начать писать код!");
+            return; 
+        } else {
+            setIsCreated(true);
+            setItemType("FILE");
+        }
     }
 
     const handleCreateFolder = () => {
-        setIsCreated(true);
-        setItemType("folder");
+        if (!isAuth) {
+            alert("Пожалуйста, авторизуйтесь, чтобы начать писать код!");
+            return; 
+        } else {
+            setIsCreated(true);
+            setItemType("FOLDER");
+        }
     }
     
     return (

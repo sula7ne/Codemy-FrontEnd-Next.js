@@ -4,6 +4,7 @@ import { createLessonDto, createLessonDtoType } from "@/schemas/lessons.schema";
 import styles from "./../PopUp.module.scss";
 import { useAddLessonMutation } from "@/state/api/sectionsApi";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -14,6 +15,7 @@ interface PopUpProps {
 
 const CreateLessonPopUp = ({ setIsPopUp, sectionId }: PopUpProps) => {
     const t = useTranslations('PopUp');
+    const router = useRouter();
     
     const MAX_TITLE = 50;
     const MAX_THEORY = 5000;
@@ -68,9 +70,11 @@ const CreateLessonPopUp = ({ setIsPopUp, sectionId }: PopUpProps) => {
 
     const onSubmit = async (data: createLessonDtoType) => {
         try {
-            await addLesson({ sectionId, data }).unwrap();
+            const newLesson = await addLesson({ sectionId, data }).unwrap();
 
             setIsPopUp(false);
+
+            router.push(`/lessons/${newLesson.id}/create`);
         } catch (e) {
             console.error("Ошибка при создании урока:", e);
         }
@@ -115,7 +119,7 @@ const CreateLessonPopUp = ({ setIsPopUp, sectionId }: PopUpProps) => {
 
                     <footer className={styles.footer}>
                         <div className={styles['footer-content']}>
-                            <button type="submit" className={styles.create} disabled={isLoading}>{t('actions.add')}</button>
+                            <button type="submit" className={styles.create} disabled={isLoading}>Далее</button>
                         </div>
                     </footer>
                 </form>

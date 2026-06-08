@@ -1,22 +1,25 @@
 import { Dispatch, SetStateAction } from "react";
 
+import AIChatBot from "./AIChatBot/AIChatBot";
+import { Lesson } from "@/types/lessons";
 import LessonPanelList from "@/components/Lesson/LessonPanel/LessonPanelList/LessonPanelList";
 import Theory from "@/components/Lesson/LessonPanel/Theory/Theory";
-import styles from './LessonPanel.module.scss';
 import { lessonPanelId } from "@/types/lessonPanel";
-import AIChatBot from "./AIChatBot/AIChatBot";
+import styles from './LessonPanel.module.scss';
 
 interface LessonPanelProps {
     panel: lessonPanelId | null, 
-    setPanel: Dispatch<SetStateAction<lessonPanelId | null>>
+    setPanel: Dispatch<SetStateAction<lessonPanelId | null>>,
+    lesson: Lesson,
+    isEditMode: boolean
 }
 
-const LessonPanel = ({ panel, setPanel }: LessonPanelProps) => {
+const LessonPanel = ({ panel, setPanel, lesson, isEditMode }: LessonPanelProps) => {
     return (
         <div className={styles['lesson-panel']}>
             <LessonPanelList panel={panel} setPanel={setPanel} />
 
-            {panel === 'theory' && <Theory setPanel={setPanel} />}
+            {panel === 'theory' && <Theory setPanel={setPanel} lesson={lesson} isEditMode={isEditMode} />}
             {panel === 'ai-chatbot' && <AIChatBot setPanel={setPanel} />}
         </div>
     );

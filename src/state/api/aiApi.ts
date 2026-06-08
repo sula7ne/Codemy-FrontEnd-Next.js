@@ -9,10 +9,11 @@ export const chatApi = authApi.injectEndpoints({
                 url: '/ai/history',
                 method: 'GET'
             }),
+            providesTags: [{ type: 'AIChat', id: 'HISTORY' }],
             transformResponse: (response: AIHistoryResponse): AIMessage[] => {
                 if (!response || !response.contents) return [];
                 
-                return response.contents.map((msg: any) => ({
+                return response.contents.map((msg) => ({
                     role: msg.role.toUpperCase() as "USER" | "MODEL",
                     text: msg.parts?.[0]?.text || ""
                 }));
@@ -24,9 +25,10 @@ export const chatApi = authApi.injectEndpoints({
                 method: 'POST',
                 body: payload,
             }),
+            invalidatesTags: [{ type: 'AIChat', id: 'HISTORY' }],
             async onQueryStarted({ message }, { dispatch, queryFulfilled }) {
                 const patchResult = dispatch(
-                    authApi.util.updateQueryData('getAIChatHistory' as any, undefined, (draft: any) => {
+                    chatApi.util.updateQueryData('getAIChatHistory', undefined, (draft) => {
                         draft.push({ role: "USER", text: message });
                     })
                 );
@@ -35,8 +37,8 @@ export const chatApi = authApi.injectEndpoints({
                     const { data } = await queryFulfilled;
                     
                     dispatch(
-                        authApi.util.updateQueryData('getAIChatHistory' as any, undefined, (draft: any) => {
-                            const modelText = 'text' in data ? (data as any).text : (data as any).parts?.[0]?.text || "";
+                        chatApi.util.updateQueryData('getAIChatHistory', undefined, (draft) => {
+                            const modelText = data.text || data.parts?.[0]?.text || "";
                             draft.push({ role: "MODEL", text: modelText });
                         })
                     );

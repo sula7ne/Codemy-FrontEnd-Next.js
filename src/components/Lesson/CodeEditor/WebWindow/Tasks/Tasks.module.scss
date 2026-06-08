@@ -40,30 +40,6 @@
             scrollbar-width: 6px;
             scrollbar-color: rgba(121,121,121,.4) transparent;
             overscroll-behavior: contain;
-
-            .item {
-                display: flex;
-                column-gap: 7px;
-                margin: 8px 0;
-
-                .checkbox {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    width: 22px;
-                    height: 22px;
-                    background-color: #E0E0E0;
-                    user-select: none;
-
-                    &.complete {
-                        background-color: #009A5B;
-                    }
-                }
-                .title {
-                    flex: 1;
-                    /* line-height: 22px; */
-                }
-            }
         }
     }
 }

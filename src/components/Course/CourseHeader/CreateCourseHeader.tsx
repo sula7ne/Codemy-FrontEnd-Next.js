@@ -3,6 +3,8 @@
 import ChangeCourseBtn from "../CourseBtns/ChangeCourseBtn";
 import CourseAuthor from "@/components/Course/CourseAuthor/CourseAuthor";
 import Image from "next/image";
+import Link from "next/link";
+import { MouseEvent } from "react";
 import { courseWithDetails } from "@/types/courses";
 import languageIcon from "@/assets/images/icons/language.svg";
 import levelIcon from "@/assets/images/icons/level.svg";
@@ -17,16 +19,25 @@ interface ICreateCourseHeaderProps {
 const CreateCourseHeader = ({ course }: ICreateCourseHeaderProps) => {
     const t = useTranslations('Course');
 
+    const handleOnClickLink = (e: MouseEvent<HTMLAnchorElement>) => {
+        e.stopPropagation();
+    }
+
     return (
         <div className={styles.header}>
             <div className={styles.cover}>
-                <Image width={355} height={200} src={course.cover} alt={course.author.name} />
+                <Image width={355} height={200} src={course.cover} alt={"course cover"} />
             </div>
             
             <div className={styles.info}>
                 <h1 className={styles.title}>{course.title}</h1>
 
-                <CourseAuthor authorId={course.authorId} />
+                <div className={styles.author}>
+                    <Link className={styles.link} onClick={handleOnClickLink} href={`/users/${course.authorId}`}>
+                        <Image width={30} height={30} src={course.author.avatar || "/"} alt={course.author.name} />
+                    </Link>
+                    <Link className={styles.name} onClick={handleOnClickLink} href={`/users/${course.authorId}`}>{course.author.name}</Link>
+                </div>
 
                 <p className={styles.description}>{course.description}</p>
 

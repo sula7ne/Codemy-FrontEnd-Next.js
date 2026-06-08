@@ -8,7 +8,7 @@ const Tabs = () => {
     return (
         <div className={styles.tabs} role="tablist">
             {tabs.map((el) => (
-                <Tab key={el.path} title={el.title} extension={el.extension} path={el.path} />
+                <Tab key={el.path} title={el.title} extension={el.extension || "unknown"} path={el.path} />
             ))}
         </div>
     );

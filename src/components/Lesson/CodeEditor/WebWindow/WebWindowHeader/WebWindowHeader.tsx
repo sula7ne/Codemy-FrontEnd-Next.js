@@ -2,6 +2,7 @@ import { ChangeEvent, KeyboardEvent } from "react";
 import { refreshWebPage, runCode, setFilePath } from "@/state/slices/activeLessonSlice";
 import { useAppDispatch, useAppSelector } from "@/state/hooks/hooks";
 
+import { runAndValidate } from "@/state/thunk/runAndValidate";
 import styles from "./WebWindowHeader.module.scss";
 
 const WebWindowHeader = () => {
@@ -9,7 +10,7 @@ const WebWindowHeader = () => {
     const dispatch = useAppDispatch();
     
     const handleClickRun = () => {
-        dispatch(runCode());
+        dispatch(runAndValidate());
     }
     const handleClickRefresh = () => {
         dispatch(refreshWebPage());

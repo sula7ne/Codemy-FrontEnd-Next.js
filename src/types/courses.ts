@@ -40,7 +40,7 @@ export type Lesson = {
     title: string;
     theory: string;
     order: number;
-    userLesson: {
+    userLesson?: {
         id: string;
         createdAt: Date;
         updatedAt: Date;

@@ -5,6 +5,7 @@ import AIChatForm from './AIChatForm/AIChatForm';
 import AIChatMessages from './AIChatMessages/AIChatMessages';
 import { lessonPanelId } from '@/types/lessonPanel';
 import styles from './AIChatBot.module.scss';
+import { useAuth } from '@/state/hooks/useAuth';
 import { useTranslations } from 'next-intl';
 
 interface AIChatBotProps {
@@ -12,9 +13,10 @@ interface AIChatBotProps {
 }
 
 const AIChatBot = ({ setPanel }: AIChatBotProps) => {
+    const { isAuth } = useAuth();
     const t = useTranslations('Lesson');
 
-    const { data: messages } = useGetAIChatHistoryQuery();
+    const { data: messages, isLoading: isHistoryLoading } = useGetAIChatHistoryQuery();
     const [sendMessage, { isLoading }] = useSendAIChatMessageMutation();
 
     return (
@@ -24,12 +26,17 @@ const AIChatBot = ({ setPanel }: AIChatBotProps) => {
                     <h1 className={styles.title}>{t('panel.ai')}</h1>
                 </div>
 
-                {(messages && messages.length) ?
-                    <AIChatMessages messages={messages} isLoading={isLoading} />
-                    :
+                {isHistoryLoading ? (
                     <div className={styles.empty}>
-                        <p>{t('panel.aiDescription')}</p>
-                    </div>
+                        <p>Загрузка истории сообщений...</p>
+                    </div>) 
+                    : 
+                    (messages && messages.length) ?
+                        <AIChatMessages messages={messages} isLoading={isLoading} />
+                        :
+                        <div className={styles.empty}>
+                            <p>{isAuth ? t('panel.aiDescription') : 'Пожалуйста, авторизуйтесь, чтобы начать общение с ИИ ментором!'}</p>
+                        </div>
                 }
             </section>
             

@@ -1,19 +1,20 @@
 import { Dispatch, SetStateAction } from "react";
 
+import { Lesson } from "@/types/lessons";
 import MarkdownViewer from "@/components/Markdown/MarkdownViewer";
 import VideoPlayer from "@/components/VideoPlayer/VideoPlayer";
 import { lessonPanelId } from "@/types/lessonPanel";
 import styles from './Theory.module.scss';
-import { useAppSelector } from "@/state/hooks/hooks";
 import { useTranslations } from "next-intl";
 
 interface TheoryProps {
-    setPanel: Dispatch<SetStateAction<lessonPanelId | null>>
+    setPanel: Dispatch<SetStateAction<lessonPanelId | null>>,
+    lesson: Lesson,
+    isEditMode: boolean
 }
 
-const Theory = ({setPanel}: TheoryProps) => {
+const Theory = ({ setPanel, lesson, isEditMode }: TheoryProps) => {
     const t = useTranslations('Lesson');
-    const { title, theory } = useAppSelector(state => state.activeLesson);
 
     const handleOnClick = () => {
         setPanel(null);
@@ -23,14 +24,15 @@ const Theory = ({setPanel}: TheoryProps) => {
         <div className={styles.theory}>
             <section className={styles.content}>
                 <div className={styles.header}>
-                    <h1 className={styles.title}>{title}</h1>
+                    <h1 className={styles.title}>{lesson.title}</h1>
+                    Изменить
                 </div>
 
-                <div className={styles.video}>
+                {/* <div className={styles.video}>
                     <VideoPlayer src="https://youtu.be/y4gWr2fya0I?si=qNRo0wsTWAL5MY-S" />
-                </div>
-                
-                <MarkdownViewer markdown={theory} />
+                </div> */}
+ 
+                <MarkdownViewer markdown={lesson.theory} />
             </section>
 
             <div className={styles.controls}>

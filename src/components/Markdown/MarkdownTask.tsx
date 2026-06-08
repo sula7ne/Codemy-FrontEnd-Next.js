@@ -12,12 +12,12 @@ const schema = {
 
 interface MarkdownTaskProps {
     markdown: string,
-    isCompleated: boolean
+    isCompleted: boolean
 }
 
-const MarkdownTask = ({ markdown, isCompleated }: MarkdownTaskProps) => {
+const MarkdownTask = ({ markdown, isCompleted }: MarkdownTaskProps) => {
     return (
-        <div className={clsx(styles['markdown-task'], isCompleated && styles.complete)}>
+        <div className={clsx(styles['markdown-task'], isCompleted && styles.complete)}>
             <Markdown
                 children={markdown}
                 remarkPlugins={[remarkGfm]}

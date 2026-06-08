@@ -41,6 +41,7 @@
     /* padding-left: 2px; */
     padding: 0 12px;
     height: 35px;
+    flex-shrink: 0;
 }
 .files__header-title {
     text-transform: uppercase;
@@ -188,17 +189,17 @@
     pointer-events: none;
 }
 .indent-guide {
-    transition: opacity .1s linear;
-    display: inline-block;
-    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    bottom: 0;
     height: 100%;
-    border-left: 1px solid transparent;
-    opacity: 0;
-}
-.indent-guide.active {
-    opacity: 1;
-    border-color: rgb(88, 88, 88);
-}
+    width: 1px;
+    background-color: rgba(255, 255, 255, 0.12);
+    pointer-events: none;
+    height: 100%;
+    z-index: 2;
+} 
+
 .twistie {
     height: 100%;
 }

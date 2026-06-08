@@ -1,13 +1,14 @@
-import { item } from "@/types/fileTree";
+import { FileTreeNode } from "@/types/lessons";
 
-export const findFile = (fileTree: item[], path: string): item | null => {
-    for(let el of fileTree) {
-        if(el.path === path) return el;
-        if(el.type === "folder") {
+export const findFile = (fileTree: FileTreeNode[], path: string): FileTreeNode | null => {
+    for (const el of fileTree) {
+        if (el.path === path) return el;
+        
+        if (el.type === "FOLDER" && el.children) {
             const found = findFile(el.children, path);
-            if(found) return found;
+            if (found) return found;
         }
     }
 
     return null;
-}
+};

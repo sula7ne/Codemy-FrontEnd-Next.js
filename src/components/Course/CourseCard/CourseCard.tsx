@@ -44,9 +44,9 @@ const CourseCard = ({ course, isProgressBar }: CourseCardProps) => {
                 
                 <div className={styles.author}>
                     <Link className={styles.link} onClick={handleOnClickLink} href={`/users/${course.authorId}`}>
-                        <Image width={30} height={30} src={course.author.avatar} alt={course.author.name} />
+                        <Image width={30} height={30} src={course.author?.avatar} alt={course.author?.name} />
                     </Link>
-                    <Link className={styles.name} onClick={handleOnClickLink} href={`/users/${course.authorId}`}>{course.author.name}</Link>
+                    <Link className={styles.name} onClick={handleOnClickLink} href={`/users/${course.authorId}`}>{course.author?.name}</Link>
                 </div>
 
                 <div className={styles.rating}>

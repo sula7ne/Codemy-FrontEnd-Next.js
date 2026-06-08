@@ -6,11 +6,19 @@ export type AIMessage = {
 
 export type AIResponse = {
     role: "MODEL";
-    text: string;
+    text?: string;
+    parts?: {
+        text?: string;
+    }[];
 }
 
 export type AIHistoryResponse = {
-    contents: AIMessage[];
+    contents: {
+        role: string;
+        parts?: {
+            text?: string;
+        }[];
+    }[];
 }
 
 export type AISendMessagePayload =  {

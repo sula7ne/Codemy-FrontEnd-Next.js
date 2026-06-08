@@ -64,7 +64,7 @@ const AIChatForm = ({ sendMessage, isLoading }: AIChatFormProps) => {
                 disabled={isLoading} 
             />
             <button type="submit" disabled={isLoading || !text.trim()}>
-                <svg width={24} height={24} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#fff" role="img" aria-hidden="true"><mask id="SendIcon-mask-_r_ad_"><path d="M1.313 3.51a1.406 1.406 0 011.85-1.948l17.825 9.055a.703.703 0 010 1.254L3.162 20.938a1.406 1.406 0 01-1.85-1.947l4.742-7.748zm20.059 7.733H6.05" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" stroke-width="1.5"></path></mask><g mask="url(#SendIcon-mask-_r_ad_)"><rect width="100%" height="100%" fill="currentColor"></rect></g></svg>
+                <svg width={24} height={24} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#fff" role="img" aria-hidden="true"><mask id="SendIcon-mask-_r_ad_"><path d="M1.313 3.51a1.406 1.406 0 011.85-1.948l17.825 9.055a.703.703 0 010 1.254L3.162 20.938a1.406 1.406 0 01-1.85-1.947l4.742-7.748zm20.059 7.733H6.05" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"></path></mask><g mask="url(#SendIcon-mask-_r_ad_)"><rect width="100%" height="100%" fill="currentColor"></rect></g></svg>
             </button>
         </form>
     );

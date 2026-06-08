@@ -1,5 +1,5 @@
 import { Lesson, Task } from "@/types/lessons";
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 
 import Resizer from "@/components/Resizer/Resizer";
 import Tasks from "@/components/Lesson/CodeEditor/WebWindow/Tasks/Tasks";
@@ -14,22 +14,39 @@ interface IWebWindowProps {
     isEditMode: boolean
 }
 
+const MONACO_MIN_WIDTH = 250;
+
 const WebWindow = ({ lesson, isEditMode }: IWebWindowProps) => {
     const dispatch = useAppDispatch();
-    
-    const MIN_WIDTH = Math.max(250, window.innerWidth * 0.2);
-    const MAX_WIDTH = Math.min(1200, window.innerWidth * 0.7);
+
     const webWindowRef = useRef<HTMLDivElement | null>(null);
     const [webWindowWidth, setWebWindowWidth] = useState(600);
+
+    const MIN_WIDTH = useMemo(() => Math.max(250, window.innerWidth * 0.2), []);
+    const MAX_WIDTH = useMemo(() => Math.min(1200, window.innerWidth * 0.7), []);
+
+    const getMaxWidth = useCallback(() => {
+        const editor = webWindowRef.current?.parentElement;
+        if (!editor) return MAX_WIDTH;
+
+        const fileBar = editor.children[0] as HTMLElement | undefined;
+        const fileBarWidth = fileBar?.offsetWidth ?? 180;
+
+        return Math.max(MIN_WIDTH, editor.clientWidth - fileBarWidth - MONACO_MIN_WIDTH);
+    }, [MIN_WIDTH, MAX_WIDTH]);
 
    useEffect(() => {
         if (webWindowRef.current) {
             const parentWidth = webWindowRef.current.parentElement?.offsetWidth || window.innerWidth;
-            setWebWindowWidth((parentWidth - 200) / 2); // filebar width
+            const initialWidth = Math.min(
+                (parentWidth - 200) / 2,
+                getMaxWidth()
+            );
+            setWebWindowWidth(Math.max(MIN_WIDTH, initialWidth));
         }
 
         dispatch(refreshWebPage());
-    }, [dispatch]);
+    }, [dispatch, MIN_WIDTH, getMaxWidth]);
     
     return (
         <div className={styles['web-window']} ref={webWindowRef} style={{width: `${webWindowWidth}px`}}>
@@ -38,7 +55,8 @@ const WebWindow = ({ lesson, isEditMode }: IWebWindowProps) => {
                 <Resizer
                     direction="left" 
                     MIN_WIDTH={MIN_WIDTH} 
-                    MAX_WIDTH={MAX_WIDTH} 
+                    MAX_WIDTH={MAX_WIDTH}
+                    getMaxWidth={getMaxWidth}
                     sidebarRef={webWindowRef} 
                     setSidebarWidth={setWebWindowWidth}
                 />

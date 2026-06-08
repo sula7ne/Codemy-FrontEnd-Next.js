@@ -3,6 +3,7 @@ import { updateSectionDto, updateSectionDtoType } from "@/schemas/sections.schem
 
 import { Section } from "@/types/courses";
 import styles from "./../PopUp.module.scss"
+import { useDeleteSectionMutation } from "@/state/api/sectionsApi";
 import { useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
 import { useUpdateSectionMutation } from "@/state/api/coursesApi";
@@ -21,6 +22,7 @@ const ChangeSectionPopUp = ({ setIsPopUp, section, courseId }: PopUpProps) => {
     const MAX_DESCRIPTION = 300;
 
     const [updateSection, { isLoading, isError, error }] = useUpdateSectionMutation();
+     const [deleteSection] = useDeleteSectionMutation();
 
     const {
         register,
@@ -67,6 +69,16 @@ const ChangeSectionPopUp = ({ setIsPopUp, section, courseId }: PopUpProps) => {
             document.body.style.overflow = "";
         };
     }, []);
+
+    const handleDeleteSection = async () => {
+        try {
+            await deleteSection({ id: section.id }).unwrap();
+
+            setIsPopUp(false);
+        } catch (e) {
+            console.error("Ошибка при удалении секции:", e, section);
+        }
+    }
 
     const onSubmit = async (data: updateSectionDtoType) => {
         try {
@@ -117,6 +129,10 @@ const ChangeSectionPopUp = ({ setIsPopUp, section, courseId }: PopUpProps) => {
 
                     <footer className={styles.footer}>
                         <div className={styles['footer-content']}>
+                            <button type="button" className={styles.delete} onClick={handleDeleteSection}>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="24" viewBox="0 0 24 24" width="24" focusable="false" aria-hidden="true"><path d="M19 3h-4V2a1 1 0 00-1-1h-4a1 1 0 00-1 1v1H5a2 2 0 00-2 2h18a2 2 0 00-2-2ZM6 19V7H4v12a4 4 0 004 4h8a4 4 0 004-4V7h-2v12a2 2 0 01-2 2H8a2 2 0 01-2-2Zm4-11a1 1 0 00-1 1v8a1 1 0 102 0V9a1 1 0 00-1-1Zm4 0a1 1 0 00-1 1v8a1 1 0 002 0V9a1 1 0 00-1-1Z"></path></svg>
+                            </button>
+                            
                             <button type="submit" className={styles.create} disabled={isLoading} >{t('actions.edit')}</button>
                         </div>
                     </footer>

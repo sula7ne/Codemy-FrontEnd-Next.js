@@ -147,6 +147,8 @@ const CreateCoursePopUp = ({ setIsPopUp }: PopUpProps) => {
                                 </label>
 
                                 <input id="file" type="file" accept="image/*" onChange={handleFileChange} />
+
+                                {errors.cover && <p className={styles.error}>{errors.cover.message}</p>}
                             </div>
                         </div>
 

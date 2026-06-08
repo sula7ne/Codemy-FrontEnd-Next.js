@@ -87,6 +87,20 @@ export const coursesApi = authApi.injectEndpoints({
                 { type: 'Course', id: 'SAVED_LIST' },
             ],
         }),
+        deleteCourse: build.mutation<void, { id: string }>({
+            query: ({ id }) => ({
+                url: `/courses/${id}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: (result, error, { id }) => [
+                { type: 'Course', id },
+                { type: 'Course', id: 'LIST' },
+                { type: 'Course', id: 'DETAILS_LIST' },
+                { type: 'Course', id: 'MY_LIST' },
+                { type: 'Course', id: 'SAVED_LIST' },
+                { type: 'User', id: 'ME' },
+            ],
+        }),
 
         addSection: build.mutation<void, { courseId: string, data: createSectionDtoType }>({
             query: ({ courseId, data }) => ({
@@ -123,6 +137,7 @@ export const {
     useGetCourseByIdQuery,
     useCreateCourseMutation,
     useUpdateCourseMutation,
+    useDeleteCourseMutation,
     useAddSectionMutation,
     useUpdateSectionMutation,
 } = coursesApi;

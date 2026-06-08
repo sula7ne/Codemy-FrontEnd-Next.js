@@ -3,6 +3,7 @@ import { updateLessonDto, updateLessonDtoType } from "@/schemas/lessons.schema";
 
 import { Lesson } from "@/types/courses";
 import styles from "./../PopUp.module.scss";
+import { useDeleteLessonMutation } from "@/state/api/lessonsApi";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -25,6 +26,7 @@ const ChangeLessonPopUp = ({ setIsPopUp, lesson, sectionId }: PopUpProps) => {
     const MAX_THEORY = 5000;
 
     const [updateLesson, { isLoading, isError, error }] = useUpdateLessonMutation();
+    const [deleteLesson] = useDeleteLessonMutation();
 
     const {
         register,
@@ -71,6 +73,16 @@ const ChangeLessonPopUp = ({ setIsPopUp, lesson, sectionId }: PopUpProps) => {
             document.body.style.overflow = "";
         };
     }, []);
+
+    const handleDeleteLesson = async () => {
+        try {
+            await deleteLesson({ id: lesson.id, sectionId }).unwrap();
+
+            setIsPopUp(false);
+        } catch (e) {
+            console.error("Ошибка при удалении урока:", e, lesson);
+        }
+    }
 
     const onSubmit = async (data: updateLessonDtoType) => {
         try {
@@ -123,6 +135,10 @@ const ChangeLessonPopUp = ({ setIsPopUp, lesson, sectionId }: PopUpProps) => {
 
                     <footer className={styles.footer}>
                         <div className={styles['footer-content']}>
+                            <button type="button" className={styles.delete} onClick={handleDeleteLesson}>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="24" viewBox="0 0 24 24" width="24" focusable="false" aria-hidden="true"><path d="M19 3h-4V2a1 1 0 00-1-1h-4a1 1 0 00-1 1v1H5a2 2 0 00-2 2h18a2 2 0 00-2-2ZM6 19V7H4v12a4 4 0 004 4h8a4 4 0 004-4V7h-2v12a2 2 0 01-2 2H8a2 2 0 01-2-2Zm4-11a1 1 0 00-1 1v8a1 1 0 102 0V9a1 1 0 00-1-1Zm4 0a1 1 0 00-1 1v8a1 1 0 002 0V9a1 1 0 00-1-1Z"></path></svg>
+                            </button>
+                                                        
                             <button type="submit" className={styles.create} disabled={isLoading}>Далее</button>
                         </div>
                     </footer>

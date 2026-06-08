@@ -15,6 +15,7 @@
     background-color: rgb(30, 30, 30);
     overscroll-behavior: contain;
     flex: 1;
+    min-width: 0;
     height: 100%;
     overflow: hidden;
     overflow-x: auto;

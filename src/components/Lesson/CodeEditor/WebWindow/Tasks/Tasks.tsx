@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 
 import AddTask from "./Task/AddTask";
+import CreateTaskPopUp from "@/components/PopUp/Task/CreateTaskPopUp";
 import Image from "next/image";
 import Resizer from "@/components/Resizer/Resizer";
 import Task from "./Task/Task";

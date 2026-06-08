@@ -219,7 +219,42 @@
                     display: flex;
                     align-items: center;
                     justify-content: flex-end;
+                    column-gap: 16px;
 
+                    .delete {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        cursor: pointer;
+                        outline: none;
+                        background: none;
+                        color: var(--text-secondary);
+                        position: relative;
+
+                        &::before {
+                            content: "";
+                            width: 36px;
+                            height: 36px;
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            border-radius: 50%;
+                        }
+
+                        &:hover {
+                            color: var(--text-main);
+
+                            &::before {
+                                background-color: var(--bg-hover);
+                            }
+                        }
+                        &:active {
+                            &::before {
+                                background-color: var(--bg-active);
+                            }
+                        }
+                    }
                     .create {
                         cursor: pointer;
                         color: var(--text-popup-btn);

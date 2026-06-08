@@ -15,6 +15,16 @@ export const sectionsApi = authApi.injectEndpoints({
                 ...(result?.lessons || []).map((lesson) => ({ type: 'Lesson' as const, id: lesson.id })),
             ],
         }),
+        deleteSection: build.mutation<void, { id: string }>({
+            query: ({ id }) => ({
+                url: `/sections/${id}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: (result, error, { id }) => [
+                { type: 'Course', id: 'DETAILS_LIST' },
+                { type: 'Section', id },
+            ],
+        }),
                 
         addLesson: build.mutation<Lesson, { sectionId: string, data: createLessonDtoType }>({
             query: ({ sectionId, data }) => ({
@@ -45,6 +55,7 @@ export const sectionsApi = authApi.injectEndpoints({
 
 export const {
     useGetSectionByIdQueryQuery,
+    useDeleteSectionMutation,
     useAddLessonMutation,
     useUpdateLessonMutation,
 } = sectionsApi;

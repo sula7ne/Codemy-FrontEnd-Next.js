@@ -5,15 +5,25 @@
 
     &.add {
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        color: var(--text-secondary);
+
+        &:hover {
+            color: var(--text-main);
+        }
 
         .icon {
             position: relative;
-            width: 32px;
-            height: 32px;
-            border-radius: 16px;
+            width: 25px;
+            height: 25px;
+            border-radius: 100%;
+            background-color: var(--bg-active);
+            box-shadow: 0 0 0 1px var(--text-main);
             display: flex;
             align-items: center;
             justify-content: center;
+            color: var(--text-secondary);
         }
     }
 
@@ -32,9 +42,49 @@
             animation: checkbox-pop 0.3s ease-out;
         }
     }
-    .title {
+
+    .title-container {
         flex: 1;
-        /* line-height: 22px; */
+        display: flex;
+        align-items: center;
+        column-gap: 16px;
+
+        .title {
+            flex: 1;
+            /* line-height: 22px; */
+        }
+        .change-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            outline: none;
+            background: none;
+            color: var(--text-secondary);
+            position: relative;
+
+            &::before {
+                content: "";
+                width: 30px;
+                height: 30px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                border-radius: 50%;
+            }
+
+            &:hover {
+                &::before {
+                    background-color: var(--bg-hover);
+                }
+            }
+            &:active {
+                &::before {
+                    background-color: var(--bg-active);
+                }
+            }
+        }
     }
 
     @keyframes checkbox-pop {

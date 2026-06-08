@@ -1,6 +1,7 @@
 import { CreateFile, CreateUserFile, Lesson, LessonWithDetails } from "@/types/lessons";
 
 import { authApi } from "./authApi";
+import { createTaskDtoType } from "@/schemas/tasks.schema";
 
 export const lessonsApi = authApi.injectEndpoints({
     endpoints: (build) => ({
@@ -20,6 +21,17 @@ export const lessonsApi = authApi.injectEndpoints({
             providesTags: (result, error, id) => [
                 { type: 'Lesson', id },
                 { type: 'File', id: `LESSON:${id}` },
+            ],
+        }),
+        deleteLesson: build.mutation<void, { id: string, sectionId: string }>({
+            query: ({ id }) => ({
+                url: `/lessons/${id}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: (result, error, { id, sectionId }) => [
+                { type: 'Section', id: sectionId },
+                { type: 'Lesson', id },
+                { type: 'Course', id: 'DETAILS_LIST' },
             ],
         }),
         
@@ -65,6 +77,38 @@ export const lessonsApi = authApi.injectEndpoints({
             }),
             invalidatesTags: (result, error, { taskId }) => [{ type: 'Task', id: taskId }],
         }),
+        createTask: build.mutation<void, { lessonId: string; body: createTaskDtoType }>({
+            query: ({ lessonId, body }) => ({
+                url: `/lessons/${lessonId}/tasks`,
+                method: 'POST',
+                body,
+            }),
+            invalidatesTags: (result, error, { lessonId }) => [
+                { type: 'Lesson', id: lessonId },
+                { type: 'Task', id: `LESSON:${lessonId}` }, 
+            ],
+        }),
+        editTask: build.mutation<void, { lessonId: string, taskId: string; body: createTaskDtoType }>({
+            query: ({ taskId, body }) => ({
+                url: `/lessons/tasks/${taskId}`,
+                method: 'PUT',
+                body,
+            }),
+            invalidatesTags: (result, error, { lessonId, taskId }) => [
+                { type: 'Lesson', id: lessonId },
+                { type: 'Task', id: taskId }
+            ],
+        }),
+        deleteTask: build.mutation<void, { lessonId: string, taskId: string; }>({
+            query: ({ taskId }) => ({
+                url: `/lessons/tasks/${taskId}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: (result, error, { lessonId, taskId }) => [
+                { type: 'Lesson', id: lessonId },
+                { type: 'Task', id: taskId }
+            ],
+        }),
     })
 });
 
@@ -72,8 +116,12 @@ export const lessonsApi = authApi.injectEndpoints({
 export const { 
     useGetLessonByIdQueryQuery,
     useGetLessonByIdQueryWithDetailsQuery,
+    useDeleteLessonMutation,
     useCreateFileMutation,
     useCreateUserFileMutation,
     useUpdateFileCodeMutation,
-    useCompleteTaskStatusMutation
+    useCompleteTaskStatusMutation,
+    useCreateTaskMutation,
+    useEditTaskMutation,
+    useDeleteTaskMutation
 } = lessonsApi;

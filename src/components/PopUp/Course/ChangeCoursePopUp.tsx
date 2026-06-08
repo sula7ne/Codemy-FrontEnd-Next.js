@@ -1,12 +1,13 @@
 import { ChangeEvent, Dispatch, MouseEvent, SetStateAction, useEffect, useState } from "react";
 import { updateCourseDto, updateCourseDtoType } from "@/schemas/courses.schema";
+import { useDeleteCourseMutation, useUpdateCourseMutation } from "@/state/api/coursesApi";
 
 import Image from "next/image";
 import { courseWithDetails } from "@/types/courses";
 import styles from "./../PopUp.module.scss"
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useUpdateCourseMutation } from "@/state/api/coursesApi";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 interface PopUpProps {
@@ -16,6 +17,7 @@ interface PopUpProps {
 
 const ChangeCoursePopUp = ({ setIsPopUp, course }: PopUpProps) => {
     const t = useTranslations('PopUp');
+    const router = useRouter();
 
     const [preview, setPreview] = useState<string | null>(course.cover);
     
@@ -23,6 +25,7 @@ const ChangeCoursePopUp = ({ setIsPopUp, course }: PopUpProps) => {
     const MAX_DESCRIPTION = 1000;
 
     const [updateCourse, { isLoading, isError, error }] = useUpdateCourseMutation();
+    const [deleteCourse] = useDeleteCourseMutation();
 
     const {
         register,
@@ -94,6 +97,17 @@ const ChangeCoursePopUp = ({ setIsPopUp, course }: PopUpProps) => {
         };
     }, []);
 
+    const handleDeleteCourse = async () => {
+        try {
+            await deleteCourse({ id: course.id }).unwrap();
+
+            setIsPopUp(false);
+            router.push('/courses/create');
+        } catch (e) {
+            console.error("Ошибка при удалении курса:", e, course);
+        }
+    }
+
     const onSubmit = async (data: updateCourseDtoType) => {
         try {
             await updateCourse({ id: course.id, data }).unwrap();
@@ -144,6 +158,8 @@ const ChangeCoursePopUp = ({ setIsPopUp, course }: PopUpProps) => {
                                 </label>
 
                                 <input id="file" type="file" accept="image/*" onChange={handleFileChange} />
+
+                                {errors.cover && <p className={styles.error}>{errors.cover.message}</p>}
                             </div>
                         </div>
 
@@ -198,7 +214,10 @@ const ChangeCoursePopUp = ({ setIsPopUp, course }: PopUpProps) => {
 
                     <footer className={styles.footer}>
                         <div className={styles['footer-content']}>
-                            {/* onSubmit */}
+                            <button type="button" className={styles.delete} onClick={handleDeleteCourse}>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="24" viewBox="0 0 24 24" width="24" focusable="false" aria-hidden="true"><path d="M19 3h-4V2a1 1 0 00-1-1h-4a1 1 0 00-1 1v1H5a2 2 0 00-2 2h18a2 2 0 00-2-2ZM6 19V7H4v12a4 4 0 004 4h8a4 4 0 004-4V7h-2v12a2 2 0 01-2 2H8a2 2 0 01-2-2Zm4-11a1 1 0 00-1 1v8a1 1 0 102 0V9a1 1 0 00-1-1Zm4 0a1 1 0 00-1 1v8a1 1 0 002 0V9a1 1 0 00-1-1Z"></path></svg>
+                            </button>
+                            
                             <button type="submit" className={styles.create} disabled={isLoading}>{t('actions.edit')}</button>
                         </div>
                     </footer>

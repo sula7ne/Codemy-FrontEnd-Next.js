@@ -44,7 +44,7 @@ const Tasks = ({ tasks, isEditMode }: ITasksProps) => {
                     {sortedTasks.map(el => {
                         const isFinished = el.isCompleted || testResults[el.id]?.success;
                         
-                        return <Task key={el.id} task={el} isFinished={isFinished} />;
+                        return <Task key={el.id} task={el} isFinished={isFinished} isEditMode={isEditMode} />;
                     })}
 
                     {isEditMode && <AddTask />}

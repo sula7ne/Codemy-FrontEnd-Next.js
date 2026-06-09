@@ -12,7 +12,7 @@ const FolderList = ({ fileTree, depth }: FolderListProps) => {
         <ul className="folder-list" role="group">
             {fileTree.map((el) => (
                 el.type === "FILE" ? 
-                    <FileItem key={el.path} title={el.title} extension={el.extension || 'unknown'} path={el.path} isFolder={true} depth={depth} />
+                    <FileItem key={el.path} fileId={el.id}  title={el.title} extension={el.extension || 'unknown'} path={el.path} isFolder={true} depth={depth} />
                 :
                     <Folder key={el.path} title={el.title} fileTree={el.children || []} path={el.path} depth={depth} />
             ))}

@@ -1,6 +1,6 @@
 import "@/assets/styles/globals.scss";
 import "@/assets/styles/_variables.scss";
-import "monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codicon.css";
+import "@vscode/codicons/dist/codicon.css";
 
 import type { Metadata, Viewport } from "next";
 import { NextIntlClientProvider, hasLocale } from 'next-intl';

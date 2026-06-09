@@ -16,6 +16,7 @@ export const buildFileTree = (flatFiles: File[]): FileTreeNode[] => {
             if (!existingNode) {
                 if (isLast && file.type === "FILE") {
                     existingNode = {
+                        id: file.id,
                         type: "FILE",
                         title: file.title,
                         path: file.path,
@@ -24,6 +25,7 @@ export const buildFileTree = (flatFiles: File[]): FileTreeNode[] => {
                     };
                 } else {
                     existingNode = {
+                        id: file.id,
                         type: "FOLDER",
                         title: part,
                         path: currentPath,

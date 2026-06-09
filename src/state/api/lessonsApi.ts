@@ -57,7 +57,16 @@ export const lessonsApi = authApi.injectEndpoints({
                 { type: 'File', id: `LESSON:${lessonId}` },
             ],
         }),
-
+        deleteFile: build.mutation<void, { lessonId: string, fileId: string; }>({
+            query: ({ fileId }) => ({
+                url: `/lessons/files/${fileId}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: (result, error, { lessonId }) => [
+                { type: 'Lesson', id: lessonId },
+                { type: 'File', id: `LESSON:${lessonId}` },
+            ],
+        }),
         updateFileCode: build.mutation<void, { lessonId: string; body: { path: string, code: string } }>({
             query: ({ lessonId, body }) => ({
                 url: `/lessons/${lessonId}/files/code`,
@@ -119,6 +128,7 @@ export const {
     useDeleteLessonMutation,
     useCreateFileMutation,
     useCreateUserFileMutation,
+    useDeleteFileMutation,
     useUpdateFileCodeMutation,
     useCompleteTaskStatusMutation,
     useCreateTaskMutation,

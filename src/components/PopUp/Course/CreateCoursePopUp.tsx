@@ -2,6 +2,7 @@ import { ChangeEvent, Dispatch, MouseEvent, SetStateAction, useEffect, useState 
 import { createCourseDto, createCourseDtoType } from "@/schemas/courses.schema";
 
 import Image from "next/image";
+import { UploadButton } from "@/utils/uploadthing";
 import styles from "./../PopUp.module.scss"
 import { useCreateCourseMutation } from "@/state/api/coursesApi";
 import { useForm } from "react-hook-form";

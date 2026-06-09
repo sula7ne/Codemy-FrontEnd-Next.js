@@ -12,6 +12,7 @@
     "@hookform/resolvers": "^5.2.2",
     "@monaco-editor/react": "^4.7.0",
     "@reduxjs/toolkit": "^2.11.2",
+    "@uploadthing/react": "^7.3.3",
     "@vidstack/react": "^1.12.13",
     "@vscode/codicons": "^0.0.45",
     "clsx": "^2.1.1",

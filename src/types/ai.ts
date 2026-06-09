@@ -23,4 +23,5 @@ export type AIHistoryResponse = {
 
 export type AISendMessagePayload =  {
     message: string;
+    lessonId: string
 }

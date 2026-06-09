@@ -40,7 +40,7 @@ const FileBarTree = ({ lesson, setIsCreated, isCreated, itemType }: FileBarTreeP
         >
             {fileTree.map((el) => (
                 el.type === "FILE" ? 
-                    <File key={el.path} title={el.title} extension={el.extension || "unknown"} path={el.path} depth={1} />
+                    <File key={el.path} fileId={el.id} title={el.title} extension={el.extension || "unknown"} path={el.path} depth={1} />
                 :
                     <Folder key={el.path} title={el.title} fileTree={el.children || []} path={el.path} depth={1} />
             ))}

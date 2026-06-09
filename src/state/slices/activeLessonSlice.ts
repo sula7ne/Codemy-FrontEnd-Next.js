@@ -71,6 +71,7 @@ const activeLessonSlice = createSlice({
             const defaultTabs = (lesson.files || [])
                 .filter(f => f.isTab && f.type === 'FILE')
                 .map(f => ({
+                    id: f.id,
                     title: f.title,
                     path: f.path,
                     extension: f.extension
@@ -179,13 +180,14 @@ const activeLessonSlice = createSlice({
         
         createItem: (state, action: PayloadAction<NewItem>) => {
             const { title, parentPath, path, type } = action.payload;
+            const tempId = crypto.randomUUID();
             let newItemNode: FileTreeNode;
 
             if (type === 'FILE') {
                 const extension = title.includes(".") ? title.split(".").pop()?.toLowerCase() || "" : "";
-                newItemNode = { type, title, path, extension, code: "" };
+                newItemNode = { id: tempId, type, title, path, extension, code: "" };
             } else {
-                newItemNode = { type, title, path, children: [] };
+                newItemNode = { id: tempId, type, title, path, children: [] };
             }
 
             if (parentPath === ".") {

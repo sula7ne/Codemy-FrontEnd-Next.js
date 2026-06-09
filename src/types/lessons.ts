@@ -40,6 +40,7 @@ export type CreateUserFile = CreateFile & {
 }
 
 export interface FileTreeNode {
+    id: string;
     type: 'FILE' | 'FOLDER';
     title: string;
     path: string;
@@ -47,6 +48,15 @@ export interface FileTreeNode {
     code?: string | null;
     children?: FileTreeNode[]; 
 }
+
+export interface NewItemFileTreeNode {
+    type: 'FILE' | 'FOLDER';
+    title: string;
+    path: string;
+    extension?: string | null;
+    code?: string | null;
+    children?: FileTreeNode[]; 
+} 
 
 export type Task = {
     id: string;

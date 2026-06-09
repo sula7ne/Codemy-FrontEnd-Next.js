@@ -2,6 +2,7 @@ import { KeyboardEvent, SubmitEvent, useRef, useState } from 'react';
 
 import AudioBtn from './AudioBtn/AudioBtn';
 import styles from './AIChatForm.module.scss';
+import { useParams } from 'next/navigation';
 import { useSendAIChatMessageMutation } from '@/state/api/aiApi';
 import { useTranslations } from 'next-intl';
 
@@ -14,6 +15,8 @@ interface AIChatFormProps {
 
 const AIChatForm = ({ sendMessage, isLoading }: AIChatFormProps) => {
     const t = useTranslations('Lesson');
+    const params = useParams();
+    const lessonId = params.id as string;
 
     const [text, setText] = useState('');
     const [isListening, setIsListening] = useState(false);
@@ -27,7 +30,7 @@ const AIChatForm = ({ sendMessage, isLoading }: AIChatFormProps) => {
         setText('');
         
         try {
-            await sendMessage({ message: messageText.trim() }).unwrap();
+            await sendMessage({ message: messageText.trim(), lessonId }).unwrap();
         } catch(e) { console.error(e); }
     };
 
